@@ -1,0 +1,14 @@
+{% if latest_experience_list %}
+    <p>
+        <a href="/Webfautheque/Arborescence/">Lien vers l'arborescence</a>
+    </p>
+    <ul>Derniers défauts ajoutés :
+    {% for experience in latest_experience_list %}
+        <li><a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:+{{ experience.id }}">
+            {{ experience.experience_auteur }} :
+            défaut {{ experience.defaut }} ajouté le {{ experience.experience_pub_date }}</a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>Pas d'experiences disponibles.</p>
+{% endif %}

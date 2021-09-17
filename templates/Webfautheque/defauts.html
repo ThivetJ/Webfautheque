@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<ul>
+{% for defaut in defauts_list %}
+    <li><a href="/Webfautheque/{{ defaut.defaut_idperso }}">Defaut {{ defaut.defaut_idperso }} : {{ defaut.defaut_nom }}</a></li>
+{% endfor %}
+</ul>
