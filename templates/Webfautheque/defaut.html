@@ -16,6 +16,15 @@
     </p>
 
     <h2>
+        Illustration
+    </h2>
+    <p>
+        {% load static %}
+        {% get_static_prefix as STATIC_PREFIX %}
+        <img src="{{ STATIC_PREFIX }}Webfautheque/presentation_defauts/{{ defauts_carac.defaut_idperso }}.png">
+    </p>
+
+    <h2>
         Description
     </h2>
     <p>

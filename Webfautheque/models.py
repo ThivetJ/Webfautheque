@@ -43,6 +43,7 @@ class Defaut(models.Model):
     sous_groupe = models.ForeignKey(Sous_groupe, on_delete=models.CASCADE)
     defaut_idperso = models.CharField(max_length=4)
     defaut_nom = models.CharField(max_length=200)
+    defaut_image = models.ImageField(upload_to='static/Webfautheque/presentation_defauts', default="None", blank=True)
     defaut_description = models.TextField(max_length=2000) # une petite phrase de description simple
     defaut_info = models.TextField(max_length=2000)
     defaut_causes = models.TextField(max_length=2000)
