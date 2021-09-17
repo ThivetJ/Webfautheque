@@ -1,0 +1,6 @@
+<!DOCTYPE html>
+<ul>
+{% for experience in experiences %}
+    <li><a href="/Webfautheque/{{ defaut_idperso }}/Experiences/Consultation:{{ experience.id }}/">Experience : {{ experience.experience_auteur }} (date de publication : {{ experience.experience_pub_date }})</a></li>
+{% endfor %}
+</ul>

@@ -20,7 +20,8 @@ def page_presentation_defautheque(request):
     Cette page présente le fonctionnement de la défauthèque
 
     """
-    return HttpResponse("Vous voici à la future page de présentation de la défauthèque !")
+    context = {'None' : "None"}
+    return render(request, 'Webfautheque/presentation.html', context)
 
 def page_arborescence_defautheque(request):
     """
@@ -79,7 +80,9 @@ def page_presentation_defaut(request, defaut_idperso):
         TODO : - aller à la page de choix des expériences (là ou on peut soit ajouter soit consulter une experience)
 
     """
-    return HttpResponse("Voici la page de présentation du défaut {}".format(defaut_idperso))
+    defaut_carac = Defaut.objects.filter(defaut_idperso=defaut_idperso).values()[0]
+    context = {'defauts_carac': defaut_carac}
+    return render(request, 'Webfautheque/defaut.html', context)
 
 def page_choix_experience(request, defaut_idperso):
     """
@@ -87,9 +90,12 @@ def page_choix_experience(request, defaut_idperso):
         TODO : - de les consulter
         TODO : - d'ajouter une nouvelle expérience
     """
-    return HttpResponse("Voici la page de choix des expériences liées au défauts {}".format(defaut_idperso))
+    experiences = Experience.objects.filter(
+        defaut_id=Defaut.objects.filter(defaut_idperso=defaut_idperso).values()[0]["id"])
+    context = {'experiences': experiences, "defaut_idperso": defaut_idperso}
+    return render(request, 'Webfautheque/choix_experiences.html', context)
 
-def page_consultation_experience(request, defaut_idperso, experience_idperso):
+def page_consultation_experience(request, defaut_idperso, experience_id):
     """
     Cette page affiche une expérience lié à un défaut choisit dans la page page_choix_experience.
     Elle permet de :
@@ -98,7 +104,10 @@ def page_consultation_experience(request, defaut_idperso, experience_idperso):
         TODO : - proposer une modification de l'expérience
 
     """
-    return HttpResponse("Voici la page de consultation de l'expérience {} du défaut {}".format(experience_idperso, defaut_idperso))
+    experience = Experience.objects.get(id=experience_id)
+    context = {'experience': experience, "defaut_idperso": defaut_idperso}
+    return render(request, 'Webfautheque/consultation_experience.html', context)
+
 
 def page_ajout_experience(request, defaut_idperso):
     """

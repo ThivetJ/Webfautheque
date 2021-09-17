@@ -61,8 +61,8 @@ urlpatterns = [
         views.page_choix_experience,
         name="page_choix_experience"),
 
-    # ex: /Webfautheque/A111/Experiences/Consultation:001/
-    re_path(r'^Webfautheque/(?P<defaut_idperso>[A-G]{1}[1-9]{3})/Experiences/Consultation:(?P<experience_idperso>[0-9]{3})/$',
+    # ex: /Webfautheque/A111/Experiences/Consultation:1/
+    re_path(r'^Webfautheque/(?P<defaut_idperso>[A-G]{1}[1-9]{3})/Experiences/Consultation:(?P<experience_id>[0-9]+)/$',
         views.page_consultation_experience,
         name="page_consultation_experience"),
 
