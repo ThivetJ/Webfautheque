@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from .models import Classe, Groupe, Sous_groupe, Defaut, Experience
 
-def index(request):
+def home(request):
     """
     Cette page est la page d'acceuil du site, elle contient :
         TODO : - un onglet de présentation de la défauthèque
@@ -13,7 +13,7 @@ def index(request):
     """
     latest_experience_list = Experience.objects.order_by('-experience_pub_date')[:5]
     context = {'latest_experience_list': latest_experience_list}
-    return render(request, 'Webfautheque/index.html', context)
+    return render(request, 'Webfautheque/home.html', context)
 
 def page_presentation_defautheque(request):
     """

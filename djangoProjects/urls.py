@@ -19,9 +19,9 @@ from Webfautheque import views
 
 urlpatterns = [
     # ex: /index/
-    re_path(r'^index/$',
-        views.index,
-        name="index"),
+    re_path(r'^home/$',
+        views.home,
+        name="home"),
 
     # ex: /Webfautheque/admin/
     path('admin/', admin.site.urls),
