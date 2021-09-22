@@ -9,6 +9,7 @@ class Classe(models.Model):
     def __str__(self):
         return self.classe_idperso
 
+
 class Groupe(models.Model):
     """Cette classe regroupe le niveau d'arborescence juste en dessous de la classe Classe, il corresponds aux groupes de défauts : A100, A200, C100 etc...
     Elle est liée à la classe Classe
@@ -20,6 +21,7 @@ class Groupe(models.Model):
 
     def __str__(self):
         return self.groupe_idperso
+
 
 class Sous_groupe(models.Model):
     """Cette classe regroupe le niveau d'arborescence juste en dessous des Groupe, il correspond aux sous-groupes de défaut :  A110, A120, C130 etc ...
@@ -33,6 +35,7 @@ class Sous_groupe(models.Model):
     def __str__(self):
         return self.sous_groupe_idperso
 
+
 class Defaut(models.Model):
     """
     Cette classe regroupe le dernier niveau d'arborescence de la défautheque, il s'agit des défauts : A111, A123, C131 etc...
@@ -44,7 +47,7 @@ class Defaut(models.Model):
     defaut_idperso = models.CharField(max_length=4)
     defaut_nom = models.CharField(max_length=200)
     defaut_image = models.ImageField(upload_to='static/Webfautheque/presentation_defauts', default="None", blank=True)
-    defaut_description = models.TextField(max_length=2000) # une petite phrase de description simple
+    defaut_description = models.TextField(max_length=2000)  # une petite phrase de description simple
     defaut_info = models.TextField(max_length=2000)
     defaut_causes = models.TextField(max_length=2000)
     defaut_remedes = models.TextField(max_length=2000)
@@ -58,6 +61,7 @@ class Defaut(models.Model):
             return True
         else:
             return False
+
 
 class Experience(models.Model):
     """

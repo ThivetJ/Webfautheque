@@ -1,5 +1,6 @@
 <ul>
-{% for classe in classes_list %}
-    <li><a href="/Webfautheque/{{ classe.classe_idperso }}">Classe {{ classe.classe_idperso }} : {{ classe.classe_nom }}</a></li>
-{% endfor %}
+    {% for classe in classes_list %}
+        <li><a href="/Webfautheque/{{ classe.classe_idperso }}">Classe {{ classe.classe_idperso }}
+            : {{ classe.classe_nom }}</a></li>
+    {% endfor %}
 </ul>

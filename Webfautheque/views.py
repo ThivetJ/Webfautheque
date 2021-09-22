@@ -1,6 +1,8 @@
-from django.shortcuts import render
 from django.http import HttpResponse
+from django.shortcuts import render
+
 from .models import Classe, Groupe, Sous_groupe, Defaut, Experience
+
 
 def home(request):
     """
@@ -15,13 +17,15 @@ def home(request):
     context = {'latest_experience_list': latest_experience_list}
     return render(request, 'Webfautheque/home.html', context)
 
+
 def page_presentation_defautheque(request):
     """
     Cette page présente le fonctionnement de la défauthèque
 
     """
-    context = {'None' : "None"}
+    context = {'None': "None"}
     return render(request, 'Webfautheque/presentation.html', context)
+
 
 def page_arborescence_defautheque(request):
     """
@@ -31,6 +35,7 @@ def page_arborescence_defautheque(request):
     classes_list = Classe.objects.all()
     context = {'classes_list': classes_list}
     return render(request, 'Webfautheque/arborescence.html', context)
+
 
 def page_groupes_defautheque(request, classe_idperso):
     """
@@ -44,6 +49,7 @@ def page_groupes_defautheque(request, classe_idperso):
     context = {'groupes_list': groupes_list}
     return render(request, 'Webfautheque/groupes.html', context)
 
+
 def page_sous_groupes_defautheque(request, classe_idperso, groupe_idperso_one_char):
     """
     Cette page affiche les différents Sous-groupes existants dans le groupe demandé,
@@ -51,10 +57,12 @@ def page_sous_groupes_defautheque(request, classe_idperso, groupe_idperso_one_ch
     """
     # liste de sous groupes appartenant au groupe qui correspond (groupe_idperso)
     sous_groupes_list = Sous_groupe.objects.filter(
-        groupe_id=Groupe.objects.filter(groupe_idperso=classe_idperso + groupe_idperso_one_char + '00').values()[0]["id"])
+        groupe_id=Groupe.objects.filter(groupe_idperso=classe_idperso + groupe_idperso_one_char + '00').values()[0][
+            "id"])
 
     context = {'sous_groupes_list': sous_groupes_list}
     return render(request, 'Webfautheque/sous_groupes.html', context)
+
 
 def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, sous_groupe_idperso_one_char):
     """
@@ -65,10 +73,12 @@ def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, s
     # liste des défauts appartenant au sous_groupe qui correspond (sous_groupe_id_perso_one_char)
     defauts_list = Defaut.objects.filter(
         sous_groupe_id=Sous_groupe.objects.filter(
-            sous_groupe_idperso=classe_idperso + groupe_idperso_one_char + sous_groupe_idperso_one_char + '0').values()[0]["id"])
+            sous_groupe_idperso=classe_idperso + groupe_idperso_one_char + sous_groupe_idperso_one_char + '0').values()[
+            0]["id"])
 
     context = {'defauts_list': defauts_list}
     return render(request, 'Webfautheque/defauts.html', context)
+
 
 def page_presentation_defaut(request, defaut_idperso):
     """
@@ -84,6 +94,7 @@ def page_presentation_defaut(request, defaut_idperso):
     context = {'defauts_carac': defaut_carac}
     return render(request, 'Webfautheque/defaut.html', context)
 
+
 def page_choix_experience(request, defaut_idperso):
     """
     Cette page répertorie l'ensemble des experiences associés à un défaut les affiches et propose :
@@ -94,6 +105,7 @@ def page_choix_experience(request, defaut_idperso):
         defaut_id=Defaut.objects.filter(defaut_idperso=defaut_idperso).values()[0]["id"])
     context = {'experiences': experiences, "defaut_idperso": defaut_idperso}
     return render(request, 'Webfautheque/choix_experiences.html', context)
+
 
 def page_consultation_experience(request, defaut_idperso, experience_id):
     """

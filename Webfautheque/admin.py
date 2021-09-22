@@ -1,4 +1,5 @@
 from django.contrib import admin
+
 from .models import Classe, Groupe, Sous_groupe, Defaut, Experience
 
 admin.site.register(Classe)

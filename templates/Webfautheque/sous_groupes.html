@@ -1,6 +1,8 @@
 <!DOCTYPE html>
 <ul>
-{% for sous_groupe in sous_groupes_list %}
-    <li><a href="/Webfautheque/{{ sous_groupe.sous_groupe_idperso }}">Sous-groupe {{ sous_groupe.sous_groupe_idperso }} : {{ sous_groupe.sous_groupe_nom }}</a></li>
-{% endfor %}
+    {% for sous_groupe in sous_groupes_list %}
+        <li>
+            <a href="/Webfautheque/{{ sous_groupe.sous_groupe_idperso }}">Sous-groupe {{ sous_groupe.sous_groupe_idperso }}
+                : {{ sous_groupe.sous_groupe_nom }}</a></li>
+    {% endfor %}
 </ul>

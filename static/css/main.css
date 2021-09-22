@@ -1,19 +1,16 @@
 /* Eléments principaux de la page */
 
-body
-{
+body {
     font-family: 'Trebuchet MS', Arial, sans-serif;
     color: #181818;
 }
 
-#bloc_page
-{
+#bloc_page {
     width: 900px;
     margin: auto;
 }
 
-section h1, footer h1, nav a
-{
+section h1, footer h1, nav a {
     font-family: Dayrom, serif;
     font-weight: normal;
     text-transform: uppercase;
@@ -21,42 +18,36 @@ section h1, footer h1, nav a
 
 /* Header */
 
-header
-{
+header {
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
 }
 
-#titre_principal
-{
+#titre_principal {
     display: flex;
     flex-direction: column;
 }
 
-#logo
-{
+#logo {
     display: flex;
     flex-direction: row;
     align-items: baseline;
 }
 
-#logo img
-{
+#logo img {
     width: 59px;
     height: 60px;
 }
 
-header h1
-{
+header h1 {
     font-family: 'BallparkWeiner', serif;
     font-size: 2.5em;
     font-weight: normal;
     margin: 0 0 0 10px;
 }
 
-header h2
-{
+header h2 {
     font-family: Dayrom, serif;
     font-size: 1.1em;
     margin-top: 0px;
@@ -65,35 +56,30 @@ header h2
 
 /* Navigation */
 
-nav ul
-{
+nav ul {
     list-style-type: none;
     display: flex;
 }
 
-nav li
-{
+nav li {
     margin-right: 15px;
 }
 
-nav a
-{
+nav a {
     font-size: 1.3em;
     color: #181818;
     padding-bottom: 3px;
     text-decoration: none;
 }
 
-nav a:hover
-{
+nav a:hover {
     color: #760001;
     border-bottom: 3px solid #760001;
 }
 
 /* Bannière */
 
-#banniere_image
-{
+#banniere_image {
     margin-top: 15px;
     height: 200px;
     border-radius: 5px;
@@ -102,8 +88,7 @@ nav a:hover
     margin-bottom: 25px;
 }
 
-#banniere_description
-{
+#banniere_description {
     position: absolute;
     bottom: 0;
     border-radius: 0px 0px 5px 5px;
@@ -111,44 +96,38 @@ nav a:hover
     height: 33px;
     padding-top: 15px;
     padding-left: 4px;
-    background-color: rgba(24,24,24,0.8);
+    background-color: rgba(24, 24, 24, 0.8);
     color: white;
     font-size: 0.8em;
-    
+
 }
 
 /* Corps */
 
-section
-{
+section {
     display: flex;
     margin-bottom: 20px;
 }
 
-article, aside
-{
+article, aside {
     text-align: justify;
 }
 
-article
-{
+article {
     margin-right: 20px;
     flex: 3;
 }
 
-.ico_categorie
-{
+.ico_categorie {
     vertical-align: middle;
     margin-right: 8px;
 }
 
-article p
-{
+article p {
     font-size: 0.8em;
 }
 
-aside
-{
+aside {
     flex: 1.2;
     position: relative;
     background-color: #706b64;
@@ -159,43 +138,36 @@ aside
     font-size: 0.9em;
 }
 
-#fleche_bulle
-{
+#fleche_bulle {
     position: absolute;
     top: 100px;
     left: -12px;
 }
 
-#photo_zozor
-{
+#photo_zozor {
     text-align: center;
 }
 
-#photo_zozor img
-{
+#photo_zozor img {
     border: 1px solid #181818;
 }
 
-aside img
-{
+aside img {
     margin-right: 5px;
 }
 
 /* Footer */
 
-footer
-{
+footer {
     display: flex;
-    background:  url('images/ico_top.png') no-repeat top center, url('images/separateur.png') repeat-x top, url('images/ombre.png') repeat-x top;
+    background: url('images/ico_top.png') no-repeat top center, url('images/separateur.png') repeat-x top, url('images/ombre.png') repeat-x top;
     padding-top: 25px;
 }
 
-footer p, footer ul
-{
+footer p, footer ul {
     font-size: 0.8em;
 }
 
-footer h1
-{
+footer h1 {
     font-size: 1.1em;
 }

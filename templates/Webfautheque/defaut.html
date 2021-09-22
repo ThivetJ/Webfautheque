@@ -4,51 +4,52 @@
     <title>Défaut {{ defauts_carac.defaut_idperso }}</title>
 </head>
 <body>
-    <h1>
-        {{ defauts_carac.defaut_idperso }}
-    </h1>
+<h1>
+    {{ defauts_carac.defaut_idperso }}
+</h1>
 
-    <h2>
-        Nom
-    </h2>
-    <p>
-        {{ defauts_carac.defaut_nom }}
-    </p>
+<h2>
+    Nom
+</h2>
+<p>
+    {{ defauts_carac.defaut_nom }}
+</p>
 
-    <h2>
-        Illustration
-    </h2>
-    <p>
-        {% load static %}
-        {% get_static_prefix as STATIC_PREFIX %}
-        <img src="{{ STATIC_PREFIX }}Webfautheque/presentation_defauts/{{ defauts_carac.defaut_idperso }}.png">
-    </p>
+<h2>
+    Illustration
+</h2>
+<p>
+    {% load static %}
+    {% get_static_prefix as STATIC_PREFIX %}
+    <img src="{{ STATIC_PREFIX }}Webfautheque/presentation_defauts/{{ defauts_carac.defaut_idperso }}.png">
+</p>
 
-    <h2>
-        Description
-    </h2>
-    <p>
-        {{ defauts_carac.defaut_description }}
-    </p>
+<h2>
+    Description
+</h2>
+<p>
+    {{ defauts_carac.defaut_description }}
+</p>
 
-    <h2>
-        Causes
-    </h2>
-    <p>
-        {{ defauts_carac.defaut_causes }}
-    </p>
+<h2>
+    Causes
+</h2>
+<p>
+    {{ defauts_carac.defaut_causes }}
+</p>
 
-    <h2>
-        Remèdes
-    </h2>
-    <p>
-        {{ defauts_carac.defaut_remedes }}
-    </p>
+<h2>
+    Remèdes
+</h2>
+<p>
+    {{ defauts_carac.defaut_remedes }}
+</p>
 
-    <h2>
-        Expériences
-    </h2>
-    <p>
-        <a href="/Webfautheque/{{ defauts_carac.defaut_idperso }}/Experiences">Lien vers les expériences enregistrer pour ce défaut</a>
-    </p>
+<h2>
+    Expériences
+</h2>
+<p>
+    <a href="/Webfautheque/{{ defauts_carac.defaut_idperso }}/Experiences">Lien vers les expériences enregistrer pour ce
+        défaut</a>
+</p>
 </body>
