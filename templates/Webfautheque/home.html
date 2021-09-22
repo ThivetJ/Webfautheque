@@ -9,10 +9,10 @@
         </title>
     </head>
 
-    <body>
+    <body style="background-image: url({% static 'Webfautheque/home/fond_jaune.png' %});">
         <div id="bloc_page">
 
-            <header>
+            <header style="background: url({% static 'Webfautheque/home/separateur.png' %}) repeat-x bottom;">
                 <div id="titre_principal">
                     <div id="logo">
                         <img src="{% static 'Webfautheque/home/logo_FC.png' %}" alt="Logo de Ferry-Capitain" />
@@ -31,10 +31,9 @@
                 </nav>
             </header>
 
-            <div id="banniere_image">
+            <div id="banniere_image" style="background: url({% static 'Webfautheque/home/banniere_FC.png' %}) no-repeat;">
                 <div id="banniere_description">
                     Quelques défauts de fonderie
-                    <img src="{% static 'Webfautheque/home/banniere_FC.png' %}" alt="Illustration de quelques défauts en fonderie" height="500px"/>
                 </div>
             </div>
 

@@ -1,10 +1,7 @@
-{% load static %}
-
 /* Eléments principaux de la page */
 
 body
 {
-    background: url('{% static 'Webfautheque/home/fond_jaune.png' %}');
     font-family: 'Trebuchet MS', Arial, sans-serif;
     color: #181818;
 }
@@ -26,7 +23,6 @@ section h1, footer h1, nav a
 
 header
 {
-    background: url('{% static 'Webfautheque/home/separateur.png' %}') repeat-x bottom;
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
@@ -101,7 +97,6 @@ nav a:hover
     margin-top: 15px;
     height: 200px;
     border-radius: 5px;
-    background: url('{% static 'Webfautheque/home/banniere_FC.png' %}') no-repeat;
     position: relative;
     box-shadow: 0px 4px 4px #1c1a19;
     margin-bottom: 25px;
