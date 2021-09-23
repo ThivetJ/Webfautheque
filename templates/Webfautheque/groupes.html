@@ -1,7 +1,17 @@
 <!DOCTYPE html>
-<ul>
-    {% for groupe in groupes_list %}
-        <li><a href="/Webfautheque/{{ groupe.groupe_idperso }}">Groupe {{ groupe.groupe_idperso }}
-            : {{ groupe.groupe_nom }}</a></li>
-    {% endfor %}
-</ul>
+<html lang="fr">
+{% extends "Webfautheque/base.html" %}
+{% load static %}
+
+{% block title %}
+    Groupe
+{% endblock %}
+
+{% block content %}
+    <ul>
+        {% for groupe in groupes_list %}
+            <li><a href="/Webfautheque/{{ groupe.groupe_idperso }}">Groupe {{ groupe.groupe_idperso }}
+                : {{ groupe.groupe_nom }}</a></li>
+        {% endfor %}
+    </ul>
+{% endblock %}

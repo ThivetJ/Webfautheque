@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% load static %}
+
+<html>
+<head>
+    <title>
+        {% block title %}
+            FC 4.0
+        {% endblock %}
+    </title>
+</head>
+
+<body>
+{% include "Webfautheque/header.html" %}
+{% block content %}
+
+{% endblock %}
+{% include "Webfautheque/footer.html" %}
+</body>

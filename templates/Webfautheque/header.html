@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+{% load static %}
+
+<meta charset="utf-8"/>
+<link rel="stylesheet" href="{% static 'css/header.css' %}"/>
+
+<header style="background: url({% static 'Webfautheque/home/separateur.png' %}) repeat-x bottom;">
+    <div id="titre_principal">
+        <div id="logo">
+            <img src="{% static 'Webfautheque/home/logo_FC.png' %}" alt="Logo de Ferry-Capitain"/>
+            <h1>FC 4.0</h1>
+        </div>
+        <h2>Ferry-Capitain</h2>
+    </div>
+
+    <nav>
+        <ul>
+            <li><a href="/home">Home</a></li>
+            <li><a href="/Webfautheque/Arborescence/">Webfautheque</a></li>
+            <li><a href="#">Santé sable</a></li>
+            <li><a href="#">A propos</a></li>
+        </ul>
+    </nav>
+</header>

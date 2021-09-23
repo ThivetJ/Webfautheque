@@ -1,71 +1,51 @@
 <!DOCTYPE html>
+<html lang="fr">
+{% extends "Webfautheque/base.html" %}
 {% load static %}
+
 <html>
-<head>
-    <meta charset="utf-8"/>
-    <link rel="stylesheet" href="{% static 'css/mai n.css' %}"/>
-    <title>
-        FC 4.0 - Home
-    </title>
-</head>
+
+{% block title %}FC 4.0 - Home{% endblock %}
 
 <body style="background-image: url({% static 'Webfautheque/home/fond_jaune.png' %});">
-<div id="bloc_page">
 
-    <header style="background: url({% static 'Webfautheque/home/separateur.png' %}) repeat-x bottom;">
-        <div id="titre_principal">
-            <div id="logo">
-                <img src="{% static 'Webfautheque/home/logo_FC.png' %}" alt="Logo de Ferry-Capitain"/>
-                <h1>Ferry-Capitain</h1>
+{% block content %}
+    <link rel="stylesheet" href="{% static 'css/home.css' %}"/>
+    <div id="bloc_page">
+
+        <div id="banniere_image" style="background: url({% static 'Webfautheque/home/banniere_FC.png' %}) no-repeat;">
+            <div id="banniere_description">
+                Quelques défauts de fonderie
             </div>
-            <h2>FC 4.0</h2>
         </div>
 
-        <nav>
-            <ul>
-                <li><a href="/Présentation">Presentation</a></li>
-                <li><a href="/Webfautheque/Arborescence/">Webfautheque</a></li>
-                <li><a href="#">Santé sable</a></li>
-                <li><a href="#">A propos</a></li>
-            </ul>
-        </nav>
-    </header>
+        <section>
+            <aside>
+                <h1>Dernières expérience ajotuées sur la Webfauthèque</h1>
+                <p>
 
-    <div id="banniere_image" style="background: url({% static 'Webfautheque/home/banniere_FC.png' %}) no-repeat;">
-        <div id="banniere_description">
-            Quelques défauts de fonderie
-        </div>
+                    {% if latest_experience_list %}
+                        <ul>Dernieres expériences ajoutées :
+                            {% for experience in latest_experience_list %}
+                                <li>
+                                    <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}">
+                                        {{ experience.experience_auteur }} :
+                                        défaut {{ experience.defaut }} ajouté
+                                        le {{ experience.experience_pub_date }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% else %}
+                        <p>Pas d'experiences disponibles.</p>
+                    {% endif %}
+
+                </p>
+            </aside>
+        </section>
+
     </div>
+{% endblock content %}
 
-    <section>
-        <aside>
-            <h1>Dernières expérience ajotuées sur la Webfauthèque</h1>
-            <p>
-
-                {% if latest_experience_list %}
-                    <ul>Dernieres expériences ajoutées :
-                        {% for experience in latest_experience_list %}
-                            <li>
-                                <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}">
-                                    {{ experience.experience_auteur }} :
-                                    défaut {{ experience.defaut }} ajouté le {{ experience.experience_pub_date }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% else %}
-                    <p>Pas d'experiences disponibles.</p>
-                {% endif %}
-
-            </p>
-        </aside>
-    </section>
-
-    <footer>
-        <div id="infos_footer">
-            <h1>Par Julien Thivet, contact : j.thivet@esff.fr</h1>
-        </div>
-    </footer>
-
-</div>
 </body>
+
 </html>

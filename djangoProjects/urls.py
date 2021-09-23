@@ -26,11 +26,6 @@ urlpatterns = [
     # ex: /Webfautheque/admin/
     path('admin/', admin.site.urls),
 
-    # ex: /Presentation/
-    re_path(r'^Présentation/$',
-            views.page_presentation_defautheque,
-            name="page_presentation_defautheque"),
-
     # ex: /Webfautheque/Arborescence/
     re_path(r'^Webfautheque/Arborescence/$',
             views.page_arborescence_defautheque,

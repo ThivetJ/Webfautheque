@@ -7,24 +7,10 @@ from .models import Classe, Groupe, Sous_groupe, Defaut, Experience
 def home(request):
     """
     Cette page est la page d'acceuil du site, elle contient :
-        TODO : - un onglet de présentation de la défauthèque
-        TODO : - un onglet d'accès à l'arborescence de la défauthèque
-        TODO : - un onglet de contact et d'informations diverses
-        TODO : - un onglet de tendance ? (à voir)
-
     """
     latest_experience_list = Experience.objects.order_by('-experience_pub_date')[:5]
     context = {'latest_experience_list': latest_experience_list}
     return render(request, 'Webfautheque/home.html', context)
-
-
-def page_presentation_defautheque(request):
-    """
-    Cette page présente le fonctionnement de la défauthèque
-
-    """
-    context = {'None': "None"}
-    return render(request, 'Webfautheque/presentation.html', context)
 
 
 def page_arborescence_defautheque(request):
@@ -87,7 +73,6 @@ def page_presentation_defaut(request, defaut_idperso):
     C'est à partir de cette page que l'on peut venir  :
 
         TODO : - demander une modification des informations affichées
-        TODO : - aller à la page de choix des expériences (là ou on peut soit ajouter soit consulter une experience)
 
     """
     defaut_carac = Defaut.objects.filter(defaut_idperso=defaut_idperso).values()[0]
@@ -98,7 +83,6 @@ def page_presentation_defaut(request, defaut_idperso):
 def page_choix_experience(request, defaut_idperso):
     """
     Cette page répertorie l'ensemble des experiences associés à un défaut les affiches et propose :
-        TODO : - de les consulter
         TODO : - d'ajouter une nouvelle expérience
     """
     experiences = Experience.objects.filter(
@@ -111,7 +95,6 @@ def page_consultation_experience(request, defaut_idperso, experience_id):
     """
     Cette page affiche une expérience lié à un défaut choisit dans la page page_choix_experience.
     Elle permet de :
-        TODO : - consulter l'ensemble des informations de l'expérience en question
         TODO : - mettre en avant l'expérience
         TODO : - proposer une modification de l'expérience
 

@@ -42,7 +42,6 @@ class Defaut(models.Model):
     Elle référence toutes les informations générales à savoir sur un défaut (nom, description, info, causes, remedes)
     Elle est liée à la classe sous_groupe
     """
-    # TODO  : s'occuper des images (defaut_illustration)
     sous_groupe = models.ForeignKey(Sous_groupe, on_delete=models.CASCADE)
     defaut_idperso = models.CharField(max_length=4)
     defaut_nom = models.CharField(max_length=200)
