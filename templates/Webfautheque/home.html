@@ -3,7 +3,7 @@
 {% extends "Webfautheque/base.html" %}
 {% load static %}
 
-<html>
+<html lang="fr">
 
 {% block title %}FC 4.0 - Home{% endblock %}
 
@@ -21,12 +21,12 @@
 
         <section>
             <aside>
-                <h1>Dernières expérience ajotuées sur la Webfauthèque</h1>
-                <p>
+                <h1>Dernières expérience ajoutées sur la Webfauthèque</h1>
 
-                    {% if latest_experience_list %}
-                        <ul>Dernieres expériences ajoutées :
-                            {% for experience in latest_experience_list %}
+                {% if latest_experience_list %}
+                    <p>
+                    <ul>Dernières expériences ajoutées :
+                        {% for experience in latest_experience_list %}
                                 <li>
                                     <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}">
                                         {{ experience.experience_auteur }} :
@@ -34,12 +34,12 @@
                                         le {{ experience.experience_pub_date }}</a>
                                 </li>
                             {% endfor %}
-                        </ul>
-                    {% else %}
+                    </ul>
+                    </p>
+                {% else %}
                         <p>Pas d'experiences disponibles.</p>
                     {% endif %}
 
-                </p>
             </aside>
         </section>
 

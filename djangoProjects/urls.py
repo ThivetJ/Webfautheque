@@ -32,38 +32,38 @@ urlpatterns = [
             name="page_arborescence_defautheque"),
 
     # ex: /Webfautheque/A/
-    re_path(r'^Webfautheque/(?P<classe_idperso>[A-G]{1})/$',
+    re_path(r'^Webfautheque/(?P<classe_idperso>[A-G])/$',
             views.page_groupes_defautheque,
             name="page_groupes_defautheque"),
 
     # ex: /Webfautheque/A100/
-    re_path(r'^Webfautheque/(?P<classe_idperso>[A-G]{1})(?P<groupe_idperso_one_char>[1-9]{1})00/$',
+    re_path(r'^Webfautheque/(?P<classe_idperso>[A-G])(?P<groupe_idperso_one_char>[1-9])00/$',
             views.page_sous_groupes_defautheque,
             name="page_sous_groupes_defautheque"),
 
     # ex: /Webfautheque/A110/
     re_path(
-        r'^Webfautheque/(?P<classe_idperso>[A-G]{1})(?P<groupe_idperso_one_char>[1-9]{1})(?P<sous_groupe_idperso_one_char>[1-9]{1})0/$',
+        r'^Webfautheque/(?P<classe_idperso>[A-G])(?P<groupe_idperso_one_char>[1-9])(?P<sous_groupe_idperso_one_char>[1-9])0/$',
         views.page_defauts_defautheque,
         name="page_defauts_defautheque"),
 
     # ex: /Webfautheque/A111/
-    re_path(r'^Webfautheque/(?P<defaut_idperso>[A-G]{1}[1-9]{3})/$',
+    re_path(r'^Webfautheque/(?P<defaut_idperso>[A-G][1-9]{3})/$',
             views.page_presentation_defaut,
             name="page_presentation_defaut"),
 
     # ex: /Webfautheque/A111/Experiences/
-    re_path(r'^Webfautheque/(?P<defaut_idperso>[A-G]{1}[1-9]{3})/Experiences/$',
+    re_path(r'^Webfautheque/(?P<defaut_idperso>[A-G][1-9]{3})/Experiences/$',
             views.page_choix_experience,
             name="page_choix_experience"),
 
     # ex: /Webfautheque/A111/Experiences/Consultation:1/
-    re_path(r'^Webfautheque/(?P<defaut_idperso>[A-G]{1}[1-9]{3})/Experiences/Consultation:(?P<experience_id>[0-9]+)/$',
+    re_path(r'^Webfautheque/(?P<defaut_idperso>[A-G][1-9]{3})/Experiences/Consultation:(?P<experience_id>[0-9]+)/$',
             views.page_consultation_experience,
             name="page_consultation_experience"),
 
     # ex: /Webfautheque/A111/Experiences/Ajout/
-    re_path(r'^Webfautheque/(?P<defaut_idperso>[A-G]{1}[1-9]{3})/Experiences/Ajout/$',
+    re_path(r'^Webfautheque/(?P<defaut_idperso>[A-G][1-9]{3})/Experiences/Ajout/$',
             views.page_ajout_experience,
             name="page_ajout_experience"),
 ]

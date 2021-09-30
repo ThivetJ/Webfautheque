@@ -6,7 +6,7 @@ from .models import Classe, Groupe, Sous_groupe, Defaut, Experience
 
 def home(request):
     """
-    Cette page est la page d'acceuil du site, elle contient :
+    Cette page est la page d' accueil du site, elle contient :
     """
     latest_experience_list = Experience.objects.order_by('-experience_pub_date')[:5]
     context = {'latest_experience_list': latest_experience_list}
@@ -15,8 +15,8 @@ def home(request):
 
 def page_arborescence_defautheque(request):
     """
-    Cette page affiche les différentes Classes existante dans l'arborescenc de la défauthèque,
-    il s'agit des choix les plus haut (A, B, C ..., G)
+    Cette page affiche les différentes Classes existante dans l' arborescence de la défauthèque,
+    il s' agit des choix les plus haut (A, B, C ..., G)
     """
     classes_list = Classe.objects.all()
     context = {'classes_list': classes_list}
@@ -26,7 +26,7 @@ def page_arborescence_defautheque(request):
 def page_groupes_defautheque(request, classe_idperso):
     """
     Cette page affiche les différents Groupes existants dans la classe demandée,
-     il s'agit des choix juste après les classes.
+     il s' agit des choix juste après les classes.
     """
     # liste de tous les groupes appartenant à la classe qui correspondant (class_idperso)
     groupes_list = Groupe.objects.filter(
@@ -39,7 +39,7 @@ def page_groupes_defautheque(request, classe_idperso):
 def page_sous_groupes_defautheque(request, classe_idperso, groupe_idperso_one_char):
     """
     Cette page affiche les différents Sous-groupes existants dans le groupe demandé,
-    il s'agit des choix juste après les groupes.
+    il s' agit des choix juste après les groupes.
     """
     # liste de sous groupes appartenant au groupe qui correspond (groupe_idperso)
     sous_groupes_list = Sous_groupe.objects.filter(
@@ -52,8 +52,8 @@ def page_sous_groupes_defautheque(request, classe_idperso, groupe_idperso_one_ch
 
 def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, sous_groupe_idperso_one_char):
     """
-    Il s'agit de la page affichant les différents défauts contenu dans le sous groupe demandé.
-    Il s'agit des choix juste après les sous-groupes.
+    Il s' agit de la page affichant les différents défauts contenu dans le sous groupe demandé.
+    Il s' agit des choix juste après les sous-groupes.
 
     """
     # liste des défauts appartenant au sous_groupe qui correspond (sous_groupe_id_perso_one_char)
@@ -69,8 +69,8 @@ def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, s
 def page_presentation_defaut(request, defaut_idperso):
     """
     Cette page est la page de présentation des défauts, elle affiche toutes les informations utile à la connaissance
-    d'un défaut et à sa résolution.
-    C'est à partir de cette page que l'on peut venir  :
+    d' un défaut et à sa résolution.
+    C'est à partir de cette page que l' on peut venir  :
 
         TODO : - demander une modification des informations affichées
 
@@ -82,8 +82,8 @@ def page_presentation_defaut(request, defaut_idperso):
 
 def page_choix_experience(request, defaut_idperso):
     """
-    Cette page répertorie l'ensemble des experiences associés à un défaut les affiches et propose :
-        TODO : - d'ajouter une nouvelle expérience
+    Cette page répertorie l' ensemble des experiences associés à un défaut les affiches et propose :
+        TODO : - d' ajouter une nouvelle expérience
     """
     experiences = Experience.objects.filter(
         defaut_id=Defaut.objects.filter(defaut_idperso=defaut_idperso).values()[0]["id"])
@@ -95,8 +95,8 @@ def page_consultation_experience(request, defaut_idperso, experience_id):
     """
     Cette page affiche une expérience lié à un défaut choisit dans la page page_choix_experience.
     Elle permet de :
-        TODO : - mettre en avant l'expérience
-        TODO : - proposer une modification de l'expérience
+        TODO : - mettre en avant l' expérience
+        TODO : - proposer une modification de l' expérience
 
     """
     experience = Experience.objects.get(id=experience_id)
@@ -110,4 +110,4 @@ def page_ajout_experience(request, defaut_idperso):
          TODO : - ajouter toutes les informations liés à une expérience (à définir)
 
     """
-    return HttpResponse("Voici la page d'ajout d'une expérience pour le défaut {}".format(defaut_idperso))
+    return HttpResponse("Voici la page d' ajout d'une expérience pour le défaut {}".format(defaut_idperso))
