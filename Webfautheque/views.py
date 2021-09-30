@@ -28,7 +28,7 @@ def page_groupes_defautheque(request, classe_idperso):
     Cette page affiche les différents Groupes existants dans la classe demandée,
      il s'agit des choix juste après les classes.
     """
-    # liste de tous les groupes appartenant à la classe qui correspondante (class_idperso)
+    # liste de tous les groupes appartenant à la classe qui correspondant (class_idperso)
     groupes_list = Groupe.objects.filter(
         classe_id=Classe.objects.filter(classe_idperso=classe_idperso).values()[0]["id"])
 
@@ -68,7 +68,7 @@ def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, s
 
 def page_presentation_defaut(request, defaut_idperso):
     """
-    Cette page est la page de présenation des défauts, elle affiche toutes les informations utile à la connaissance
+    Cette page est la page de présentation des défauts, elle affiche toutes les informations utile à la connaissance
     d'un défaut et à sa résolution.
     C'est à partir de cette page que l'on peut venir  :
 

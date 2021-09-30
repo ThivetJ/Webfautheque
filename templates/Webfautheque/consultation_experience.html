@@ -2,6 +2,7 @@
 <html lang="fr">
 {% extends "Webfautheque/base.html" %}
 {% load static %}
+{% get_static_prefix as STATIC_PREFIX %}
 
 {% block title %}
     Expérience id : {{ experience.id }}
@@ -24,5 +25,10 @@
     </h2>
     <p>
         {{ experience.experience_pub_date }}
+    </p>
+    <p>
+        {% get_static_prefix as STATIC_PREFIX %}
+        <img src="{{ STATIC_PREFIX }}Webfautheque/ift/{{ experience.experience_ift.name }}"
+             alt="test">
     </p>
 {% endblock %}
