@@ -1,0 +1,81 @@
+.title_button {
+  display: flex;
+}
+.title {
+  font-size: 20px;
+  margin-left: 10px;
+}
+.title p {
+  margin-left: 10px;
+  font-size: 15px;
+  /* italic */
+  font-style: italic;
+}
+.update_form {
+  display: flex;
+  align-items: right;
+  margin: auto;
+}
+.experience_content {
+  display: flex;
+  margin-left: 10px;
+  margin-bottom: 2px;
+}
+h1 {
+  font-size: 32px;
+}
+h2 {
+  font-size: 25px;
+  text-decoration: underline;
+}
+.experience_content_left {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-left: 10px;
+}
+.experience_content_left p {
+  width: 80%;
+}
+.experience_content_left .experience_illustration img {
+  width: auto;
+  margin-bottom: 20px;
+}
+.experience_illustration,
+.experience_description,
+.experience_remede {
+  text-align: justify;
+  width: 80%;
+}
+.experience_content_right {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.experience_content_right img {
+  width: 50%;
+}
+.experience_content_right img,
+.experience_content_right h2 {
+  margin-left: 25px;
+}
+.titres {
+  font-size: 25px;
+  text-decoration: underline;
+}
+.photo .titres {
+  display: flex;
+  align-items: center;
+}
+
+.experience_description {
+  font-size: 18px;
+}
+.experience_remede {
+  font-size: 18px;
+}
+.experience_date {
+  display: flex;
+  margin-top: 25px;
+  font-style: italic;
+}

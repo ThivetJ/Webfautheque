@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="fr">
+  {% extends "Webfautheque/base.html" %} {% load static %} {% block title %}
+  Modification de l'expérience {% endblock %} {% block content %}
+  <link rel="stylesheet" type="text/css" href="{% static 'css/experience_form.css' %}" />
+  <h1 class='title_experience'>Modification de l'expérience {{nom_exp}} </h1>
+  <form enctype="multipart/form-data" method="POST" class="experience-form">
+    {% csrf_token %}
+    <div class="add_form_content">
+      <div class="form-group">
+        <input type="date" class="form-control" id="experience_pub_date" name="experience_pub_date" value="2018-07-22" hidden>
+      </div>
+
+      <div class="form_content">
+        <div class='form_text'>
+          <p> defaut :        
+        </div>
+        <div class='form_input'>
+          {{experience_form.defaut}}
+
+        </div>
+      </div>
+      <div class="form_content">
+      <div class='form_text'>
+        <p> Auteur :        
+      </div>
+      <div class="form_input">
+        {{ experience_form.experience_auteur}}
+      </div>
+    </div>
+      <div class="form_content">
+      <div class='form_text'>
+        <p> Nom article : 
+      </div>
+      <div class="form_input">
+        {{ experience_form.experience_nom_article}}
+      </div>
+    </div>
+      <div class="form_content">
+      <div class='form_text'>
+        <p> Descriptif :   
+      </div>
+      <div class="form_input">
+        {{ experience_form.experience_descriptif}}
+      </div>
+    </div>
+      <div class="form_content">
+      <div class='form_text'>
+        <p> Remedes :  
+      </div>
+      <div class="form_input">
+        {{ experience_form.experience_remedes}}
+      </div>
+    </div>
+      <div class="form_content">
+      <div class='form_text'>
+        <p> Rapport anomalie :
+      </div>
+      <div class="form_input">
+        {{ experience_form.experience_rapport_anomalie }}
+      </div>
+    </div>
+      <div class="form_content">
+      <div class='form_text'>
+        <p> Ift : 
+      </div>
+      <div class="form_input">
+        {{ experience_form.experience_ift }}
+      </div>
+    </div>
+      <div class="form_content">
+      <div class='form_text'>
+        <p> Photo :
+      </div>
+      <div class="form_input">
+        {{ experience_form.experience_photos}}
+      </div>
+
+
+    </div> 
+    <button type="submit" class="btn_ajout">Modifier</button>
+
+
+  </form>
+  {% endblock %}
+</html>

@@ -38,7 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Webfautheque.apps.WebfauthequeConfig',
 ]
-
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -108,17 +107,26 @@ USE_I18N = True
 
 USE_L10N = True
 
-USE_TZ = True
+# si true heure-2 dans la base
+USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
 
 STATIC_URL = '/static/'
+
 STATICFILES_DIRS = [
     BASE_DIR / "static",
+
 ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+PAGINATION_SETTINGS = {
+    'PAGE_RANGE':10,
+    'MARGIN_PAGES':2,
+     'SHOW_FIRST_PAGE_WHEN_INVALID': True,
+}

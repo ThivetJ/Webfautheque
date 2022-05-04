@@ -8,10 +8,22 @@
 {% endblock %}
 
 {% block content %}
+
+<div class="list_classe">
+
     <ul>
         {% for classe in classes_list %}
+        <br>
             <li><a href="/Webfautheque/{{ classe.classe_idperso }}">Classe {{ classe.classe_idperso }}
                 : {{ classe.classe_nom }}</a></li>
         {% endfor %}
     </ul>
+    <ul>
+        {% for def in defaut_image %}
+            <li>{{ def.defaut_idperso }} </li>
+        {% endfor %}
+    </ul>
+    
+</div>
+
 {% endblock %}

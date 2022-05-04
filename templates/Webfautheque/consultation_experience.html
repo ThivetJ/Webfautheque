@@ -5,30 +5,87 @@
 {% get_static_prefix as STATIC_PREFIX %}
 
 {% block title %}
-    Expérience id : {{ experience.id }}
+Expérience {{ experience.experience_nom_article }}
 {% endblock %}
 
 {% block content %}
-    <h1>
-        {{ defaut_idperso }} : Experience id : {{ experience.id }}
-    </h1>
+<link rel="stylesheet" type="text/css" href="{% static 'css/consultation_experience.css' %}">
 
-    <h2>
-        Auteur
-    </h2>
-    <p>
-        {{ experience.experience_auteur }}
-    </p>
+<div class="content">
 
-    <h2>
-        Date de publication
-    </h2>
-    <p>
-        {{ experience.experience_pub_date }}
-    </p>
-    <p>
-        {% get_static_prefix as STATIC_PREFIX %}
-        <img src="/{{ experience.experience_ift.name }}"
-             alt="test">
-    </p>
+    <div class="title_button">
+        <div class="title">
+            <h1>
+                {{ defaut_idperso }} : Experience {{ experience.experience_nom_article }}
+            </h1>
+            <p>Auteur : {{experience.experience_auteur}}</p>
+        </div>
+        <div class="update_form">
+        </div>
+    </div>
+
+    <div class="experience_content">
+        <div class="experience_content_left">
+            <div class="experience_illustration">
+                <h2>
+                    Illustration
+                </h2>
+                    {% load static %}
+                    {% get_static_prefix as STATIC_PREFIX %}
+                    <img src="{{ STATIC_PREFIX }}Webfautheque/presentation_defauts/{{ defaut_idperso }}/{{ defaut_idperso }}.png"
+                        alt="Illustration schématique du défaut">
+            </div>
+            <div class="experience_description">
+                <h2 class="titres">Description: </h2>
+                <p>
+                    {% for desc in descriptif %}
+                    {{ desc }}
+                    {% endfor %}
+                </p>
+            </div>
+            <div class="experience_remede">
+                <h2 class="titres">Remède : </h2>
+                <p>
+                    {% for rem in remedes %}
+                    {{ rem }}
+                    {% endfor %}
+                </p>
+            </div>
+        </div>
+
+        <div class="experience_content_right">
+            <div class="photo">
+                <h2 class="titres">
+                    Photo :
+                </h2>
+                <img src="/{{ experience.experience_photos }}" alt="photo">
+            </div>
+            <div class="image_ift">
+                <h2 class="titres">
+                    Image IFT:
+                </h2>
+                <img src="/{{ experience.experience_ift }}" alt="test">
+            </div>
+        </div>
+    </div>
+
+    <!-- 
+<div class="experiences_images">
+    <div class = 'rapport_anomalie'>
+        <h2 class = "titres">
+            Rapport anomalie : 
+        </h2>
+        <img src="/{{ experience.experience_rapport_anomalie }}" alt="rapport_anomalie"">    
+    </div>
+
+<br>  -->
+
+    <div class="experience_date">
+        <p>
+            Publié le {{ experience.experience_pub_date}}
+        </p>
+    </div>
+
+</div>
+
 {% endblock %}

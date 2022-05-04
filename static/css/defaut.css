@@ -1,0 +1,58 @@
+.content p {
+  display: flex;
+  font-size: 18px;
+
+}
+.contenu {
+  margin-left: 10px;
+  margin-bottom: 25px;
+}
+.content h1 {
+  font-size: 32px;
+}
+h2 {
+  font-size: 25px;
+  text-decoration: underline;
+}
+.contenu p {
+  font-size: 18px;
+}
+.desc {
+  width: 50%;
+}
+.defaut_content {
+  display: flex;    
+}
+.defaut_left {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  margin-left: 10px;
+}
+.defaut_left p {
+  width: 80%;
+  margin-left: 10px;
+}
+.defaut_left .defaut_illustration img {
+  width: auto;
+  margin-left: 10px;
+}
+.defaut_right {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+}
+.defaut_right div {
+  box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 1);
+}
+.defaut_info,
+.defaut_causes,
+.defaut_remedes,
+.defaut_description,
+.defaut_experiences {
+  text-align: justify;
+  margin-right: 100px;
+}
+.defaut_left h2 {
+  margin-left: 10px;
+}

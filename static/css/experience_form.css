@@ -1,0 +1,70 @@
+.title_experience{
+  font-size: 32px;
+  margin-left: 20px;
+}
+form {
+    box-sizing: border-box;
+    padding: 2rem;
+    border-radius: 1rem;
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 2rem;
+  }
+  .form_content{
+    display: flex; 
+  }
+  .form_text {
+    display: flex;
+    flex-direction: column;
+    width: 100px;
+    margin-left: 10px;
+    text-align: center;
+  }
+  .form_input {
+    display: flex;
+    flex-direction: column;
+    margin-top:12px;
+  }
+input, textarea, option, select {
+    width:auto;
+    margin-left: 10px;
+    border-radius: 5px;
+    background: #fff;
+    border: 1px solid #ccc;
+    outline:none;
+    padding: 6px;
+  }
+input[type=file]{
+    width:auto;
+    margin-left: 10px;
+    border-radius: 5px;
+    background: none;
+    border: 1px  none;
+    outline:none;
+    padding: 6px;
+  }
+
+.btn_ajout{
+  display: flex;
+  height: auto;
+  width: auto;
+  color: #fff;
+  background-color: #28a745;
+  border-color: #28a745;
+  font-weight: bold;
+  font-size: 16px;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  margin-top: 10px;
+  margin-left: 60%;
+}
+.btn_ajout:hover,
+.btn_ajout:active,
+.btn_ajout:focus,
+.btn_ajout.active {
+  background-color: #1d8348;
+  border-color: #1d8348;
+
+ 
+}
+

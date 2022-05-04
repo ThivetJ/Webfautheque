@@ -1,17 +1,27 @@
 <!DOCTYPE html>
 <html lang="fr">
-{% extends "Webfautheque/base.html" %}
-{% load static %}
+  {% extends "Webfautheque/base.html" %} {% load static %} {% block title %}
+  Groupe {% endblock %} {% block content %}
+  <link
+    rel="stylesheet"
+    type="text/css"
+    href="{% static 'css/groupes.css' %}"
+  />
 
-{% block title %}
-    Groupe
-{% endblock %}
-
-{% block content %}
+  <div class="list_groupes">
     <ul>
-        {% for groupe in groupes_list %}
-            <li><a href="/Webfautheque/{{ groupe.groupe_idperso }}">Groupe {{ groupe.groupe_idperso }}
-                : {{ groupe.groupe_nom }}</a></li>
-        {% endfor %}
+      {% for groupe in groupes_list %}
+      <br />
+      <li>
+        <a href="/Webfautheque/{{ groupe.groupe_idperso }}"
+          >Groupe {{ groupe.groupe_idperso }} : {{ groupe.groupe_nom }}</a
+        >
+      </li>
+      {% endfor %}
     </ul>
-{% endblock %}
+
+    {{ val }}
+  </div>
+
+  {% endblock %}
+</html>

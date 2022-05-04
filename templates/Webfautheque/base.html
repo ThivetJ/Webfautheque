@@ -2,18 +2,13 @@
 {% load static %}
 
 <html lang="fr">
-<head>
-    <title>
-        {% block title %}
-            FC 4.0
-        {% endblock %}
-    </title>
-</head>
+  <head>
+    <title>{% block title %} FC 4.0 {% endblock %}</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+  </head>
 
-<body>
-{% include "Webfautheque/header.html" %}
-{% block content %}
-
-{% endblock %}
-{% include "Webfautheque/footer.html" %}
-</body>
+  <body>
+    {% include "Webfautheque/header.html" %} {% block content %} {% endblock %}
+    {% include "Webfautheque/footer.html" %}
+  </body>
+</html>

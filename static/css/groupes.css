@@ -1,0 +1,11 @@
+.list_groupes {
+  display: flex;
+  align-items: center;
+}
+.list_groupes li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
