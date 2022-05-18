@@ -16,8 +16,8 @@
       {% if user.is_authenticated %} 
           {% if perms.poll_add_experience %}
           <br>
-          <form action="Ajout">
-              <button type="submit">Ajouter une expérience</button>
+          <form action="Ajout" >
+              <button type="submit" class="Ajout_experience">Ajouter une expérience</button>
               <input type="hidden" name="page" value="choix_list">
           </form>
           {% endif %}
@@ -28,17 +28,42 @@
   </div>
 
 
-  <div class="search-form">
-    <input type="text" class="form-search" id="searchField" placeholder="Recherche">
+
+
+  {% if paginator.count == 0 %}
+  
+
+    <div class="no_experience_text">
+      <h1>Aucune expérience</h1>
+      <p>Vous n'avez pas encore créé d'expérience</p>
+    </div>
+  {% else %}
+
+  <div class="filter">
+    <div class="search-form">
+      <input type="text" class="form-search" id="searchField" placeholder="Recherche par nom">
+    </div>
+    
+    <div class="search_by_name">
+      <select id="searchByName">
+        <option value="">Recherche par auteur</option>
+        {% for tag in tags %}
+        <option value="{{ tag.experience_auteur }}">{{ tag.experience_auteur }}</option> 
+        {% endfor %}
+      </select>
+    </div>
   </div>
 
-  <div class="list_experiences">
 
+
+    
+
+  <div class="list_experiences">
 
     <table id="customers">
       <thead>
         <tr>
-          <th>Nom</th>
+          <th>Code</th>
           <th>Date</th>
           <th>Auteur</th>
           <th>Action</th>
@@ -98,15 +123,11 @@
     </div>   
     <div class="list" style="display:flex">
       <div class="list_experiences">
-        <p>
-        <p>
-        <p>
-        <p>
 
         <table id="customers">
         <thead>
           <tr>
-            <th>Nom</th>
+            <th>Code</th>
             <th>Date</th>
             <th>Auteur</th>
             <th>Action</th>
@@ -156,34 +177,38 @@
 
   </div>
   </div>
-        <div class="pagination">
-          <span class="current">
-            Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}
-            <br>
-          </span>
-          <br>  
-          <span class="step-links">
-            {% if page_obj.has_previous %}
-            <a href="?page=1"> 1</a>
-    
-            <a href="?page={{ page_obj.previous_page_number }}">précédent</a>
-            {% endif %}
-    
-    
-            {% if page_obj.has_next %}
-            <a href="?page={{ page_obj.next_page_number }}">suivant</a>
-            <a href="?page={{ page_obj.paginator.num_pages }}"> {{page_obj.paginator.num_pages}} </a>
-            {% endif %}
-          </span>
-        </div>
+</div>
+<div class="pagination">
+  <span class="current">
+  Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}
+  <br>
+  </span>
+  <br>  
+  <span class="step-links">
+  <a href="?page=1"> 1</a>
+  {% if page_obj.has_previous %}
+    <a href="?page={{ page_obj.previous_page_number }}">précédent</a>
+  {% else %}
+    <a href="javascript:void(0)"   >précédent</a>
+  {% endif %}
 
+
+  {% if page_obj.has_next %}
+    <a href="?page={{ page_obj.next_page_number }}">suivant</a>
+  {% else %}
+    <a href="javascript:void(0)">suivant</a>
+  {% endif %}
+
+
+  <a href="?page={{ page_obj.paginator.num_pages }}"> {{page_obj.paginator.num_pages}} </a>
+  </span>
 </div>
 
 <input type='hidden' id='IdDefautValue' value= {{ defaut_idperso }}>
 </div>
+<script src="{% static 'js/search_experiences_by_AuteurDefaut.js' %}"></script>
 <script src="{% static 'js/search_experiences_by_defaut.js' %}"></script>
+
+  {% endif %}
 {% endblock %}
-
-
-
-
+</html>

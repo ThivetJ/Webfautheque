@@ -1,6 +1,7 @@
 .ajout_experience{
   margin-left:50px;
   margin-top:50px;
+  
 }
 .no_result_text{
   margin-left: 50px;
@@ -49,25 +50,32 @@
   display: flex; 
   justify-content: center;
 }
+.filter{
+  display: flex;
+}
+.search_by_name{
+  margin-top: 50px;
+  margin-left: 50px;
+}
 .search-form{
   margin-top: 50px;
   margin-left: 50px;
 }
-.pagination {
+.pagination, .paginationSearch {
   margin-left: 20px;
   display: inline-block;
 }
-.pagination a { 
+.pagination a , .paginationSearch a{ 
   color: black;
   float: left;
   padding: 8px 16px;
   text-decoration: none;
   border: 1px solid rgb(221, 221, 221);
 }
-.pagination a:hover {
+.pagination a:hover, .paginationSearch a:hover{
   background-color: #ddd;
 }
-input{
+input, select{
   width:auto;
   border-radius: 5px;
   background: #fff;
@@ -82,7 +90,6 @@ input{
   margin-right: 20%;
 
 }
-
 #customers td, #customers th {
   border: 1px solid #ddd;
   padding: 8px;
@@ -99,9 +106,6 @@ input{
   color: black;
   text-align: center;
 }
-
-
-
 td:nth-child(1), th:nth-child(1){
   width: 10%;
 }
@@ -114,8 +118,21 @@ td:nth-child(3), th:nth-child(3){
 td:nth-child(4), th:nth-child(4){
   width: 10%;
 }
-
-
 .bouton_action{
   width: 1%;
+}
+.Ajout_experience{
+  width:auto;
+  border-radius: 5px;
+  border: 1px solid rgb(0, 0, 0, 0.8);
+  outline:none;
+  padding: 6px
+}
+.paginationSearch{
+  padding: 24px;
+  margin-left: 26px;
+}
+.pagination{
+
+  margin-left: 26px;
 }

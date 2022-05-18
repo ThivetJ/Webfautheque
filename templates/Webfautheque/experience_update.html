@@ -10,24 +10,15 @@
       <div class="form-group">
         <input type="date" class="form-control" id="experience_pub_date" name="experience_pub_date" value="2018-07-22" hidden>
       </div>
-
+      {{ experience_form.experience_auteur}}
       <div class="form_content">
         <div class='form_text'>
           <p> defaut :        
         </div>
         <div class='form_input'>
           {{experience_form.defaut}}
-
         </div>
       </div>
-      <div class="form_content">
-      <div class='form_text'>
-        <p> Auteur :        
-      </div>
-      <div class="form_input">
-        {{ experience_form.experience_auteur}}
-      </div>
-    </div>
       <div class="form_content">
       <div class='form_text'>
         <p> Nom article : 
@@ -70,14 +61,23 @@
     </div>
       <div class="form_content">
       <div class='form_text'>
-        <p> Photo :
+        <p> Photo 1:
       </div>
       <div class="form_input">
-        {{ experience_form.experience_photos}}
+        {{ experience_form.experience_photos_1}}
       </div>
+    </div>
+    <div class="form_content">
+      <div class='form_text'>
+        <p> Photo 2 :
+      </div>
+      <div class="form_input">
+        {{ experience_form.experience_photos_2}}
+      </div>
+    </div>
+ 
 
-
-    </div> 
+ 
     <button type="submit" class="btn_ajout">Modifier</button>
 
 

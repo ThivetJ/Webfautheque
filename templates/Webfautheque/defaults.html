@@ -13,19 +13,21 @@
       <tr>
         
         <th colspan="3">nº</th>
-        <th colspan="3">Description</th>
         <th colspan="3" >Nom traditionel</th>
+        <th colspan="3">Description</th>
+  
         <th colspan="3" >Schéma</th>
       </tr>
       {% for defaut in defauts_list %}
 
       <tr>
         <td colspan="3">{{defaut.defaut_idperso}}</td>
-        <td colspan="3">{{defaut.defaut_description}}</td>
         <td colspan="3">
           <a class="img_defauts" href="/Webfautheque/{{ defaut.defaut_idperso }}">
             {{ defaut.defaut_nom }}</a>
         </td>
+        <td colspan="3">{{defaut.defaut_description}}</td>
+
 
         <td colspan="3">
           {% load static %} {% get_static_prefix as STATIC_PREFIX %}

@@ -1,3 +1,9 @@
+import datetime
+import io
+import json
+import os
+import random
+
 from distutils.debug import DEBUG
 from distutils.log import debug
 from email import message
@@ -6,28 +12,21 @@ from fileinput import filename
 from pickle import FALSE
 from pydoc import describe
 from tkinter import E
-from django.http import HttpResponseRedirect
-from django.shortcuts import get_object_or_404, redirect, render
-from datetime import datetime
 
-from requests import request
 import requests
-from .models import Classe, Groupe, Sous_groupe, Defaut, Experience
-from .form import ExperienceForm
-import datetime
 from django.conf import settings
-from django.utils.timezone import make_aware
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator
-from django.contrib.auth import authenticate, login
-from django.contrib.auth import logout
-from django.contrib.auth.decorators import login_required
-from django.contrib.auth.decorators import permission_required
-import json
-from django.http import JsonResponse
+from django.http import FileResponse, HttpResponseRedirect, JsonResponse
+from django.shortcuts import get_object_or_404, redirect, render
+from django.utils.timezone import make_aware
 from django.views.decorators.csrf import *
 from faker import Faker
-import random
+from requests import request
 
+from .form import ExperienceForm
+from .models import Classe, Defaut, Experience, Groupe, Sous_groupe
 
 """
     FONCTIONS UTILISABLE PAR LES VUES
@@ -283,8 +282,9 @@ def page_choix_experience(request, defaut_idperso):
     paginator = Paginator(experiences, 5)
     page = request.GET.get('page')
     page_obj = paginator.get_page(page)
+    tags = Experience.objects.all().values('experience_auteur').distinct()
 
-    context = {'experiences': experiences, "defaut_idperso": defaut_idperso, 'page_obj': page_obj}
+    context = {'experiences': experiences, "defaut_idperso": defaut_idperso, 'page_obj': page_obj, 'tags': tags, 'paginator' : paginator}
     return render(request, 'Webfautheque/choix_experiences.html', context)
 
 
@@ -293,7 +293,6 @@ def page_consultation_experience(request, defaut_idperso, experience_id):
     experience = Experience.objects.filter(id=experience_id).values()[0]
     descriptif = afficherTiret(experience, 'experience_descriptif')
     remedes = afficherTiret(experience, 'experience_remedes')
-
     context = {'experience': experience,
                "defaut_idperso": defaut_idperso, 'descriptif': descriptif, 'remedes': remedes}
     return render(request, 'Webfautheque/consultation_experience.html', context)
@@ -315,7 +314,7 @@ def page_ajout_experience(request, defaut_idperso = ''):
             settings.TIME_ZONE  # 'UTC'
 
             experience = form.save(commit=False)
-
+            
 
             experience.defaut_id = request.POST.get('defaut')
             experience.experience_pub_date = naive_datetime
@@ -354,6 +353,10 @@ def page_update_experience(request, id, experience_id):
     if form.is_valid():
         form.instance.experience_pub_date = datetime.datetime.now().replace(microsecond=0)
         form.save()
+
+
+
+
         return redirect('experience_list')
     nom_exp = Experience.objects.get(id=experience_id).experience_nom_article
     return render(request, 'Webfautheque/experience_update.html', {'experience_form': form, 'experience_id': experience_id, 'nom_exp': nom_exp})
@@ -363,8 +366,10 @@ def experience_list(request):
     paginator = Paginator(experiences, 5)
     page = request.GET.get('page')
     page_obj = paginator.get_page(page)
+    tags = Experience.objects.all().values('experience_auteur').distinct()
+    groupes = request.user.groups.all()
 
-    context = {'experiences': experiences, 'page_obj': page_obj}
+    context = {'experiences': experiences, 'page_obj': page_obj, 'tags' : tags, 'paginator' : paginator, 'groupes' : groupes}
     return render(request, 'Webfautheque/experience_list.html', context)
 
 
@@ -403,7 +408,10 @@ def logout_user(request):
 
 def search_experiences(request):
     if request.method =='POST':
-        search = json.loads(request.body).get('searchValue')
+        if(json.loads(request.body).get('searchValue')==None):
+            search = ''
+        else:
+            search = json.loads(request.body).get('searchValue')
         experiences = Experience.objects.filter(experience_nom_article__icontains=search).order_by('-experience_pub_date')
         defaut = Defaut.objects.all()
         data = experiences.values()
@@ -418,13 +426,30 @@ def search_experiences_by_defaut(request, defaut_idperso):
             search = json.loads(request.body).get('searchValue')
             iddefaut = Defaut.objects.get(defaut_idperso = defaut_idperso)
             experiences = Experience.objects.filter(experience_nom_article__icontains=search, defaut_id = iddefaut).order_by('-experience_pub_date')
-            defaut = Defaut.objects.all()
             data = experiences.values()
             for experience in data:
                 experience['defaut_nom'] = Defaut.objects.get(id=experience['defaut_id']).defaut_idperso
-                
             return JsonResponse(list(data), safe=False,)
 
+def experienceByAuteur(request):
+    if request.method =='POST':
+        search = json.loads(request.body).get('name')
+        experiences = Experience.objects.filter(experience_auteur=search).order_by('-experience_pub_date')
+        data = experiences.values()
+        for experience in data:
+            experience['defaut_nom'] = Defaut.objects.get(id=experience['defaut_id']).defaut_idperso
+        return JsonResponse(list(data), safe=False,)
+
+def experienceAuteurDefaut(request, defaut_idperso):
+        data = []
+        if request.method == 'POST':
+            search = json.loads(request.body).get('name')
+            iddefaut = Defaut.objects.get(defaut_idperso = defaut_idperso)
+            experiences = Experience.objects.filter(experience_auteur=search, defaut_id = iddefaut).order_by('-experience_pub_date')
+            data = experiences.values()
+            for experience in data:
+                experience['defaut_nom'] = Defaut.objects.get(id=experience['defaut_id']).defaut_idperso
+            return JsonResponse(list(data), safe=False,)
 # ajout d'un jeu de données
 # def fakerExperience(request):
 #     fake = Faker()

@@ -1,14 +1,15 @@
 .content p {
   display: flex;
   font-size: 18px;
-
 }
 .contenu {
   margin-left: 10px;
   margin-bottom: 25px;
+  margin-top: 50px;
 }
 .content h1 {
   font-size: 32px;
+  margin-left: 75px;
 }
 h2 {
   font-size: 25px;
@@ -21,12 +22,12 @@ h2 {
   width: 50%;
 }
 .defaut_content {
-  display: flex;    
+  display: flex;
 }
 .defaut_left {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
   margin-left: 10px;
 }
 .defaut_left p {
@@ -37,10 +38,16 @@ h2 {
   width: auto;
   margin-left: 10px;
 }
+.defaut_left p,
+.defaut_left .defaut_illustration img,
+.defaut_left .defaut_desc h2,
+.defaut_left .defaut_illustration h2 {
+  margin-left: 80px;
+}
 .defaut_right {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
 }
 .defaut_right div {
   box-shadow: 0 2px 2px -2px rgba(0, 0, 0, 1);

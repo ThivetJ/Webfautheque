@@ -13,12 +13,24 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from asyncio import Server
 from Webfautheque import views
 from django.contrib import admin
 from django.urls import path, re_path
 from django.views.decorators.csrf import csrf_exempt
 
+from django.conf import settings
+from django.conf.urls.static import static
+
 urlpatterns = [
+
+
+        #TEST ajout d'un jeu de donnnées
+        #fakerExperience
+        # re_path(r'experiences/faker_experiences',
+        #         views.fakerExperience,
+        #         name="faker_experiences"),
+
 
     # racine 
     re_path(r'^$',
@@ -109,11 +121,18 @@ urlpatterns = [
         re_path(r'experiences/(?P<defaut_idperso>[A-G][1-9]{3})/search_experiences_by_defaut', 
                 csrf_exempt(views.search_experiences_by_defaut),
                 name="search_experiences_by_defaut"),
-                
-        #ajout d'un jeu de donnnées
-        #fakerExperience
-        # re_path(r'experiences/faker_experiences',
-        #         views.fakerExperience,
-        #         name="faker_experiences"),
 
-]
+        re_path(r'experiences/experienceByAuteur', 
+                csrf_exempt(views.experienceByAuteur),
+                name="experienceByAuteur"),
+
+        re_path(r'experiences/(?P<defaut_idperso>[A-G][1-9]{3})/experienceAuteurDefaut', 
+                csrf_exempt(views.experienceAuteurDefaut),
+                name="experienceAuteurDefaut"),                
+
+
+
+
+
+]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+

@@ -10,7 +10,6 @@
     align-items: center;
     margin-top: 50px;
     margin-left:50px;
-
   }
 .list .list_experiences{
   display: flex;
@@ -49,6 +48,13 @@
   display: flex; 
   justify-content: center;
 }
+.filter{
+  display: flex;
+}
+.search_by_name{
+  margin-top: 50px;
+  margin-left: 50px;
+}
 .search-form{
   margin-top: 50px;
   margin-left: 50px;
@@ -67,7 +73,7 @@
 .pagination a:hover {
   background-color: #ddd;
 }
-input{
+input, select{
   width:auto;
   border-radius: 5px;
   background: #fff;
@@ -80,9 +86,7 @@ input{
   border-collapse: collapse;
   width: 100%;
   margin-right: 20%;
-
 }
-
 #customers td, #customers th {
   border: 1px solid #ddd;
   padding: 8px;
@@ -90,7 +94,6 @@ input{
   text-align: center;
 }
 #customers tr:nth-child(odd){background-color: #f2f2f2;}
-
 #customers th {
   padding-top: 12px;
   padding-bottom: 12px;
@@ -99,9 +102,6 @@ input{
   color: black;
   text-align: center;
 }
-
-
-
 td:nth-child(1), th:nth-child(1){
   width: 10%;
 }
@@ -114,8 +114,17 @@ td:nth-child(3), th:nth-child(3){
 td:nth-child(4), th:nth-child(4){
   width: 10%;
 }
-
-
 .bouton_action{
   width: 1%;
+}
+.Ajout_experience{
+  width:auto;
+  border-radius: 5px;
+  border: 1px solid rgb(0, 0, 0, 0.8);
+  outline:none;
+  padding: 6px
+}
+.no_experience_text{
+  margin-left: 50px;
+  margin-top: 50px;
 }

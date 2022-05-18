@@ -1,14 +1,14 @@
 .title_button {
-  display: flex;
+  margin-left: 40px;
 }
 .title {
   font-size: 20px;
   margin-left: 10px;
+  margin-top: 20px;
 }
 .title p {
   margin-left: 10px;
   font-size: 15px;
-  /* italic */
   font-style: italic;
 }
 .update_form {
@@ -16,10 +16,17 @@
   align-items: right;
   margin: auto;
 }
+.content{
+  margin-left: 10px;
+  margin-bottom: 25px;
+  margin-top: 50px;
+}
+
 .experience_content {
   display: flex;
-  margin-left: 10px;
-  margin-bottom: 2px;
+  margin-top: 20px;
+  margin-right: 50px;
+  margin-left: 50px;
 }
 h1 {
   font-size: 32px;
@@ -28,14 +35,15 @@ h2 {
   font-size: 25px;
   text-decoration: underline;
 }
+
 .experience_content_left {
   display: flex;
   flex-direction: column;
-  width: 50%;
-  margin-left: 10px;
+  width: 100%;
+  margin-right: 30px;
 }
 .experience_content_left p {
-  width: 80%;
+  width: 100%;
 }
 .experience_content_left .experience_illustration img {
   width: auto;
@@ -45,20 +53,32 @@ h2 {
 .experience_description,
 .experience_remede {
   text-align: justify;
-  width: 80%;
+  width: auto;
+  margin-top: 10px;
 }
 .experience_content_right {
   display: flex;
   flex-direction: column;
-  width: 50%;
+  width: 100%;
+  margin-left: 0px;
+  text-align: center;
+}
+.experience_content_right .titres{
+  display: flex;
+  text-align: left;
+  margin-left: 130px;
 }
 .experience_content_right img {
-  width: 50%;
+  width: 70%;
+  margin-right: 1px;
+  margin-top:10px;
+  margin-bottom: 25px;
 }
 .experience_content_right img,
 .experience_content_right h2 {
-  margin-left: 25px;
+  margin-left: 0px;
 }
+
 .titres {
   font-size: 25px;
   text-decoration: underline;
@@ -67,7 +87,6 @@ h2 {
   display: flex;
   align-items: center;
 }
-
 .experience_description {
   font-size: 18px;
 }
@@ -78,4 +97,9 @@ h2 {
   display: flex;
   margin-top: 25px;
   font-style: italic;
+  margin-left: 50px;
 }
+.image_ift {
+  font-size: 18px;
+  width:100%
+}   

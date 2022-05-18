@@ -25,7 +25,7 @@ searchField.addEventListener('keyup', (e)=>{
                         NoResultsText.style.display = "block"
                         noResults.style.display = "block";
                         ListExperience.style.display = "none";
-                        
+                        appTable.style.display = "none";
                       }
                     else {
                         appTable.style.display = "none";
@@ -33,14 +33,11 @@ searchField.addEventListener('keyup', (e)=>{
                         noResults.style.display = "none";
                     document.getElementsByClassName('list_experiences')[0].innerHTML = '';
                     div= `       
-                    <p>
-                    <p>
-                    <p>
-                    <p>        
+       
                     <table id="customers">
                     <thead>
                       <tr>
-                        <th>Nom</th>
+                        <th>Code</th>
                         <th>Date</th>
                         <th>Auteur</th>
                         <th>Action</th>             

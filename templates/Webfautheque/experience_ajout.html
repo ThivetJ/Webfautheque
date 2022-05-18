@@ -5,7 +5,10 @@
 
   Ajout expérience {% endblock %} {% block content %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/experience_form.css' %}" />
-  <h1 class='title_experience'>Création d'une expérience {{defaut}} : {{nom_defaut}}</h1>
+  <h1 class='title_experience'>Création d'une expérience {{nom_defaut}}</h1>
+
+
+  <div class='form_card'>
 
 
 
@@ -23,41 +26,22 @@
         </div>
         <div class='form_input'>
           {{experience_form.defaut}}
-          
         </div>
       </div>
 
-
       <div class="form_content">
       <div class='form_text'>
-        <p> Auteur :        
-      </div>
-      <div class="form_input">
-        {{ experience_form.experience_auteur}}
-      </div>
-    </div>
-      <div class="form_content">
-      <div class='form_text'>
-        <p> Nom article : 
+        <p> Code expérience : 
       </div>
       <div class="form_input">
         {{ experience_form.experience_nom_article}}
       </div>
     </div>
-      <div class="form_content">
-      <div class='form_text'>
-        <p> Descriptif :   
-      </div>
+    
+    <div class="form_content">
+
       <div class="form_input">
-        {{ experience_form.experience_descriptif}}
-      </div>
-    </div>
-      <div class="form_content">
-      <div class='form_text'>
-        <p> Remedes :  
-      </div>
-      <div class="form_input">
-        {{ experience_form.experience_remedes}}
+        {{ experience_form.experience_auteur}}
       </div>
     </div>
       <div class="form_content">
@@ -76,19 +60,41 @@
         {{ experience_form.experience_ift }}
       </div>
     </div>
-      <div class="form_content">
+    <div class="form_content">
       <div class='form_text'>
-        <p> Photo :
+        <p> Photo 1:
       </div>
       <div class="form_input">
-        {{ experience_form.experience_photos}}
+        {{ experience_form.experience_photos_1}}
       </div>
-    </div> 
-    <button type="submit" class="btn_ajout">Ajouter</button>
-
-
+    </div>
+    <div class="form_content">
+      <div class='form_text'>
+        <p> Photo 2 :
+      </div>
+      <div class="form_input">
+        {{ experience_form.experience_photos_2}}
+      </div>
+    </div>
+    <div class="form_content">
+      <div class='form_text'>
+        <p> Descriptif :   
+      </div>
+      <div class="form_input">
+        {{ experience_form.experience_descriptif}}
+      </div>
+    </div>
+      <div class="form_content">
+      <div class='form_text'>
+        <p> Remedes :  
+      </div>
+      <div class="form_input">
+        {{ experience_form.experience_remedes}}
+      </div>
+    </div>
+    <button type="submit" class="btn_ajout">Enregistrer</button>
   </form>
 
-  
+</div>
   {% endblock %}
 </html>

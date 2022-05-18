@@ -16,18 +16,24 @@ form {
   .form_text {
     display: flex;
     flex-direction: column;
-    width: 100px;
+    width: 150px;
     margin-left: 10px;
     text-align: center;
+    
+  }
+  .form_text p {
+    text-align: left;
+    width: 100%;
   }
   .form_input {
     display: flex;
     flex-direction: column;
-    margin-top:12px;
+    margin-top:6px;
   }
 input, textarea, option, select {
     width:auto;
     margin-left: 10px;
+    margin-bottom: 5px;
     border-radius: 5px;
     background: #fff;
     border: 1px solid #ccc;
@@ -55,8 +61,8 @@ input[type=file]{
   font-size: 16px;
   border: 1px solid transparent;
   border-radius: 0.25rem;
-  margin-top: 10px;
-  margin-left: 60%;
+  margin-top: 2 0px;
+  margin-left: 65.7%;
 }
 .btn_ajout:hover,
 .btn_ajout:active,
@@ -64,7 +70,5 @@ input[type=file]{
 .btn_ajout.active {
   background-color: #1d8348;
   border-color: #1d8348;
-
- 
 }
 

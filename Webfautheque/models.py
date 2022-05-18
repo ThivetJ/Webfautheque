@@ -1,6 +1,9 @@
+import os
 from django.db import models
+from django.dispatch import receiver
 from django.utils import timezone
-
+from requests import delete
+from pathlib import Path, PureWindowsPath
 
 class Classe(models.Model):
     """
@@ -75,7 +78,6 @@ class Defaut(models.Model):
     def _sous_groupe(self):
         return self.sous_groupe.sous_groupe_idperso
 
-
 class Experience(models.Model):
     """
     Cette classe est lié à un défaut (class Defaut), elle représente une experience de l' utilisateur.
@@ -87,14 +89,15 @@ class Experience(models.Model):
         'Auteur', max_length=200, blank=True,  null=True)
     experience_pub_date = models.DateTimeField('date', default=timezone.now)
     experience_nom_article = models.CharField(
-        'nom de l\'article', max_length=200)
-    # tentative d' upload to : f'{defaut}/Exp_{experience_pub_date}/Rapport_anomalie'
+        'Code expérience', max_length=200)
     experience_rapport_anomalie = models.FileField(
         'rapport anomalie ', upload_to='static/Webfautheque/rapport_anomalie', default="None")
-    experience_ift = models.FileField(
+    experience_ift = models.ImageField(
         'Ift', upload_to='static/Webfautheque/ift', default="None")
-    experience_photos = models.FileField(
-        'Photo', upload_to='static/Webfautheque/photos', default="None")
+    experience_photos_1 = models.ImageField(
+        'Photo_1', upload_to='static/Webfautheque/photos', default="None")
+    experience_photos_2 = models.ImageField(
+        'Photo_2', upload_to='static/Webfautheque/photos', default="None")
     experience_descriptif = models.TextField(
         'descriptif', max_length=2000, default=" ")
     experience_remedes = models.TextField(
@@ -102,7 +105,51 @@ class Experience(models.Model):
     
     def __str__(self):
         return str(self.defaut) + ' ' + self.experience_auteur + ' ' + str(self.experience_pub_date)
-
     # affichage intitulé du défaut
     def nom_defaut(self):
-        return self.defaut.defaut_idperso
+        return self.defaut.defaut_idperso+': '+self.defaut.defaut_nom
+
+@receiver(models.signals.post_delete, sender=Experience)
+def auto_delete_file_on_delete(sender, instance, **kwargs):
+    '''
+    Supprime les images de l'experience
+    '''
+    if instance.experience_ift:
+        if os.path.isfile(instance.experience_ift.path):
+            os.remove(instance.experience_ift.path)
+    if instance.experience_rapport_anomalie:
+        if os.path.isfile(instance.experience_rapport_anomalie.path):
+            os.remove(instance.experience_rapport_anomalie.path)
+    if instance.experience_photos_1:
+        if os.path.isfile(instance.experience_photos_1.path):
+            os.remove(instance.experience_photos_1.path)
+    if instance.experience_photos_2:
+        if os.path.isfile(instance.experience_photos_2.path):
+            os.remove(instance.experience_photos_2.path)
+
+
+@receiver(models.signals.pre_save, sender=Experience)
+def auto_delete_file_on_change(sender, instance, **kwargs):
+    '''
+    Remplace les images si elle est modifiée
+    '''
+    if not instance.pk:
+        return False
+    try:
+        old_file= Experience.objects.get(pk=instance.pk).experience_ift
+    except Experience.DoesNotExist:
+        return False
+
+
+    if not old_file == instance.experience_ift:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
+    if not old_file == instance.experience_rapport_anomalie:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
+    if not old_file == instance.experience_photos_1:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
+    if not old_file == instance.experience_photos_2:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
