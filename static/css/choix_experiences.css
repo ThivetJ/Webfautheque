@@ -59,18 +59,18 @@
   margin-top: 50px;
   margin-left: 50px;
 }
-.pagination {
+.pagination, .paginationSearch {
   margin-left: 20px;
   display: inline-block;
 }
-.pagination a { 
+.pagination a , .paginationSearch a{ 
   color: black;
   float: left;
   padding: 8px 16px;
   text-decoration: none;
   border: 1px solid rgb(221, 221, 221);
 }
-.pagination a:hover {
+.pagination a:hover, .paginationSearch a:hover{
   background-color: #ddd;
 }
 input, select{
@@ -127,4 +127,11 @@ td:nth-child(4), th:nth-child(4){
 .no_experience_text{
   margin-left: 50px;
   margin-top: 50px;
+}
+.paginationSearch{
+  padding: 24px;
+  margin-left: 26px;
+}
+.pagination{
+  margin-left: 26px;
 }

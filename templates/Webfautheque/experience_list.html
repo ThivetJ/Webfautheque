@@ -1,7 +1,13 @@
 <!DOCTYPE html>
 <html lang="fr">
-  {% extends "Webfautheque/base.html" %} {% load static %} {% block title %}
-  Expériences {% endblock %} {% block content %}
+  {% extends "Webfautheque/base.html" %} 
+  
+  {% load static %} 
+  
+  {% block title %}
+    Expériences 
+  {% endblock %} 
+  {% block content %}
 
   <link rel="stylesheet" type="text/css" href="{% static 'css/list_experiences.css' %}"/>
 
@@ -9,13 +15,23 @@
   <div class="content_list">
     <div class="ajout_experience">
       {% if user.is_authenticated %} 
-          {% if perms.poll_add_experience %}
-          <br>
-          <form action="/Webfautheque/Experiences/Ajout" >
-              <button type="submit" class="Ajout_experience">Ajouter une expérience</button>
-              <input type="hidden" name="page" value="ajout_list">
-          </form>
-          {% endif %}
+            {% if user.is_superuser%}
+            <br>
+            <form action="/Webfautheque/Experiences/Ajout" >
+                <button type="submit" class="Ajout_experience">Ajouter une expérience</button>
+                <input type="hidden" name="page" value="ajout_list">
+            </form>
+            {% else %}
+              {% for groupe in groupes %}
+                {% if  groupe.name == "Création" %}
+                  <br>
+                  <form action="/Webfautheque/Experiences/Ajout" >
+                      <button type="submit" class="Ajout_experience">Ajouter une expérience</button>
+                      <input type="hidden" name="page" value="ajout_list">
+                  </form>
+                {% endif %}
+              {% endfor %}
+            {% endif %}
       {% else %}
       <a class="connection" href='../login'>
         <button type="submit">Connection </button></a>
@@ -155,7 +171,7 @@
 
   <div class="paginationSearch">
 
-</div>
+  </div>
 
 
   <script src="{% static 'js/searchExperiencesList.js' %}"></script>

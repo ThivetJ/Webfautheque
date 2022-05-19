@@ -1,9 +1,10 @@
 
 
 document.getElementsByClassName('search_by_name')[0].onchange= function() {
-    
+
     const name = document.getElementById('searchByName').value;
     var url = '/experiences/experienceByAuteur'
+    //si le champs de recherche n'est pas vide, on lance la requete ajax
     if (name.trim().length > 0) {
         url = '/experiences/experienceByAuteur'
         fetch ('/experiences/experienceByAuteur', {
@@ -12,12 +13,17 @@ document.getElementsByClassName('search_by_name')[0].onchange= function() {
                 })
                 .then(res => res.json())
                 .then(data => {
+                    //aucune experience trouvée
                     if(data.length === 0 ){
                         NoResultsText.style.display = "block"
                         noResults.style.display = "block";
                         ListExperience.style.display = "none";
+                        appTable.style.display = "none";
                     }
                     else {
+                        paginationSearch.style.display = "block";
+                        pageNumber = Math.ceil(data.length / obj_per_page); 
+                        datas = sliceIntoPages(data, obj_per_page);
                         appTable.style.display = "none";
                         ListExperience.style.display = "flex";
                         noResults.style.display = "none";
@@ -35,8 +41,8 @@ document.getElementsByClassName('search_by_name')[0].onchange= function() {
                                 <th>Action</th>
                             </tr>
                         </thead>
-                        <tbody> `
-                        data.forEach(experience => {
+                        <tbody>  `
+                        datas[current_page-1].forEach(experience => {
                             const date = new Date(experience.experience_pub_date);
                             const date_fr = date.toLocaleDateString('fr-FR', {
                                 year: 'numeric',
@@ -46,8 +52,10 @@ document.getElementsByClassName('search_by_name')[0].onchange= function() {
                             const dtimeHours = date.getHours();
                             const dtimeMinutes = date.getMinutes();
                             const time = `${dtimeHours < 10 ? '0' : ''}${dtimeHours}:${dtimeMinutes < 10 ? '0' : ''}${dtimeMinutes}`;
+                            document.getElementsByClassName('paginationSearch')[0].innerHTML ='';
+    
                             div+= `
-                            <tr>
+                              <tr>
                                 <td>${experience.experience_nom_article}</td>
                                 <td>${ date_fr } ${ time }</td>
                                 <td>${experience.experience_auteur}</td>
@@ -55,37 +63,45 @@ document.getElementsByClassName('search_by_name')[0].onchange= function() {
                                 <div class="add_experience">
                                     <div class="option_button">
                                       <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
-                                      <form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Update/">
-                                      <input type="hidden">
-                                          <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
-                                      </form>
-                                      <form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Delete/" method="POST">
-                                      <input type="hidden" name="next" value="/Webfautheque/experiences" class="hidden_button">
-                                          <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
-                                      </form>
                                   </div>
                               </div>
                             </td>
                               </tr>
                             `
-                            document.onclick = function(){
-                                if(event.target.className === 'fa-solid fa-trash-can'){
+                            document.onclick = function(e){
+                                if(e.target.className === 'fa-solid fa-trash-can'){
                                     return confirm('Voulez Vous supprimer l\'experience');    
                                 }
                             }
+    
                         });
                         div += `</tbody> </table>`
+                        searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br>
+                            </span> `
+                        searchDiv =` <span class="current"> Page ${current_page} sur ${pageNumber}  <br>
+                            </span>      <br>  
+                            <span class="step-links">  
+                            <a href="#" class="page" onclick="searchPage(0, datas)">1</a>  
+                            <a href="#" class="page" onclick="searchPage(${current_page -1}, datas)">précédent</a>  
+                            <a href="#" class="page" onclick="searchPage(${current_page +1}, datas)">suivant</a>  
+                            <a href="#" class="page" onclick="searchPage(${pageNumber}, datas)">${pageNumber}</a>  
+                            `
+                        document.getElementsByClassName('paginationSearch')[0].innerHTML +=searchDiv;
+    
                         document.getElementsByClassName('list_experiences')[0].innerHTML +=div;
                         div= `
-                        </ul>  ` 
+                        <br>  ` 
                         document.getElementsByClassName('list_experiences')[0].innerHTML +=div;
                     }
                 })
         }
+        //si le champs de recherche est vide, on affiche la liste des experiences
         else{
+            current_page = 1; 
             ListExperience.style.display = "none";
             appTable.style.display = "flex";
             pagination.style.display = "block";
+            paginationSearch.style.display = "none";
             NoResultsText.style.display = "none"
             
 

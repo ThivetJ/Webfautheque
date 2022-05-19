@@ -77,12 +77,11 @@ class ExperienceAdmin(admin.ModelAdmin):
     
     def save_model(self, request, obj, form, change):
         obj.experience_pub_date = datetime.datetime.now().replace(microsecond=0)
-        if obj.experience_rapport_anomalie:
-            obj.experience_rapport_anomalie = '///ferry04/Commun/controle%20RA/pav%C3%A9s/'+ os.path.basename(obj.experience_rapport_anomalie.name)   
+        # if obj.experience_rapport_anomalie:
+        #     obj.experience_rapport_anomalie = '///ferry04/Commun/controle%20RA/pav%C3%A9s/'+ os.path.basename(obj.experience_rapport_anomalie.name)   
         if obj.experience_ift:
             obj.experience_ift = obj.experience_ift
         obj.save()
-
     # ajoute l'auteur de l'experience dans l'interface admin
     def get_form(self, request, obj=None, **kwargs):
         if obj == "1":

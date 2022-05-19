@@ -283,8 +283,9 @@ def page_choix_experience(request, defaut_idperso):
     page = request.GET.get('page')
     page_obj = paginator.get_page(page)
     tags = Experience.objects.all().values('experience_auteur').distinct()
+    groupes = request.user.groups.all()
 
-    context = {'experiences': experiences, "defaut_idperso": defaut_idperso, 'page_obj': page_obj, 'tags': tags, 'paginator' : paginator}
+    context = {'experiences': experiences, "defaut_idperso": defaut_idperso, 'page_obj': page_obj, 'tags': tags, 'paginator' : paginator, 'groupes' : groupes}
     return render(request, 'Webfautheque/choix_experiences.html', context)
 
 

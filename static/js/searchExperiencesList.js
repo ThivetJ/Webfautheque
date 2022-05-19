@@ -1,6 +1,7 @@
 
 const searchField= document.querySelector("#searchField")
 const pagination = document.querySelector(".pagination");
+const paginationSearch = document.querySelector(".paginationSearch")
 const noResults = document.querySelector(".no-results");
 const appTable = document.querySelector(".list");
 const ListExperience = document.querySelector(".list_experiences");
@@ -9,6 +10,7 @@ const obj_per_page = 5;
 let current_page = 1;
 ListExperience.style.display = "none";
 
+//range les experiences dans différents tableaux en fonction d'element par page 'chunkSize'
 function sliceIntoPages(array, chunkSize) {
     var results = [];
     while (array.length) {
@@ -16,10 +18,12 @@ function sliceIntoPages(array, chunkSize) {
     }
     return results;
 }
+
+//interaction avec les boutons de pagination d'un filtre de recherche
 function searchPage(page, dataslice) {
     document.getElementsByClassName('list_experiences')[0].innerHTML = '';
     document.getElementsByClassName('paginationSearch')[0].innerHTML ='';
-    console.log(page);
+
     if(page === 0){
         current_page = 1;
     }
@@ -29,8 +33,6 @@ function searchPage(page, dataslice) {
     else{
         current_page = page;
     }   
-    console.log(dataslice)
-    console.log(current_page);
     div = `
     <table id="customers">
     <thead>
@@ -52,27 +54,19 @@ function searchPage(page, dataslice) {
         });
         const dtimeHours = date.getHours();
         const dtimeMinutes = date.getMinutes();
-        const time = `${dtimeHours < 10 ? '0' : ''}${dtimeHours}:${dtimeMinutes < 10 ? '0' : ''}${dtimeMinutes}`;
+        const time = `${dtimeHours < 10 ? '0' : ''}${dtimeHours}:${dtimeMinutes  < 10 ? '0' : ''}${dtimeMinutes}`;
         div+= `
           <tr>
             <td>${experience.experience_nom_article}</td>
-            <td>${date_fr}</td>
+            <td>${date_fr + ' '+ time}</td>
             <td>${experience.experience_auteur}</td>
             <td class="bouton_action">
             <div class="add_experience">
                 <div class="option_button">
                   <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
-                  <form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Update/">
-                  <input type="hidden">
-                      <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
-                  </form>
-                  <form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Delete/" method="POST">
-                  <input type="hidden" name="next" value="/Webfautheque/experiences" class="hidden_button">
-                      <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
-                  </form>
-              </div>
-          </div>
-        </td>
+                </div>
+            </div>
+            </td>
           </tr>
         `
 
@@ -100,26 +94,11 @@ document.getElementsByClassName('paginationSearch')[0].innerHTML +=searchDiv;
 }
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+//action lors de la recherche depuis le champ de recherche
 searchField.addEventListener('keyup', (e)=>{
 
     const searchValue = e.target.value;
-
-
-
+    //si le champs de recherche n'est pas vide, on lance la requete ajax
     if (searchValue.trim().length > 0) {
         pagination.style.display = "none";
         fetch('/experiences/search_experiences', {
@@ -128,13 +107,16 @@ searchField.addEventListener('keyup', (e)=>{
                 })
                 .then(res => res.json())    
                 .then(data => { 
+                    //aucune experience trouvée
                     if(data.length === 0 ){
                         NoResultsText.style.display = "block"
                         noResults.style.display = "block";
                         ListExperience.style.display = "none";
                         appTable.style.display = "none";
+
                       }
                     else {
+                        paginationSearch.style.display = "block";
                         pageNumber = Math.ceil(data.length / obj_per_page); 
                         datas = sliceIntoPages(data, obj_per_page);
                         appTable.style.display = "none";
@@ -174,14 +156,6 @@ searchField.addEventListener('keyup', (e)=>{
                             <div class="add_experience">
                                 <div class="option_button">
                                   <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
-                                  <form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Update/">
-                                  <input type="hidden">
-                                      <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
-                                  </form>
-                                  <form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Delete/" method="POST">
-                                  <input type="hidden" name="next" value="/Webfautheque/experiences" class="hidden_button">
-                                      <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
-                                  </form>
                               </div>
                           </div>
                         </td>
@@ -197,13 +171,6 @@ searchField.addEventListener('keyup', (e)=>{
                     div += `</tbody> </table>`
                     searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br>
                         </span> `
-                    // for (let i = 1; i <= pageNumber -1; i++) {
-                    //     //searchDiv+= `<a href="?pages=${i}&name=${searchValue}" class="page" onclick="searchPage(${i})">${i}</a>`
-                    //     //use on action to change page
-                    //     searchDiv+= `
-                    //     <a href="#" class="page" onclick="searchPage(${i}, datas)">${i}</a>  `
-                    // }
-                    console.log(current_page);
                     searchDiv =` <span class="current"> Page ${current_page} sur ${pageNumber}  <br>
                         </span>      <br>  
                         <span class="step-links">  
@@ -216,17 +183,19 @@ searchField.addEventListener('keyup', (e)=>{
 
                     document.getElementsByClassName('list_experiences')[0].innerHTML +=div;
                     div= `
-                    </ul>  ` 
+                    </br>  ` 
                     document.getElementsByClassName('list_experiences')[0].innerHTML +=div;
                 }
             })
     }
+    //si le champs de recherche est vide, on affiche la liste des experiences
     else{
+        current_page = 1;  
         ListExperience.style.display = "none";
         appTable.style.display = "flex";
         pagination.style.display = "block";
+        paginationSearch.style.display = "none";
         NoResultsText.style.display = "none"
+        
     }
 })
-
-                
