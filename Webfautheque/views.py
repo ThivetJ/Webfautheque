@@ -334,18 +334,21 @@ def page_ajout_experience(request, defaut_idperso = ''):
             return render(request, 'Webfautheque/experience_ajout.html', {'experience_form': form})
         else:
             form.fields['defaut'].queryset = Defaut.objects.filter(defaut_idperso=defaut_idperso)
+            form.fields['defaut'].label = "Défaut" 
             form.fields['defaut'].empty_label = None
-            form.fields['defaut'].label = "Défaut"
-
+            form.fields['defaut'].required = True
+            form.fields['defaut'].initial = Defaut.objects.filter(defaut_idperso=defaut_idperso)
+            form.base_fields['defaut'].initial = Defaut.objects.filter(defaut_idperso=defaut_idperso)
 
             defaut_nom = Defaut.objects.get(defaut_idperso=defaut_idperso).defaut_nom
             return render(request, 'Webfautheque/experience_ajout.html', {'experience_form': form, 'defaut': defaut_idperso, 'nom_defaut': defaut_nom})
 
-@permission_required('experience_change_choice', login_url='/login/')
+#permission using group
+@permission_required('Webfautheque.change_experience', login_url='/login/')
 def page_update_experience(request, id, experience_id):
 
     form = ExperienceForm(request.POST)
-
+    
     obj = get_object_or_404(Experience, id=experience_id)
     form = ExperienceForm(request.POST or None,
                           request.FILES or None, instance=obj,
@@ -376,10 +379,10 @@ def experience_list(request):
 
 
 # @login_required(login_url='/login/')
-@permission_required('experience.delete_choice', login_url='/login/')
+@permission_required('Webfautheque.delete_experience', login_url='/login/')
 @csrf_exempt
 def page_delete_experience(request, id, experience_id):
-    context = {}
+    context = {}    
     experience = get_object_or_404(Experience, id=experience_id)
     if request.method == "POST":
         experience.delete()

@@ -17,17 +17,17 @@
     {% if user.is_authenticated %} 
           {% if user.is_superuser%}
           <br>
-          <form action="/Webfautheque/Experiences/Ajout" >
+          <form action="Ajout" >
               <button type="submit" class="Ajout_experience">Ajouter une expérience</button>
-              <input type="hidden" name="page" value="ajout_list">
+              <input type="hidden" name="page" value="choix_list">
           </form>
           {% else %}
             {% for groupe in groupes %}
               {% if  groupe.name == "Création" %}
                 <br>
-                <form action="/Webfautheque/Experiences/Ajout" >
+                <form action="Ajout" >
                     <button type="submit" class="Ajout_experience">Ajouter une expérience</button>
-                    <input type="hidden" name="page" value="ajout_list">
+                    <input type="hidden" name="page" value="choix_list">
                 </form>
               {% endif %}
             {% endfor %}
