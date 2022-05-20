@@ -50,7 +50,13 @@ input[type=file]{
     padding: 6px;
   }
 
+
+  .form_button{
+    display: flex;
+
+  }
 .btn_ajout{
+  width: 50%;
   display: flex;
   height: auto;
   width: auto;
@@ -62,7 +68,7 @@ input[type=file]{
   border: 1px solid transparent;
   border-radius: 0.25rem;
   margin-top: 2 0px;
-  margin-left: 65.7%;
+  margin-left: 10%;
 }
 .btn_ajout:hover,
 .btn_ajout:active,
@@ -70,5 +76,30 @@ input[type=file]{
 .btn_ajout.active {
   background-color: #1d8348;
   border-color: #1d8348;
+}
+.btn_cancel{
+  display: flex;
+  width: 50%;
+  height: auto;
+  width: auto;
+  color: #fff;
+  background-color: red;
+  border-color: red;
+  font-weight: bold;
+  font-size: 16px;
+  border: 1px solid transparent;
+  border-radius: 0.25rem;
+  margin-top: 2 0px;
+  margin-left: 55%;
+}
+.btn_cancel a {
+  color: #fff;
+}
+.btn_cancel:hover,
+.btn_cancel:active,
+.btn_cancel:focus,
+.btn_cancel.active {
+  background-color: red;
+  border-color: red;
 }
 

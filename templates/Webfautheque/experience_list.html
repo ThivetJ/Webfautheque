@@ -111,8 +111,8 @@
                         {% endfor %}
                         {% for groupe in groupes %}
                           {% if groupe.name == "Modification" %}
-                            <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update/">
-                              {% csrf_token %} 
+                            <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update">
+                              
                               <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
                             </form>
                           {% endif %} 

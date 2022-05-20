@@ -169,8 +169,6 @@ searchField.addEventListener('keyup', (e)=>{
 
                     });
                     div += `</tbody> </table>`
-                    searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br>
-                        </span> `
                     searchDiv =` <span class="current"> Page ${current_page} sur ${pageNumber}  <br>
                         </span>      <br>  
                         <span class="step-links">  
@@ -187,7 +185,8 @@ searchField.addEventListener('keyup', (e)=>{
                     document.getElementsByClassName('list_experiences')[0].innerHTML +=div;
                 }
             })
-    }
+    }   
+
     //si le champs de recherche est vide, on affiche la liste des experiences
     else{
         current_page = 1;  

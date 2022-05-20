@@ -101,34 +101,38 @@
                 
               <div class="option_button">
                 {% if user.is_authenticated %} 
-                  {% if user.is_superuser %}
-                    <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
-                      <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update/">
-                        {% csrf_token %} 
-                        <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
-                      </form>
-                      <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Delete/" method="POST">
-                        {% csrf_token %} 
-                        <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
-                        <input type="hidden" name="next" value="{{ request.path }}" class="hidden_button">
-                      </form>  
-                  {% else %}
-                    {% for groupe in groupes %}
+                {% if user.is_superuser %}
+                  <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
+                    <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update/">
+                      {% csrf_token %} 
+                      <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
+                    </form>
+                    <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Delete/" method="POST">
+                      {% csrf_token %} 
+                      <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
+                      <input type="hidden" name="next" value="{{ request.path }}" class="hidden_button">
+                    </form>  
+                {% else %}
+                
+                  {% for groupe in groupes %}
                       {% if  groupe.name == "Visualiser" %}
                         <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
                       {% endif %}
+                    {% endfor %}
+                    {% for groupe in groupes %}
                       {% if groupe.name == "Modification" %}
-                        <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update/">
-                          {% csrf_token %} 
+                        <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update">
                           <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
                         </form>
-                      {% endif %}   
+                      {% endif %} 
+                    {% endfor %}  
+                    {% for groupe in groupes %}
                       {% if groupe.name == "Suppression" %}
                         <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Delete/" method="POST">
                           {% csrf_token %} 
                           <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
                           <input type="hidden" name="next" value="{{ request.path }}" class="hidden_button">
-                            </form>
+                        </form>
                       {% endif %}   
                     {% endfor %}
                   {% endif %}

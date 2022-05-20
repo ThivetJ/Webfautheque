@@ -12,13 +12,14 @@ from fileinput import filename
 from pickle import FALSE
 from pydoc import describe
 from tkinter import E
+from xml.dom import NotFoundErr
 
 import requests
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator
-from django.http import FileResponse, HttpResponseRedirect, JsonResponse
+from django.http import FileResponse, Http404, HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.utils.timezone import make_aware
 from django.views.decorators.csrf import *
@@ -141,9 +142,7 @@ def update_defaut():
             Defaut.objects.filter(id=i['id']).update(sous_groupe_id=inc)
 
 # on appelle ces fonctions dans une vue pour ajouter les données dans la base
-    # insert_groupes()
-    # insert_sous_groupe()
-    # update_defaut()
+
 
 
 """
@@ -152,7 +151,6 @@ def update_defaut():
     :param lib_object: nom de l'attribut voulant être afficher
     :returns : tableau de string
 """
-
 
 def afficherTiret(modelObject, lib_object):
     tab = []
@@ -218,10 +216,6 @@ def page_groupes_defautheque(request, classe_idperso):
      il s' agit des choix juste après les classes.
     """
     # liste de tous les groupes appartenant à la classe qui correspondant (class_idperso)
-
-    # insert_groupes()
-    # insert_sous_groupe()
-    # update_defaut()
 
     groupes_list = Groupe.objects.filter(
         classe_id=Classe.objects.filter(classe_idperso=classe_idperso).values()[0]["id"])
@@ -290,15 +284,19 @@ def page_choix_experience(request, defaut_idperso):
 
 
 def page_consultation_experience(request, defaut_idperso, experience_id):
-    experience = Experience.objects.get(id=experience_id)
-    experience = Experience.objects.filter(id=experience_id).values()[0]
-    descriptif = afficherTiret(experience, 'experience_descriptif')
-    remedes = afficherTiret(experience, 'experience_remedes')
-    context = {'experience': experience,
-               "defaut_idperso": defaut_idperso, 'descriptif': descriptif, 'remedes': remedes}
-    return render(request, 'Webfautheque/consultation_experience.html', context)
+    try:
+        experience = Experience.objects.get(id=experience_id)
+        experience = Experience.objects.filter(id=experience_id).values()[0]
+        descriptif = afficherTiret(experience, 'experience_descriptif')
+        remedes = afficherTiret(experience, 'experience_remedes')
+        context = {'experience': experience,
+                "defaut_idperso": defaut_idperso, 'descriptif': descriptif, 'remedes': remedes}
+        return render(request, 'Webfautheque/consultation_experience.html', context)
 
+    except :
+        return redirect('page_choix_experience', defaut_idperso)
 
+@permission_required('Webfautheque.add_experience')
 def page_ajout_experience(request, defaut_idperso = ''):
     # ajout d'un formulaire Expérience
     list_option = None
@@ -336,34 +334,34 @@ def page_ajout_experience(request, defaut_idperso = ''):
             form.fields['defaut'].queryset = Defaut.objects.filter(defaut_idperso=defaut_idperso)
             form.fields['defaut'].label = "Défaut" 
             form.fields['defaut'].empty_label = None
-            form.fields['defaut'].required = True
-            form.fields['defaut'].initial = Defaut.objects.filter(defaut_idperso=defaut_idperso)
-            form.base_fields['defaut'].initial = Defaut.objects.filter(defaut_idperso=defaut_idperso)
+
 
             defaut_nom = Defaut.objects.get(defaut_idperso=defaut_idperso).defaut_nom
             return render(request, 'Webfautheque/experience_ajout.html', {'experience_form': form, 'defaut': defaut_idperso, 'nom_defaut': defaut_nom})
 
-#permission using group
 @permission_required('Webfautheque.change_experience', login_url='/login/')
 def page_update_experience(request, id, experience_id):
+    try: 
+        form = ExperienceForm(request.POST)
+        
+        obj = get_object_or_404(Experience, id=experience_id)
+        form = ExperienceForm(request.POST or None,
+                            request.FILES or None, instance=obj,
+                            initial={'experience_pub_date': datetime.datetime.now()})
 
-    form = ExperienceForm(request.POST)
-    
-    obj = get_object_or_404(Experience, id=experience_id)
-    form = ExperienceForm(request.POST or None,
-                          request.FILES or None, instance=obj,
-                          initial={'experience_pub_date': datetime.datetime.now()})
+        if form.is_valid():
+            form.instance.experience_pub_date = datetime.datetime.now().replace(microsecond=0)
+            form.save()
 
-    if form.is_valid():
-        form.instance.experience_pub_date = datetime.datetime.now().replace(microsecond=0)
-        form.save()
+            return redirect('experience_list')
+        else:
+            nom_exp = Experience.objects.get(id=experience_id).experience_nom_article
 
+            id_defaut = Defaut.objects.get(id=Experience.objects.get(id=experience_id).defaut_id).defaut_idperso
+            return render(request, 'Webfautheque/experience_update.html', {'experience_form': form, 'experience_id': experience_id, 'nom_exp': nom_exp, 'id_defaut' : id_defaut})
 
-
-
+    except :
         return redirect('experience_list')
-    nom_exp = Experience.objects.get(id=experience_id).experience_nom_article
-    return render(request, 'Webfautheque/experience_update.html', {'experience_form': form, 'experience_id': experience_id, 'nom_exp': nom_exp})
 
 def experience_list(request):
     experiences = Experience.objects.all().order_by('-experience_pub_date')
@@ -377,19 +375,19 @@ def experience_list(request):
     return render(request, 'Webfautheque/experience_list.html', context)
 
 
-
-# @login_required(login_url='/login/')
 @permission_required('Webfautheque.delete_experience', login_url='/login/')
 @csrf_exempt
 def page_delete_experience(request, id, experience_id):
-    context = {}    
-    experience = get_object_or_404(Experience, id=experience_id)
-    if request.method == "POST":
-        experience.delete()
-        next = request.POST.get('next', '/')
-        return HttpResponseRedirect(next)
-    return render(request, 'Webfautheque/experience_list.html', context)
-
+    try: 
+        context = {}    
+        experience = get_object_or_404(Experience, id=experience_id)
+        if request.method == "POST":
+            experience.delete()
+            next = request.POST.get('next', '/')
+            return HttpResponseRedirect(next)
+        return render(request, 'Webfautheque/experience_list.html', context)
+    except:
+        return redirect('experience_list')
 
 def login_user(request):
     if request.method == 'POST':
@@ -424,6 +422,7 @@ def search_experiences(request):
             
         return JsonResponse(list(data), safe=False,)
 
+
 def search_experiences_by_defaut(request, defaut_idperso):
         data = []
         if request.method == 'POST':
@@ -435,6 +434,7 @@ def search_experiences_by_defaut(request, defaut_idperso):
                 experience['defaut_nom'] = Defaut.objects.get(id=experience['defaut_id']).defaut_idperso
             return JsonResponse(list(data), safe=False,)
 
+
 def experienceByAuteur(request):
     if request.method =='POST':
         search = json.loads(request.body).get('name')
@@ -443,6 +443,7 @@ def experienceByAuteur(request):
         for experience in data:
             experience['defaut_nom'] = Defaut.objects.get(id=experience['defaut_id']).defaut_idperso
         return JsonResponse(list(data), safe=False,)
+
 
 def experienceAuteurDefaut(request, defaut_idperso):
         data = []
@@ -454,6 +455,7 @@ def experienceAuteurDefaut(request, defaut_idperso):
             for experience in data:
                 experience['defaut_nom'] = Defaut.objects.get(id=experience['defaut_id']).defaut_idperso
             return JsonResponse(list(data), safe=False,)
+
 # ajout d'un jeu de données
 # def fakerExperience(request):
 #     fake = Faker()
