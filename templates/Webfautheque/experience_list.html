@@ -106,11 +106,14 @@
                     
                       {% for groupe in groupes %}
                           {% if  groupe.name == "Visualiser" %}
+                          <input type="hidden" id="role_visualisation" value= {{groupe.name}}>
                             <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
                           {% endif %}
                         {% endfor %}
                         {% for groupe in groupes %}
                           {% if groupe.name == "Modification" %}
+                          <input type="hidden" id="role_modification" value= {{groupe.name}}>
+
                             <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update">
                               
                               <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
@@ -119,6 +122,8 @@
                         {% endfor %}  
                         {% for groupe in groupes %}
                           {% if groupe.name == "Suppression" %}
+                          <input type="hidden" id="role_suppresion" value= {{groupe.name}}>
+
                             <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Delete/" method="POST">
                               {% csrf_token %} 
                               <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
@@ -177,7 +182,6 @@
   <div class="paginationSearch">
 
   </div>
-
 
   <script src="{% static 'js/searchExperiencesList.js' %}"></script>
   <script src="{% static 'js/search_experiences_by_auteur.js' %}"></script>

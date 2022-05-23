@@ -24,8 +24,8 @@ class Groupe(models.Model):
     """
 
     classe = models.ForeignKey(Classe, on_delete=models.CASCADE)
-    groupe_idperso = models.CharField('Groupe', max_length=4)
-    groupe_nom = models.CharField('Intitulé', max_length=200)
+    groupe_idperso = models.CharField('Nom du groupe', max_length=4)
+    groupe_nom = models.CharField('Description ', max_length=200)
 
     def __str__(self):
         return self.groupe_idperso
@@ -33,8 +33,7 @@ class Groupe(models.Model):
     # affiche l'intitulé de la classe
     def nom_classe(self):
         return self.classe.classe_idperso
-
-
+            
 class Sous_groupe(models.Model):
     """Cette classe regroupe le niveau d' arborescence juste en dessous des Groupe,
     il correspond aux sous-groupes de défaut :  A110, A120, C130 etc ...

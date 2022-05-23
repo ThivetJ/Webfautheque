@@ -38,11 +38,18 @@ class ClasseAdmin(admin.ModelAdmin):
 @admin.register(Groupe)
 class GroupeAdmin(admin.ModelAdmin):
     ordering = ('groupe_idperso',)
-    list_display = ('groupe_idperso', 'groupe_nom', 'nom_classe')
-    search_fields = ('groupe_nom',)
-    list_filter = ('classe_id',)
-    list_per_page = 10
+    list_display = ('groupe_idperso', 'groupe_nom', 'classe')
+    search_fields = ('classe',)
+    list_filter = ('classe',)
+    list_per_page = 10  
 
+
+
+#affiche le nom de la classe en gardant l'id_perso de la classe en valeur 
+    def get_form(self, request: object, obj: object, **kwargs: object) -> object:
+        form = super(GroupeAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['classe'].choices = [(classe.id, classe.classe_nom) for classe in Classe.objects.all()]
+        return form
 
 @admin.register(Sous_groupe)
 class Sous_groupeAdmin(admin.ModelAdmin):
@@ -51,7 +58,11 @@ class Sous_groupeAdmin(admin.ModelAdmin):
     search_fields = ('sous_groupe_nom',)
     list_filter = ('groupe_id',)
     list_per_page = 10
-
+#affiche le nom du groupe en gardant l'id du sous groupe en valeur 
+    def get_form(self, request: object, obj: object, **kwargs: object) -> object:
+        form = super(Sous_groupeAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['groupe'].choices = [(groupe.id, groupe.groupe_nom) for groupe in Groupe.objects.all()]
+        return form
 
 @admin.register(Defaut)
 class DefautAdmin(admin.ModelAdmin):
@@ -61,7 +72,10 @@ class DefautAdmin(admin.ModelAdmin):
     search_fields = ('defaut_nom',)
     list_filter = ('sous_groupe',)
     list_per_page = 10
-
+    def get_form(self, request: object, obj: object, **kwargs: object) -> object:
+        form = super(DefautAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['sous_groupe'].choices = [(sous_groupe.id, sous_groupe.sous_groupe_nom) for sous_groupe in Sous_groupe.objects.all()]
+        return form
 
 @admin.register(Experience)
 @admin_thumbnails.thumbnail('experience_ift', 'IFT')
@@ -77,24 +91,28 @@ class ExperienceAdmin(admin.ModelAdmin):
 
     def save_model(self, request, obj, form, change):
         obj.experience_pub_date = datetime.datetime.now().replace(microsecond=0)
-        # if obj.experience_rapport_anomalie:
-        #     obj.experience_rapport_anomalie = '///ferry04/Commun/controle%20RA/pav%C3%A9s/'+ os.path.basename(obj.experience_rapport_anomalie.name)
+
         if obj.experience_ift:
             obj.experience_ift = obj.experience_ift
         obj.save()
     # ajoute l'auteur de l'experience dans l'interface admin
 
     def get_form(self, request, obj=None, **kwargs):
+        form = super(ExperienceAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['defaut'].choices = [(defaut.id, defaut.defaut_nom) for defaut in Defaut.objects.all()]
         if obj == "1":
             self.exclude = ("experience_auteur", )
-        form = super(ExperienceAdmin, self).get_form(request, obj, **kwargs)
-        # add username to the update form
         if not obj:
             form.base_fields['experience_auteur'].initial = request.user.username
         else:
             form.base_fields['experience_auteur'].widget.attrs['readonly'] = True
 
         return form
+
+
+
+
+
 
     # desactiver une action
     # admin.site.disable_action('delete_selected')
@@ -108,14 +126,7 @@ class ExperienceAdmin(admin.ModelAdmin):
         self.message_user(request, ngettext('%d message en cas de succes ', updated,)
                           % updated, messages.SUCESS)
 
-# Ajuster le css de la page de consultation XXX
-# Modifier l'intitulé des champs sur l'interface XXX
-# Modifier l'affichage de la page admin de la liste des experiences XXX
-# Ajouter un fitre sur les champs de recherches XXX
-# Ajuster le css de la page defaut XXX
-# Modifier les formulaires de création et de modification XXX
-# Css de la page d'accueil   XXX
-# Supprimer les fichiers sur delete et update XXX
 
 
-# TODO: revoir le fonctionnement du stockage par les urls du server
+#TODO: affichage admin des nom aux lieux des id 
+#TODO: affichage de la liste du formulaire d'ajout et de modifications Expériences

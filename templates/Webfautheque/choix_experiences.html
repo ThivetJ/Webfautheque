@@ -115,27 +115,33 @@
                 {% else %}
                 
                   {% for groupe in groupes %}
-                      {% if  groupe.name == "Visualiser" %}
-                        <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
-                      {% endif %}
-                    {% endfor %}
-                    {% for groupe in groupes %}
-                      {% if groupe.name == "Modification" %}
-                        <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update">
-                          <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
-                        </form>
-                      {% endif %} 
-                    {% endfor %}  
-                    {% for groupe in groupes %}
-                      {% if groupe.name == "Suppression" %}
-                        <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Delete/" method="POST">
-                          {% csrf_token %} 
-                          <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
-                          <input type="hidden" name="next" value="{{ request.path }}" class="hidden_button">
-                        </form>
-                      {% endif %}   
-                    {% endfor %}
+                  {% if  groupe.name == "Visualiser" %}
+                  <input type="hidden" id="role_visualisation" value= {{groupe.name}}>
+                    <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
                   {% endif %}
+                {% endfor %}
+                {% for groupe in groupes %}
+                  {% if groupe.name == "Modification" %}
+                  <input type="hidden" id="role_modification" value= {{groupe.name}}>
+
+                    <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update">
+                      
+                      <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
+                    </form>
+                  {% endif %} 
+                {% endfor %}  
+                {% for groupe in groupes %}
+                  {% if groupe.name == "Suppression" %}
+                  <input type="hidden" id="role_suppresion" value= {{groupe.name}}>
+
+                    <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Delete/" method="POST">
+                      {% csrf_token %} 
+                      <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
+                      <input type="hidden" name="next" value="{{ request.path }}" class="hidden_button">
+                    </form>
+                  {% endif %}   
+                {% endfor %}
+              {% endif %}
                 </div> 
                 {% else %}
                   <div class="option_button">

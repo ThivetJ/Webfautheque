@@ -55,19 +55,40 @@ document.getElementsByClassName('search_by_name')[0].onchange= function() {
                             document.getElementsByClassName('paginationSearch')[0].innerHTML ='';
     
                             div+= `
-                              <tr>
-                                <td>${experience.experience_nom_article}</td>
-                                <td>${ date_fr } ${ time }</td>
-                                <td>${experience.experience_auteur}</td>
-                                <td class="bouton_action">
-                                <div class="add_experience">
-                                    <div class="option_button">
-                                      <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
-                                  </div>
-                              </div>
-                            </td>
-                              </tr>
-                            `
+                            <tr>
+                              <td>${experience.experience_nom_article}</td>
+                              <td>${ date_fr } ${ time }</td>
+                              <td>${experience.experience_auteur}</td>
+                              <td class="bouton_action">
+                              <div class="add_experience">
+                                  <div class="option_button">
+                                    <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a> 
+                                    `
+                          
+                                    if(role_modification){
+       
+                                      div+= `<form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Update/">
+                           
+                                          <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
+                                          </form>`
+                                      }
+                                     if(role_suppresion){
+       
+                                      div+= ` <form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Delete/" method="POST">
+  
+                                                   
+                                      <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
+                                      <input type="hidden" name="next" value="/Webfautheque/experiences" class="hidden_button">
+                                          </form>`
+                                       }                                                         
+  
+  
+                                      div+= `
+                                </div>
+                            </div>
+                          </td>
+                            </tr>
+                          `
                             document.onclick = function(e){
                                 if(e.target.className === 'fa-solid fa-trash-can'){
                                     return confirm('Voulez Vous supprimer l\'experience');    

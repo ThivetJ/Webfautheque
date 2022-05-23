@@ -1,14 +1,32 @@
-
 const searchField= document.querySelector("#searchField")
 const pagination = document.querySelector(".pagination");
 const paginationSearch = document.querySelector(".paginationSearch")
 const noResults = document.querySelector(".no-results");
 const appTable = document.querySelector(".list");
 const ListExperience = document.querySelector(".list_experiences");
-const NoResultsText = document.querySelector(".no_result_text")
+const NoResultsText = document.querySelector(".no_result_text");
 const obj_per_page = 5;
+const option_button = document.querySelector(".option_button").value;
 let current_page = 1;
 ListExperience.style.display = "none";
+if(document.querySelector("#role_modification") === null){
+    role_modification =0;
+}
+else{
+     role_modification = document.querySelector("#role_modification").value 
+}
+if(document.querySelector("#role_suppresion") === null){
+    console.log('test');
+    role_suppresion =0;
+}
+else{
+     role_suppresion = document.querySelector("#role_suppresion").value 
+}
+
+
+
+
+
 
 //range les experiences dans différents tableaux en fonction d'element par page 'chunkSize'
 function sliceIntoPages(array, chunkSize) {
@@ -155,12 +173,38 @@ searchField.addEventListener('keyup', (e)=>{
                             <td class="bouton_action">
                             <div class="add_experience">
                                 <div class="option_button">
-                                  <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
+                                  <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a> 
+                                  `
+                        
+                                  if(role_modification){
+     
+                                    div+= `<form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Update/">
+                         
+                                        <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
+                                        </form>`
+                                    }
+                                   if(role_suppresion){
+     
+                                    div+= ` <form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Delete/" method="POST">
+
+                                                 
+                                    <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
+                                    <input type="hidden" name="next" value="/Webfautheque/experiences" class="hidden_button">
+                                        </form>`
+                                     }                                                         
+
+
+                                    div+= `
                               </div>
                           </div>
                         </td>
                           </tr>
                         `
+
+
+
+
+                        
                         document.onclick = function(e){
                             if(e.target.className === 'fa-solid fa-trash-can'){
                                 return confirm('Voulez Vous supprimer l\'experience');    
@@ -177,12 +221,14 @@ searchField.addEventListener('keyup', (e)=>{
                         <a href="#" class="page" onclick="searchPage(${current_page +1}, datas)">suivant</a>  
                         <a href="#" class="page" onclick="searchPage(${pageNumber}, datas)">${pageNumber}</a>  
                         `
+
                     document.getElementsByClassName('paginationSearch')[0].innerHTML +=searchDiv;
 
                     document.getElementsByClassName('list_experiences')[0].innerHTML +=div;
                     div= `
                     </br>  ` 
                     document.getElementsByClassName('list_experiences')[0].innerHTML +=div;
+
                 }
             })
     }   
