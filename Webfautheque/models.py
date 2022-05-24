@@ -102,8 +102,10 @@ class Experience(models.Model):
     experience_remedes = models.TextField(
         'remedes', max_length=2000, default="")
     
-    def __str__(self):
-        return str(self.defaut) + ' ' + self.experience_auteur + ' ' + str(self.experience_pub_date)
+    
+    # def __str__(self):
+    #     return str(self.defaut) + ' ' + self.experience_auteur + ' ' + str(self.experience_pub_date)
+
     # affichage intitulé du défaut
     def nom_defaut(self):
         return self.defaut.defaut_idperso+': '+self.defaut.defaut_nom

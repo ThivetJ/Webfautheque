@@ -7,7 +7,6 @@ from pathlib import Path, PureWindowsPath, WindowsPath
 from posixpath import dirname
 from urllib.parse import urlencode
 
-import admin_thumbnails
 from django import forms, urls
 from django.conf import settings
 from django.contrib import admin, messages
@@ -15,6 +14,7 @@ from django.contrib.admin import AdminSite
 from django.forms import ChoiceField
 from django.utils.translation import ngettext
 from pymysql import STRING
+from django.contrib.admin import SimpleListFilter
 
 from Webfautheque.views import experience_list
 
@@ -38,14 +38,15 @@ class ClasseAdmin(admin.ModelAdmin):
 @admin.register(Groupe)
 class GroupeAdmin(admin.ModelAdmin):
     ordering = ('groupe_idperso',)
-    list_display = ('groupe_idperso', 'groupe_nom', 'classe')
+    list_display = ('groupe_idperso', 'groupe_nom', "Classe")
     search_fields = ('classe',)
     list_filter = ('classe',)
     list_per_page = 10  
 
-
-
-#affiche le nom de la classe en gardant l'id_perso de la classe en valeur 
+    #affichage du nom de la classe dans la liste des groupes 
+    def Classe(self, obj):
+        return obj.classe.classe_nom
+    #affiche le nom de la classe en gardant l'id_perso de la classe en valeur 
     def get_form(self, request: object, obj: object, **kwargs: object) -> object:
         form = super(GroupeAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields['classe'].choices = [(classe.id, classe.classe_nom) for classe in Classe.objects.all()]
@@ -58,11 +59,14 @@ class Sous_groupeAdmin(admin.ModelAdmin):
     search_fields = ('sous_groupe_nom',)
     list_filter = ('groupe_id',)
     list_per_page = 10
-#affiche le nom du groupe en gardant l'id du sous groupe en valeur 
+    #affiche le nom du groupe en gardant l'id du sous groupe en valeur 
     def get_form(self, request: object, obj: object, **kwargs: object) -> object:
         form = super(Sous_groupeAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields['groupe'].choices = [(groupe.id, groupe.groupe_nom) for groupe in Groupe.objects.all()]
         return form
+    #affiche le nom du groupe dans la liste des sous groupes
+    def nom_groupe(self, obj):
+        return obj.groupe.groupe_nom
 
 @admin.register(Defaut)
 class DefautAdmin(admin.ModelAdmin):
@@ -72,17 +76,20 @@ class DefautAdmin(admin.ModelAdmin):
     search_fields = ('defaut_nom',)
     list_filter = ('sous_groupe',)
     list_per_page = 10
+    #remplace la valeur du menu déroulant par le nom du sous groupe 
     def get_form(self, request: object, obj: object, **kwargs: object) -> object:
         form = super(DefautAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields['sous_groupe'].choices = [(sous_groupe.id, sous_groupe.sous_groupe_nom) for sous_groupe in Sous_groupe.objects.all()]
         return form
+    #affiche le nom du sous groupe dans la liste des défauts 
+    def _sous_groupe(self, obj):
+        return obj.sous_groupe.sous_groupe_nom
 
 @admin.register(Experience)
-@admin_thumbnails.thumbnail('experience_ift', 'IFT')
 class ExperienceAdmin(admin.ModelAdmin):
     ordering = ('-experience_pub_date',)
     list_display = ('nom_defaut', 'experience_nom_article', 'experience_descriptif',
-                    'experience_remedes', 'experience_auteur', 'experience_pub_date', 'experience_ift_thumbnail')
+                    'experience_remedes', 'experience_auteur', 'experience_pub_date', 'experience_ift')
     search_fields = ('experience_nom_article',)
     exclude = ('experience_pub_date',)
     list_filter = ('experience_pub_date', 'experience_auteur')
@@ -96,7 +103,6 @@ class ExperienceAdmin(admin.ModelAdmin):
             obj.experience_ift = obj.experience_ift
         obj.save()
     # ajoute l'auteur de l'experience dans l'interface admin
-
     def get_form(self, request, obj=None, **kwargs):
         form = super(ExperienceAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields['defaut'].choices = [(defaut.id, defaut.defaut_nom) for defaut in Defaut.objects.all()]
@@ -112,8 +118,6 @@ class ExperienceAdmin(admin.ModelAdmin):
 
 
 
-
-
     # desactiver une action
     # admin.site.disable_action('delete_selected')
 
@@ -125,8 +129,3 @@ class ExperienceAdmin(admin.ModelAdmin):
         updated = queryset.update(experience_descriptif='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Est ultricies integer quis auctor elit. A diam sollicitudin tempor id eu. Faucibus purus in massa tempor. Elementum sagittis vit')
         self.message_user(request, ngettext('%d message en cas de succes ', updated,)
                           % updated, messages.SUCESS)
-
-
-
-#TODO: affichage admin des nom aux lieux des id 
-#TODO: affichage de la liste du formulaire d'ajout et de modifications Expériences

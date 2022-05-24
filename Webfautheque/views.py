@@ -328,16 +328,18 @@ def page_ajout_experience(request, defaut_idperso = ''):
         page = request.GET.get('page', 1)
 
         if(page == 'ajout_list'):
-
-            return render(request, 'Webfautheque/experience_ajout.html', {'experience_form': form})
+            defaut_nom = Defaut.objects.all()
+            return render(request, 'Webfautheque/experience_ajout.html', {'experience_form': form, 'liste_defaut': defaut_nom})
         else:
             form.fields['defaut'].queryset = Defaut.objects.filter(defaut_idperso=defaut_idperso)
             form.fields['defaut'].label = "Défaut" 
             form.fields['defaut'].empty_label = None
 
-
+            liste_defaut = Defaut.objects.all()
             defaut_nom = Defaut.objects.get(defaut_idperso=defaut_idperso).defaut_nom
-            return render(request, 'Webfautheque/experience_ajout.html', {'experience_form': form, 'defaut': defaut_idperso, 'nom_defaut': defaut_nom})
+            defaut_id = Defaut.objects.get(defaut_idperso=defaut_idperso).id
+ 
+            return render(request, 'Webfautheque/experience_ajout.html', {'experience_form': form, 'defaut': defaut_idperso, 'nom_defaut': defaut_nom, 'defaut_id': defaut_id, 'liste_defaut': liste_defaut})
 
 @permission_required('Webfautheque.change_experience', login_url='/login/')
 def page_update_experience(request, id, experience_id):
