@@ -8,9 +8,6 @@
   <h1 class='title_experience'>Création d'une expérience {{nom_defaut}}</h1>
 
   <div class='form_card'>
-
-
-
   <form enctype="multipart/form-data" method="POST" class="experience-form">
     {% csrf_token %}
     <div class="add_form_content">
@@ -18,10 +15,17 @@
         <input type="date" class="form-control" id="experience_pub_date" name="experience_pub_date" value="2018-07-22" hidden>
       </div>
 
-
       <div class="form_content">
         <div class='form_text'>
-          <p> defaut :
+          <p> Code expérience : 
+        </div>
+        <div class="form_input">
+          {{ experience_form.experience_nom_article}}
+        </div>
+      </div>
+      <div class="form_content">
+        <div class='form_text'>
+          <p> Defaut :
         </div>
 
         <div class='form_input'>
@@ -40,16 +44,6 @@
           </select>
         </div>
       </div>
-      
-
-      <div class="form_content">
-      <div class='form_text'>
-        <p> Code expérience : 
-      </div>
-      <div class="form_input">
-        {{ experience_form.experience_nom_article}}
-      </div>
-    </div>
     
     <div class="form_content">
 
@@ -105,7 +99,11 @@
         {{ experience_form.experience_remedes}}
       </div>
     </div>
-    <button type="submit" class="btn_ajout">Enregistrer</button>
+
+    <div class="form_button"> 
+      <button class="btn_cancel"> <a href= "/Webfautheque/experiences/" class="btn btn-primary">Retour</a> </button>
+      <button type="submit" class="btn_ajout">Enregistrer</button>
+    </div>
   </form>
 
 </div>
