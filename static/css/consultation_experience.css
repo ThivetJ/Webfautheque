@@ -1,13 +1,15 @@
-.title_button {
-  margin-left: 40px;
-}
+
+.content  {
+  font-size: 32px;
+  margin-left: 100px;
+}   
 .title {
   font-size: 20px;
   margin-left: 10px;
   margin-top: 20px;
 }
 .title p {
-  margin-left: 10px;
+  margin-left: 75px;
   font-size: 15px;
   font-style: italic;
 }
@@ -24,49 +26,43 @@
 
 .experience_content {
   display: flex;
-  margin-top: 20px;
-  margin-right: 50px;
-  margin-left: 50px;
 }
-h1 {
+.content  h1 {
   font-size: 32px;
+  margin-left: 75px;
 }
 h2 {
   font-size: 25px;
   text-decoration: underline;
 }
-
 .experience_content_left {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-right: 30px;
+  margin-left: 10px;
 }
 .experience_content_left p {
-  width: 100%;
+  width: 80%;
 }
 .experience_content_left .experience_illustration img {
   width: auto;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
+
 }
-.experience_illustration,
-.experience_description,
-.experience_remede {
-  text-align: justify;
-  width: auto;
-  margin-top: 10px;
+.experience_content_left .experience_illustration,
+.experience_content_left .experience_description,
+.experience_content_left .experience_remede,
+.experience_content_left .rapport_anomalie{
+  margin-left: 80px;
 }
 .experience_content_right {
   display: flex;
   flex-direction: column;
   width: 100%;
-  margin-left: 0px;
-  text-align: center;
 }
 .experience_content_right .titres{
   display: flex;
-  text-align: left;
-  margin-left: 130px;
+  text-align: justify;
 }
 .experience_content_right img {
   width: 70%;
@@ -78,7 +74,6 @@ h2 {
 .experience_content_right h2 {
   margin-left: 0px;
 }
-
 .titres {
   font-size: 25px;
   text-decoration: underline;
@@ -97,9 +92,13 @@ h2 {
   display: flex;
   margin-top: 25px;
   font-style: italic;
-  margin-left: 50px;
+  margin-left: 90px;
+  font-size: 18px;
 }
 .image_ift {
   font-size: 18px;
   width:100%
-}   
+}  
+.rapport_anomalie {
+  font-size: 18px;
+}

@@ -32,7 +32,7 @@ document.getElementsByClassName('search_by_name')[0].onchange= function() {
                         document.getElementsByClassName('list_experiences')[0].innerHTML = '';
                         div= `
 
-                        <table id="customers">
+                        <table id="tab_experience">
                         <thead>
                             <tr>
                                 <th>Code</th>

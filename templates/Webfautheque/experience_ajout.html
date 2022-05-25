@@ -5,9 +5,10 @@
 
   Ajout expérience {% endblock %} {% block content %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/experience_form.css' %}" />
-  <h1 class='title_experience'>Création d'une expérience {{nom_defaut}}</h1>
 
-  <div class='form_card'>
+  <div class='content_list'>
+    <h1 class='title_experience'>Création d'une expérience {{nom_defaut}}</h1>
+
   <form enctype="multipart/form-data" method="POST" class="experience-form">
     {% csrf_token %}
     <div class="add_form_content">

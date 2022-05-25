@@ -32,7 +32,7 @@ class Groupe(models.Model):
 
     # affiche l'intitulé de la classe
     def nom_classe(self):
-        return self.classe.classe_idperso
+        return self.classe.classe_idperso 
             
 class Sous_groupe(models.Model):
     """Cette classe regroupe le niveau d' arborescence juste en dessous des Groupe,
@@ -42,8 +42,8 @@ class Sous_groupe(models.Model):
 
     groupe = models.ForeignKey(Groupe, on_delete=models.CASCADE)
     sous_groupe_idperso = models.CharField('Sous groupe', max_length=4)
-    sous_groupe_nom = models.CharField('Nom sous groupe', max_length=200)
-
+    sous_groupe_nom = models.CharField('Sous groupe', max_length=200)
+    
     def __str__(self):
         return self.sous_groupe_idperso
 
@@ -60,8 +60,8 @@ class Defaut(models.Model):
     Elle est liée à la classe sous_groupe
     """
     sous_groupe = models.ForeignKey(Sous_groupe, on_delete=models.CASCADE)
-    defaut_idperso = models.CharField('Defaut', max_length=4)
-    defaut_nom = models.CharField('Nom', max_length=200)
+    defaut_idperso = models.CharField('Code defaut', max_length=4)
+    defaut_nom = models.CharField('Nom defaut', max_length=200)
     defaut_image = models.ImageField('Image', upload_to='static/Webfautheque/presentation_defauts',
                                      default="None", blank=True)
     # une petite phrase de description simple
@@ -82,13 +82,13 @@ class Experience(models.Model):
     Cette classe est lié à un défaut (class Defaut), elle représente une experience de l' utilisateur.
 
     """
+    experience_nom_article = models.CharField(
+        'Code expérience', max_length=200)
     defaut = models.ForeignKey(Defaut,
                                on_delete=models.CASCADE)
     experience_auteur = models.CharField(
         'Auteur', max_length=200, blank=True,  null=True)
     experience_pub_date = models.DateTimeField('date', default=timezone.now)
-    experience_nom_article = models.CharField(
-        'Code expérience', max_length=200)
     experience_rapport_anomalie = models.FileField(
         'rapport anomalie ', upload_to='static/Webfautheque/rapport_anomalie', default="None")
     experience_ift = models.ImageField(
@@ -98,7 +98,7 @@ class Experience(models.Model):
     experience_photos_2 = models.ImageField(
         'Photo_2', upload_to='static/Webfautheque/photos', default="None")
     experience_descriptif = models.TextField(
-        'descriptif', max_length=2000, default=" ")
+        'descriptif', max_length=5000, default=" ")
     experience_remedes = models.TextField(
         'remedes', max_length=2000, default="")
     

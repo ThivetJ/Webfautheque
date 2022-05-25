@@ -16,7 +16,6 @@ else{
      role_modification = document.querySelector("#role_modification").value 
 }
 if(document.querySelector("#role_suppresion") === null){
-    console.log('test');
     role_suppresion =0;
 }
 else{
@@ -52,7 +51,7 @@ function searchPage(page, dataslice) {
         current_page = page;
     }   
     div = `
-    <table id="customers">
+    <table id="tab_experience">
     <thead>
         <tr>
             <th>Code</th>
@@ -143,7 +142,7 @@ searchField.addEventListener('keyup', (e)=>{
                         document.getElementsByClassName('list_experiences')[0].innerHTML = '';
                         div= `       
                
-                        <table id="customers">
+                        <table id="tab_experience">
                         <thead>
                           <tr>
                             <th>Code</th>

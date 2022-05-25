@@ -2,6 +2,16 @@
   font-size: 32px;
   margin-left: 20px;
 }
+.content_list{
+  margin-left: 60px;
+}
+
+.content_list h1 {
+  font-size: 32px;
+  margin-left: 40px;
+  margin-bottom: 25px;
+  margin-top: 50px;
+}
 form {
     box-sizing: border-box;
     padding: 2rem;

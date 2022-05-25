@@ -77,88 +77,90 @@
     <div class="list" style="display:flex">
       <div class="list_experiences">
 
-        <table id="customers">
-        <thead>
-          <tr>
-            <th>Code</th>
-            <th>Date</th>
-            <th>Auteur</th>
-            <th>Action</th>
-  
-          </tr>
-        </thead>
-  
-        <tbody>
-          {% for experience in page_obj%}
-          <tr>
-            <td>{{experience.experience_nom_article}}</td>
-            <td>{{experience.experience_pub_date}}</td>
-            <td>{{experience.experience_auteur}}</td>
-            <td class="bouton_action">
+        <table id="tab_experience">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Date</th>
+              <th>Auteur</th>
+              <th>Action</th>
+    
+            </tr>
+          </thead>
+    
+          <tbody>
+            {% for experience in page_obj%}
+            <tr>
+              <td>{{experience.experience_nom_article}}</td>
+              <td>{{experience.experience_pub_date}}</td>
+              <td>{{experience.experience_auteur}}</td>
+              <td class="bouton_action">
 
 
-            <div class="add_experience">
-                
-              <div class="option_button">
-                {% if user.is_authenticated %} 
-                {% if user.is_superuser %}
-                  <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
-                    <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update/">
-                      {% csrf_token %} 
-                      <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
-                    </form>
-                    <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Delete/" method="POST">
-                      {% csrf_token %} 
-                      <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
-                      <input type="hidden" name="next" value="{{ request.path }}" class="hidden_button">
-                    </form>  
-                {% else %}
-                
+              <div class="add_experience">
+                  
+                <div class="option_button">
+                  {% if user.is_authenticated %} 
+                  {% if user.is_superuser %}
+                    <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
+                      <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update/">
+                        {% csrf_token %} 
+                        <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
+                      </form>
+                      <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Delete/" method="POST">
+                        {% csrf_token %} 
+                        <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
+                        <input type="hidden" name="next" value="{{ request.path }}" class="hidden_button">
+                      </form>  
+                  {% else %}
+                  
+                    {% for groupe in groupes %}
+                    {% if  groupe.name == "Visualiser" %}
+                    <input type="hidden" id="role_visualisation" value= {{groupe.name}}>
+                      <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
+                    {% endif %}
+                  {% endfor %}
                   {% for groupe in groupes %}
-                  {% if  groupe.name == "Visualiser" %}
-                  <input type="hidden" id="role_visualisation" value= {{groupe.name}}>
-                    <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
-                  {% endif %}
-                {% endfor %}
-                {% for groupe in groupes %}
-                  {% if groupe.name == "Modification" %}
-                  <input type="hidden" id="role_modification" value= {{groupe.name}}>
+                    {% if groupe.name == "Modification" %}
+                    <input type="hidden" id="role_modification" value= {{groupe.name}}>
 
-                    <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update">
-                      
-                      <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
-                    </form>
+                      <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update">
+                        
+                        <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
+                      </form>
+                    {% endif %} 
+                  {% endfor %}  
+                  {% for groupe in groupes %}
+                    {% if groupe.name == "Suppression" %}
+                    <input type="hidden" id="role_suppresion" value= {{groupe.name}}>
+
+                      <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Delete/" method="POST">
+                        {% csrf_token %} 
+                        <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
+                        <input type="hidden" name="next" value="{{ request.path }}" class="hidden_button">
+                      </form>
+                    {% endif %}   
+                  {% endfor %}
+                {% endif %}
+                  </div> 
+                  {% else %}
+                    <div class="option_button">
+                      <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
+                  </div>
                   {% endif %} 
-                {% endfor %}  
-                {% for groupe in groupes %}
-                  {% if groupe.name == "Suppression" %}
-                  <input type="hidden" id="role_suppresion" value= {{groupe.name}}>
-
-                    <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Delete/" method="POST">
-                      {% csrf_token %} 
-                      <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
-                      <input type="hidden" name="next" value="{{ request.path }}" class="hidden_button">
-                    </form>
-                  {% endif %}   
-                {% endfor %}
-              {% endif %}
-                </div> 
-                {% else %}
-                  <div class="option_button">
-                    <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
                 </div>
-                {% endif %} 
-              </div>
-            </td>
-          </tr>
-  
-          {% endfor %}
-        </tbody>
-      </table>
+              </td>
+            </tr>
+    
+            {% endfor %}
+          </tbody>
+        </table>
 
-  </div>
-  </div>
-</div>
+      </div>
+    </div>
+  
+
+
 <div class="pagination">
   <span class="current">
   Page {{ page_obj.number }} sur {{ page_obj.paginator.num_pages }}
@@ -186,12 +188,12 @@
 </div>
 
 <input type='hidden' id='IdDefautValue' value= {{ defaut_idperso }}>
-</div>
-
 <div class="paginationSearch">
 
 </div>
 
+
+</div>
 
 <script src="{% static 'js/search_experiences_by_AuteurDefaut.js' %}"></script>
 <script src="{% static 'js/search_experiences_by_defaut.js' %}"></script>

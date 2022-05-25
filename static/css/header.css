@@ -81,15 +81,3 @@ textarea {
   resize: none;
   width: 100%;
 }
-
-.list_classe {
-  display: flex;
-  align-items: center;
-}
-.list_classe li {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 10px;
-  border-bottom: 1px solid #ccc;
-}

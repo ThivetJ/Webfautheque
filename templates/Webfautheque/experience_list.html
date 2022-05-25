@@ -67,7 +67,7 @@
     <div class="list" style="display:flex">
       <div class="list_experiences">
 
-        <table id="customers">
+        <table id="tab_experience">
         <thead>
           <tr>
             <th>Code</th>
@@ -176,12 +176,14 @@
         <a href="?page={{ page_obj.paginator.num_pages }}"> {{page_obj.paginator.num_pages}} </a>
       </span>
     </div>
+    
+    <div class="paginationSearch">
+
+    </div>
   </div>
 
 
-  <div class="paginationSearch">
 
-  </div>
 
   <script src="{% static 'js/searchExperiencesList.js' %}"></script>
   <script src="{% static 'js/search_experiences_by_auteur.js' %}"></script>

@@ -55,7 +55,7 @@ class GroupeAdmin(admin.ModelAdmin):
 @admin.register(Sous_groupe)
 class Sous_groupeAdmin(admin.ModelAdmin):
     ordering = ('sous_groupe_idperso',)
-    list_display = ('sous_groupe_idperso', 'sous_groupe_nom', 'nom_groupe')
+    list_display = ('sous_groupe_idperso', 'sous_groupe_nom', '_groupe')
     search_fields = ('sous_groupe_nom',)
     list_filter = ('groupe_id',)
     list_per_page = 10
@@ -65,7 +65,7 @@ class Sous_groupeAdmin(admin.ModelAdmin):
         form.base_fields['groupe'].choices = [(groupe.id, groupe.groupe_nom) for groupe in Groupe.objects.all()]
         return form
     #affiche le nom du groupe dans la liste des sous groupes
-    def nom_groupe(self, obj):
+    def _groupe(self, obj):
         return obj.groupe.groupe_nom
 
 @admin.register(Defaut)
@@ -88,8 +88,8 @@ class DefautAdmin(admin.ModelAdmin):
 @admin.register(Experience)
 class ExperienceAdmin(admin.ModelAdmin):
     ordering = ('-experience_pub_date',)
-    list_display = ('nom_defaut', 'experience_nom_article', 'experience_descriptif',
-                    'experience_remedes', 'experience_auteur', 'experience_pub_date', 'experience_ift')
+    list_display = ('experience_nom_article' ,'nom_defaut', 'experience_descriptif',
+                    'experience_remedes', 'experience_auteur', 'experience_pub_date')
     search_fields = ('experience_nom_article',)
     exclude = ('experience_pub_date',)
     list_filter = ('experience_pub_date', 'experience_auteur')

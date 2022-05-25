@@ -3,102 +3,108 @@
   {% extends "Webfautheque/base.html" %} {% load static %} {% block title %}
   Modification de l'expérience {% endblock %} {% block content %}
   <link rel="stylesheet" type="text/css" href="{% static 'css/experience_form.css' %}" />
-  <h1 class='title_experience'>Modification de l'expérience {{nom_exp}} </h1>
-  <form enctype="multipart/form-data" method="POST" class="experience-form">
-    {% csrf_token %}
-    <div class="add_form_content">
-      <div class="form-group">
-        <input type="date" class="form-control" id="experience_pub_date" name="experience_pub_date" value="2018-07-22" hidden>
-      </div>
-      {{ experience_form.experience_auteur}}
+
+
+  <div class='content_list'>
+    <h1 class='title_experience'>Modification de l'expérience {{nom_exp}} </h1>
+
+    <form enctype="multipart/form-data" method="POST" class="experience-form">
+      {% csrf_token %}
+      <div class="add_form_content">
+        <div class="form-group">
+          <input type="date" class="form-control" id="experience_pub_date" name="experience_pub_date" value="2018-07-22" hidden>
+        </div>
+        {{ experience_form.experience_auteur}}
 
 
 
-      <div class="form_content">
+        <div class="form_content">
+          <div class='form_text'>
+            <p> Code expérience : 
+          </div>
+          <div class="form_input">
+            {{ experience_form.experience_nom_article}}
+          </div>
+        </div>
+
+
+        <div class="form_content">
+          <div class='form_text'>
+            <p> Defaut :
+          </div>
+
+          <div class='form_input'>
+            <select name="defaut" id="id_defaut" class="form-control">
+              <option value="{{defaut_id}}" required hidden>{{nom_defaut}} </option>
+              {% for list in liste_defaut %}
+
+                <option value="{{list.id}}">{{list.defaut_nom }}</option>
+
+              {% endfor %}
+              
+            </select>
+          </div>
+        </div>
+
+    
+        <div class="form_content">
+          <div class='form_text'>
+            <p> Rapport anomalie :
+          </div>
+          <div class="form_input">
+            {{ experience_form.experience_rapport_anomalie }}
+          </div>
+        </div>
+          <div class="form_content">
+          <div class='form_text'>
+            <p> Ift : 
+          </div>
+          <div class="form_input">
+            {{ experience_form.experience_ift }}
+          </div>
+        </div>
+
+
+
+        <div class="form_content">
         <div class='form_text'>
-          <p> Code expérience : 
+          <p> Photo 1:
         </div>
         <div class="form_input">
-          {{ experience_form.experience_nom_article}}
+          {{ experience_form.experience_photos_1}}
         </div>
       </div>
-
-
       <div class="form_content">
         <div class='form_text'>
-          <p> Defaut :
-        </div>
-
-        <div class='form_input'>
-          <select name="defaut" id="id_defaut" class="form-control">
-            <option value="{{defaut_id}}" required hidden>{{nom_defaut}} </option>
-            {% for list in liste_defaut %}
-
-              <option value="{{list.id}}">{{list.defaut_nom }}</option>
-
-            {% endfor %}
-            
-          </select>
-        </div>
-      </div>
-
-  
-      <div class="form_content">
-        <div class='form_text'>
-          <p> Rapport anomalie :
+          <p> Photo 2 :
         </div>
         <div class="form_input">
-          {{ experience_form.experience_rapport_anomalie }}
+          {{ experience_form.experience_photos_2}}
+        </div>
+      </div>
+      <div class="form_content">
+        <div class='form_text'>
+          <p> Descriptif :   
+        </div>
+        <div class="form_input">
+          {{ experience_form.experience_descriptif}}
         </div>
       </div>
         <div class="form_content">
         <div class='form_text'>
-          <p> Ift : 
+          <p> Remedes :  
         </div>
         <div class="form_input">
-          {{ experience_form.experience_ift }}
+          {{ experience_form.experience_remedes}}
         </div>
       </div>
 
+      <div class="form_button"> 
+        <button class="btn_cancel"> <a href= "/Webfautheque/experiences/" class="btn btn-primary">Retour</a> </button>
+        <button type="submit" class="btn_ajout">Modifier</button>
+      </div>
+    </form>
 
-
-      <div class="form_content">
-      <div class='form_text'>
-        <p> Photo 1:
-      </div>
-      <div class="form_input">
-        {{ experience_form.experience_photos_1}}
-      </div>
-    </div>
-    <div class="form_content">
-      <div class='form_text'>
-        <p> Photo 2 :
-      </div>
-      <div class="form_input">
-        {{ experience_form.experience_photos_2}}
-      </div>
-    </div>
-    <div class="form_content">
-      <div class='form_text'>
-        <p> Descriptif :   
-      </div>
-      <div class="form_input">
-        {{ experience_form.experience_descriptif}}
-      </div>
-    </div>
-      <div class="form_content">
-      <div class='form_text'>
-        <p> Remedes :  
-      </div>
-      <div class="form_input">
-        {{ experience_form.experience_remedes}}
-      </div>
-    </div>
-
-    <div class="form_button"> 
-      <button class="btn_cancel"> <a href= "/Webfautheque/experiences/" class="btn btn-primary">Retour</a> </button>
-      <button type="submit" class="btn_ajout">Modifier</button>
-    </div>
-  </form>
-  {% endblock %}
+  </div>
+    {% endblock %}
 </html>

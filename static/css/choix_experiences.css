@@ -1,3 +1,6 @@
+.content_list{
+  margin-left:50px;
+}
 .ajout_experience{
   margin-left:50px;
   margin-top:50px;
@@ -83,21 +86,23 @@ input, select{
   outline:none;
   padding: 6px;
 }
-#customers {
+#tab_experience {
   font-family: Arial, Helvetica, sans-serif;
   border-collapse: collapse;
   width: 100%;
   height: 30px;
   margin-right: 20%;
+  font-size: 18px;
+
 }
-#customers td, #customers th {
+#tab_experience td, #tab_experience th {
   border: 1px solid #ddd;
   padding: 8px;
   text-align: justify;
   text-align: center;
 }
-#customers tr:nth-child(odd){background-color: #f2f2f2;}
-#customers th {
+#tab_experience tr:nth-child(odd){background-color: #f2f2f2;}
+#tab_experience th {
   padding-top: 12px;
   padding-bottom: 12px;
   text-align: left;
