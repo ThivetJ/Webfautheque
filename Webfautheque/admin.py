@@ -115,15 +115,6 @@ class ExperienceAdmin(admin.ModelAdmin):
 
         return form
 
-
-
-
-    # desactiver une action
-    # admin.site.disable_action('delete_selected')
-
-    # ajout d'action dans l'interface admin
-    # actions = ['exemple_action']
-
     @admin.action(description='exemple action')
     def exemple_action(self, request, queryset):
         updated = queryset.update(experience_descriptif='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Est ultricies integer quis auctor elit. A diam sollicitudin tempor id eu. Faucibus purus in massa tempor. Elementum sagittis vit')

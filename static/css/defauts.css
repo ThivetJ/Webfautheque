@@ -47,5 +47,11 @@ tr:nth-child(even) {
 padding-left: 100px;
 padding-right: 100px;
 font-size: 18px;
+margin-top:60px;
 
 }
+/* th first */
+th:first-child {
+  width: 125px;
+}
+

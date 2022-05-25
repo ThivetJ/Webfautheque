@@ -31,7 +31,8 @@
           <img
             src="{{ STATIC_PREFIX }}Webfautheque/presentation_defauts/{{ defaut_idperso }}/{{ defaut_idperso }}.png"
             alt="Illustration schématique du défaut"
-          />
+            />
+
         </div>
         <div class="experience_description">
           <h2 class="titres">Description</h2>
@@ -46,7 +47,7 @@
           <div class="rapport_anomalie">
             <h2 class="titres">Rapport d'anomalie</h2>
             {% if experience.experience_rapport_anomalie != 'None' %}
-            <a href="{{ experience.experience_rapport_anomalie }}" class='anomalie' >
+            <a href="/{{ experience.experience_rapport_anomalie }}" class='anomalie' >
               Afficher le rapport d'anomalie</a>
             {% else %}
             <p>Aucun rapport d'anomalie</p>
@@ -57,35 +58,31 @@
       
       <div class="experience_content_right">
         <div class="image_ift">
-          <h2 class="titres">Image IFT</h2>
+          <h2 class="titres">IFT</h2>
           {% if experience.experience_ift != 'None' %}
           <a href="/{{ experience.experience_ift }}"><img src="/{{ experience.experience_ift }}" alt="image IFT" /></a>
           {% else %}
-
-          {% endif %}
-
-
+          
+          {% endif %} 
         </div>
+
         <div class="photo">
           <h2 class="titres">Photo</h2>
           {% if experience.experience_photos_1 != 'None' %}
           <a href="/{{ experience.experience_photos_1 }}"><img src="/{{ experience.experience_photos_1 }}" alt="image IFT" /></a>
           {% else %}
-
           {% endif %}
+
           {% if experience.experience_photos_2 != 'None' %}
           <a href="/{{ experience.experience_photos_2 }}"><img src="/{{ experience.experience_photos_2 }}" alt="image IFT" /></a>
           {% else %}
-
           {% endif %}
         </div>
-
       </div>
     </div>
     <div class="experience_date">
       <p>Publié le {{ experience.experience_pub_date}}</p>
     </div>
-
   </div>
   
 
