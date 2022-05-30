@@ -5,9 +5,8 @@ const noResults = document.querySelector(".no-results");
 const appTable = document.querySelector(".list");
 const ListExperience = document.querySelector(".list_experiences");
 const NoResultsText = document.querySelector(".no_result_text");
-const idDefaut = document.getElementById('IdDefautValue').value;
-const urlSearch = '/experiences/'+idDefaut+'/search_experiences_by_defaut'
 const obj_per_page = 5;
+const option_button = document.querySelector(".option_button").value;
 let current_page = 1;
 ListExperience.style.display = "none";
 if(document.querySelector("#role_modification") === null){
@@ -22,6 +21,11 @@ if(document.querySelector("#role_suppresion") === null){
 else{
      role_suppresion = document.querySelector("#role_suppresion").value 
 }
+
+
+
+
+
 
 //range les experiences dans différents tableaux en fonction d'element par page 'chunkSize'
 function sliceIntoPages(array, chunkSize) {
@@ -67,44 +71,54 @@ function searchPage(page, dataslice) {
         });
         const dtimeHours = date.getHours();
         const dtimeMinutes = date.getMinutes();
-        const time = `${dtimeHours < 10 ? '0' : ''}${dtimeHours}:${dtimeMinutes < 10 ? '0' : ''}${dtimeMinutes}`;
+        const time = `${dtimeHours < 10 ? '0' : ''}${dtimeHours}:${dtimeMinutes  < 10 ? '0' : ''}${dtimeMinutes}`;
         div+= `
           <tr>
             <td>${experience.experience_nom_article}</td>
-            <td>${date_fr +' '+  time}</td>
+            <td>${date_fr + ' '+ time}</td>
             <td>${experience.experience_auteur}</td>
             <td class="bouton_action">
             <div class="add_experience">
                 <div class="option_button">
                   <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
-              </div>
-          </div>
-        </td>
+                </div>
+            </div>
+            </td>
           </tr>
         `
+
     });
     document.getElementsByClassName('list_experiences')[0].innerHTML +=div;
     searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br>
     </span> `
-    searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br>
-        </span>      <br>  
-        <span class="step-links">  
-        <a href="#" class="page" onclick="searchPage(0, datas)">1</a>  
-        <a href="#" class="page" onclick="searchPage(${current_page -1}, datas)">précédent</a>  
-        <a href="#" class="page" onclick="searchPage(${current_page +1}, datas)">suivant</a>  
-        <a href="#" class="page" onclick="searchPage(${pageNumber}, datas)">${pageNumber }</a>  
-        `
-    document.getElementsByClassName('paginationSearch')[0].innerHTML +=searchDiv;
+// for (let i = 1; i <= pageNumber -1; i++) {
+//     //searchDiv+= `<a href="?pages=${i}&name=${searchValue}" class="page" onclick="searchPage(${i})">${i}</a>`
+//     //use on action to change page
+//     searchDiv+= `
+//     <a href="#" class="page" onclick="searchPage(${i}, datas)">${i}</a>  `
+// }
+
+searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br>
+    </span>      <br>  
+    <span class="step-links">  
+    <a href="#" class="page" onclick="searchPage(0, datas)">1</a>  
+    <a href="#" class="page" onclick="searchPage(${current_page -1}, datas)">précédent</a>  
+    <a href="#" class="page" onclick="searchPage(${current_page +1}, datas)">suivant</a>  
+    <a href="#" class="page" onclick="searchPage(${pageNumber}, datas)">${pageNumber }</a>  
+    `
+document.getElementsByClassName('paginationSearch')[0].innerHTML +=searchDiv;
+
 }
 
 
 //action lors de la recherche depuis le champ de recherche
 searchField.addEventListener('keyup', (e)=>{
+
     const searchValue = e.target.value;
     //si le champs de recherche n'est pas vide, on lance la requete ajax
     if (searchValue.trim().length > 0) {
         pagination.style.display = "none";
-        fetch(urlSearch, {
+        fetch('/experiences/search_experiences', {
             method: 'POST',
                 body: JSON.stringify({searchValue})
                 })
@@ -116,6 +130,7 @@ searchField.addEventListener('keyup', (e)=>{
                         noResults.style.display = "block";
                         ListExperience.style.display = "none";
                         appTable.style.display = "none";
+
                       }
                     else {
                         paginationSearch.style.display = "block";
@@ -124,9 +139,9 @@ searchField.addEventListener('keyup', (e)=>{
                         appTable.style.display = "none";
                         ListExperience.style.display = "flex";
                         noResults.style.display = "none";
-                    document.getElementsByClassName('list_experiences')[0].innerHTML = '';
-
+                        document.getElementsByClassName('list_experiences')[0].innerHTML = '';
                         div= `       
+               
                         <table id="tab_experience">
                         <thead>
                           <tr>
@@ -184,15 +199,19 @@ searchField.addEventListener('keyup', (e)=>{
                         </td>
                           </tr>
                         `
+
+
+
+
+                        
                         document.onclick = function(e){
                             if(e.target.className === 'fa-solid fa-trash-can'){
                                 return confirm('Voulez Vous supprimer l\'experience');    
                             }
-                        }   
+                        }
+
                     });
                     div += `</tbody> </table>`
-                    searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br>
-                        </span> `
                     searchDiv =` <span class="current"> Page ${current_page} sur ${pageNumber}  <br>
                         </span>      <br>  
                         <span class="step-links">  
@@ -201,21 +220,26 @@ searchField.addEventListener('keyup', (e)=>{
                         <a href="#" class="page" onclick="searchPage(${current_page +1}, datas)">suivant</a>  
                         <a href="#" class="page" onclick="searchPage(${pageNumber}, datas)">${pageNumber}</a>  
                         `
+
                     document.getElementsByClassName('paginationSearch')[0].innerHTML +=searchDiv;
+
                     document.getElementsByClassName('list_experiences')[0].innerHTML +=div;
                     div= `
-                    <br>  ` 
+                    </br>  ` 
                     document.getElementsByClassName('list_experiences')[0].innerHTML +=div;
+
                 }
             })
-    }
+    }   
+
     //si le champs de recherche est vide, on affiche la liste des experiences
     else{
-        current_page = 1;   
+        current_page = 1;  
         ListExperience.style.display = "none";
         appTable.style.display = "flex";
         pagination.style.display = "block";
         paginationSearch.style.display = "none";
         NoResultsText.style.display = "none"
+        
     }
 })
