@@ -22,11 +22,6 @@ else{
      role_suppresion = document.querySelector("#role_suppresion").value 
 }
 
-
-
-
-
-
 //range les experiences dans différents tableaux en fonction d'element par page 'chunkSize'
 function sliceIntoPages(array, chunkSize) {
     var results = [];
@@ -199,7 +194,6 @@ searchField.addEventListener('keyup', (e)=>{
                         </td>
                           </tr>
                         `
-
 
 
 

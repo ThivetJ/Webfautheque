@@ -1,4 +1,5 @@
 from django import forms
+from django.contrib import admin
 
 from .models import Classe, Defaut, Experience, Groupe, Sous_groupe
 
@@ -27,7 +28,6 @@ class ExperienceForm(forms.ModelForm):
             'experience_auteur': forms.HiddenInput(),
             'experience_ift': forms.HiddenInput(),
             'experience_ift': forms.FileInput(),
-            'experience_rapport_anomalie': forms.HiddenInput(),
             'experience_rapport_anomalie': forms.FileInput(),
             'experience_photos_1': forms.HiddenInput(),
             'experience_photos_1': forms.FileInput(),

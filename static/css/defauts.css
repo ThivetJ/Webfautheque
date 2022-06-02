@@ -48,10 +48,17 @@ padding-left: 100px;
 padding-right: 100px;
 font-size: 18px;
 margin-top:60px;
-
-}
-/* th first */
-th:first-child {
-  width: 125px;
 }
 
+th:first-child, tr:first-child {
+  width: 10%; 
+}
+th:nth-child(2), tr:nth-child(2) {
+  width: 20%; 
+}
+th:nth-child(3), tr:nth-child(3) {
+  width: 50%; 
+}
+th:nth-child(4), tr:nth-child(4) {
+  width: 20%; 
+}

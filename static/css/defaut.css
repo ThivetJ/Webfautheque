@@ -37,6 +37,7 @@ h2 {
 .defaut_left .defaut_illustration img {
   width: auto;
   margin-left: 10px;
+  margin-top:5px;
 }
 .defaut_left p,
 .defaut_left .defaut_illustration img,

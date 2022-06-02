@@ -27,12 +27,13 @@ SECRET_KEY = 'django-insecure-#bmn567^x&*95i1komg$jr41-hhxg91ta!g+k$irbvw^&t+8&h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
 ALLOWED_HOSTS = [
     '*',
+    
 ]
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -41,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Webfautheque.apps.WebfauthequeConfig',
+    'corsheaders',
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -50,10 +52,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+      'corsheaders.middleware.CorsMiddleware',
 ]
-
 ROOT_URLCONF = 'djangoProjects.urls'
-
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
@@ -86,7 +87,6 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
-
 }
 
 # Password validation
@@ -135,10 +135,6 @@ STATICFILES_DIRS = [
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-#PureWindowsPath('ferry04/Commun/controle%20RA/pav%C3%A9s/rouill%C3%A9s.jpg').drive
-# MEDIA_ROOT = 'C:/Users/u235/Desktop/defautheque_stockage/'
-#MEDIA_ROOT = 'file://ferry04/Commun/controle%20RA/pav%C3%A9s/'
-#MEDIA_ROOT = PureWindowsPath('//ferry04/commun/').drive
 MEDIA_URL = '/media/'
 
 

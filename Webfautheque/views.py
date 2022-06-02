@@ -288,8 +288,9 @@ def page_consultation_experience(request, defaut_idperso, experience_id):
         experience = Experience.objects.filter(id=experience_id).values()[0]
         descriptif = afficherTiret(experience, 'experience_descriptif')
         remedes = afficherTiret(experience, 'experience_remedes')
+        defaut_nom = Defaut.objects.filter(id=experience['defaut_id']).values()[0]['defaut_nom']
         context = {'experience': experience,
-                "defaut_idperso": defaut_idperso, 'descriptif': descriptif, 'remedes': remedes}
+                "defaut_nom" : defaut_nom, "defaut_idperso": defaut_idperso, 'descriptif': descriptif, 'remedes': remedes}
         return render(request, 'Webfautheque/consultation_experience.html', context)
 
     except :

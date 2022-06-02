@@ -11,7 +11,7 @@ from django import forms, urls
 from django.conf import settings
 from django.contrib import admin, messages
 from django.contrib.admin import AdminSite
-from django.forms import ChoiceField
+from django.forms import ChoiceField, FileField
 from django.utils.translation import ngettext
 from pymysql import STRING
 from django.contrib.admin import SimpleListFilter
@@ -19,11 +19,30 @@ from django.contrib.admin import SimpleListFilter
 from Webfautheque.views import experience_list
 
 from .models import *
-
+from django.contrib.admin.models import LogEntry
 
 class pageAdmin(AdminSite):
-    AdminSite.site_header = 'Administration Webfautheque'
+    AdminSite.site_header = 'Administration Défauthèque'
     AdminSite.index_title = 'page d\'administration'
+    AdminSite.site_title = 'Défauthèque'
+
+
+@admin.register(LogEntry)
+class LogEntryAdmin(admin.ModelAdmin):
+    date_hierarchy = 'action_time'
+    list_display = ('object_repr', 'content_type', 'action_flag', 'user', 'action_time')
+    list_filter = ['action_flag']
+    search_fields = ['object_repr', 'change_message']
+    list_per_page = 10
+    readonly_fields = []
+
+
+    def has_add_permission(self, request):
+        return False
+    def has_change_permission(self, request, obj=None):
+        return False
+    def has_delete_permission(self, request, obj=None):
+        return False
 
 
 @admin.register(Classe)
@@ -33,6 +52,7 @@ class ClasseAdmin(admin.ModelAdmin):
     search_fields = ('classe_nom',)
     list_filter = ('classe_idperso',)
     list_per_page = 10
+
 
 
 @admin.register(Groupe)
@@ -51,6 +71,7 @@ class GroupeAdmin(admin.ModelAdmin):
         form = super(GroupeAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields['classe'].choices = [(classe.id, classe.classe_nom) for classe in Classe.objects.all()]
         return form
+
 
 @admin.register(Sous_groupe)
 class Sous_groupeAdmin(admin.ModelAdmin):
@@ -84,6 +105,13 @@ class DefautAdmin(admin.ModelAdmin):
     #affiche le nom du sous groupe dans la liste des défauts 
     def _sous_groupe(self, obj):
         return obj.sous_groupe.sous_groupe_nom
+    def save_model(self, request, obj, form, change):
+        #  change sous groupe 
+        if obj.defaut_image:
+            # place image in folder test
+            obj.defaut_image.name = obj.defaut_idperso +'/' + obj.defaut_image.name
+        obj.save()
+
 
 @admin.register(Experience)
 class ExperienceAdmin(admin.ModelAdmin):
@@ -94,29 +122,30 @@ class ExperienceAdmin(admin.ModelAdmin):
     exclude = ('experience_pub_date',)
     list_filter = ('experience_pub_date', 'experience_auteur')
     date_hierarchy = 'experience_pub_date'
-    list_per_page = 10
+    list_per_page = 10 
 
     def save_model(self, request, obj, form, change):
         obj.experience_pub_date = datetime.datetime.now().replace(microsecond=0)
-
         if obj.experience_ift:
             obj.experience_ift = obj.experience_ift
         obj.save()
+
+
     # ajoute l'auteur de l'experience dans l'interface admin
     def get_form(self, request, obj=None, **kwargs):
         form = super(ExperienceAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields['defaut'].choices = [(defaut.id, defaut.defaut_nom) for defaut in Defaut.objects.all()]
+        form.base_fields['experience_rapport_anomalie'].widget = forms.FileInput()
         if obj == "1":
             self.exclude = ("experience_auteur", )
+            form.base_fields['experience_rapport_anomalie'].initial = obj.experience_rapport_anomalie
+
+
         if not obj:
             form.base_fields['experience_auteur'].initial = request.user.username
+
+
         else:
             form.base_fields['experience_auteur'].widget.attrs['readonly'] = True
 
         return form
-
-    @admin.action(description='exemple action')
-    def exemple_action(self, request, queryset):
-        updated = queryset.update(experience_descriptif='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Est ultricies integer quis auctor elit. A diam sollicitudin tempor id eu. Faucibus purus in massa tempor. Elementum sagittis vit')
-        self.message_user(request, ngettext('%d message en cas de succes ', updated,)
-                          % updated, messages.SUCESS)
