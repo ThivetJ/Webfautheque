@@ -1,4 +1,3 @@
-
 .list_classe, .list_groupes, .list_sous_groupes {
     display: flex;
     align-items: center;
@@ -15,4 +14,7 @@
     font-size: 18px;
 
   }
+a{
+  margin-top: 18px;
+}
   

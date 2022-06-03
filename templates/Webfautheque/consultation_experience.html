@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
   {% extends "Webfautheque/base.html" %} 
   {% load static %} {% get_static_prefix as STATIC_PREFIX %}
   {% block title %} Expérience {{experience.experience_nom_article }}
@@ -12,24 +13,14 @@
     href="{% static 'css/consultation_experience.css' %}"
   />
 
-
-  {% comment %}
-   TODO: 
-   <script> function run(){
-    var URL = '{{  experience.experience_rapport_anomalie }}';
-
-    window.open(URL, 'null');
-  } 
-  {% endcomment %}
-
   </script>
   <div class="content">
     <div class="title_button">
       <div class="title">
         <h1>
-          Experience {{ experience.experience_nom_article}}
+         Experience {{ experience.experience_nom_article}},   {{ defaut_idperso }}.
         </h1>
-
+        <p>Defaut : {{ defaut_idperso }}</p>
       </div>
       <div class="update_form"></div>
     </div>
@@ -39,7 +30,7 @@
         <div class="experience_illustration">
           <h2></h2>
           {% load static %} {% get_static_prefix as STATIC_PREFIX %}
-          <img
+          <img class="test"
             src="{{ STATIC_PREFIX }}Webfautheque/presentation_defauts/{{ defaut_idperso }}/{{ defaut_idperso }}.png"
             alt="Illustration schématique du défaut"
             />
@@ -68,7 +59,7 @@
           </div>
         </div>
       </div>
-      
+
       <div class="experience_content_right">
         <div class="image_ift">
           <h2 class="titres">IFT</h2>
@@ -99,11 +90,6 @@
     </div>
   </div>
 
-
-
-
-
   {% endblock %}
-
 
 </html>

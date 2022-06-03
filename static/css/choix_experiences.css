@@ -34,15 +34,15 @@
   width: 100%;
   text-decoration: none;
 } 
-#choice_experience:nth-child(1){
+[name=choice_experience]:nth-child(1){
   margin-right: 0px;
   margin-left: 10px;
 }
-#choice_experience:nth-child(2){
+[name=choice_experience]:nth-child(2){
   margin-right: 0px;
   margin-left: 10px;
 }
-#choice_experience{
+[name=choice_experience]{
   display: flex;
   border-width: 1px;
   border-style: solid;
@@ -50,7 +50,7 @@
   font-size:24px;
   color:black ;
 }
-#choice_experience:hover {
+[name=choice_experience]:hover {
   border-color: black;
 }
 .option_button{

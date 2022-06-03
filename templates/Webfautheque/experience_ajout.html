@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
-  
+  <meta charset="utf-8">  
   {% extends "Webfautheque/base.html" %} {% load static %} {% block title %}
 
   Ajout expérience {% endblock %} {% block content %}
@@ -21,6 +21,7 @@
           <p> Code expérience : 
         </div>
         <div class="form_input">
+          <label for="id_experience_nom_article"></label>
           {{ experience_form.experience_nom_article}}
         </div>
       </div>
@@ -49,6 +50,7 @@
     <div class="form_content">
 
       <div class="form_input">
+        <label for="id_experience_auteur"></label>
         {{ experience_form.experience_auteur}}
       </div>
     </div>
@@ -57,6 +59,7 @@
         <p> Rapport anomalie :
       </div>
       <div class="form_input">
+        <label for="id_experience_rapport_anomalie"></label>
         {{ experience_form.experience_rapport_anomalie }}
       </div>
     </div>
@@ -65,6 +68,8 @@
         <p> Ift : 
       </div>
       <div class="form_input">
+        <label for="id_experience_ift"></label>
+
         {{ experience_form.experience_ift }}
       </div>
     </div>

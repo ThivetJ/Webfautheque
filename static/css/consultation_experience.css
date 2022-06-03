@@ -8,9 +8,9 @@
   margin-top: 20px;
 }
 .title p {
-  margin-left: 85px;
-  font-size: 15px;
-  font-style: italic;
+    margin-left: 85px;
+    font-size: 15px;
+    font-style: italic;
 }
 .update_form {
   display: flex;
@@ -42,9 +42,11 @@ h2 {
 }
 .experience_content_left p {
   width: 80%;
+    height: auto;
 }
 .experience_content_left .experience_illustration img {
   width: auto;
+  height: auto;
   margin-bottom: 10px;
 
 }
@@ -65,6 +67,7 @@ h2 {
 }
 .experience_content_right img {
   width: 70%;
+  height: auto;
   margin-right: 1px;
   margin-top:10px;
   margin-bottom: 25px;
@@ -93,8 +96,10 @@ h2 {
 }
 .image_ift, .photo {
   font-size: 18px;
-  width:80%
+  width:80%;
+  height: auto;
 }  
+
 .auteur_uppercase{
   text-transform: uppercase;
 }

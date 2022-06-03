@@ -42,83 +42,6 @@ def insert_groupes():
         cla_id = Classe.objects.filter(classe_idperso=tab1).values()[0]["id"]
         Groupe.objects.create(groupe_idperso=i, groupe_nom=i, classe_id=cla_id)
 
-# insertion des sous_groupes de B220 à G260
-def insert_sous_groupe():
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='B120', sous_groupe_nom='B120', groupe_id=4)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='B210', sous_groupe_nom='B210', groupe_id=5)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='B220', sous_groupe_nom='B220', groupe_id=5)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='B310', sous_groupe_nom='B310', groupe_id=6)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='C110', sous_groupe_nom='C110', groupe_id=7)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='C120', sous_groupe_nom='C120', groupe_id=7)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='C210', sous_groupe_nom='C210', groupe_id=8)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='C220', sous_groupe_nom='C220', groupe_id=8)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='C310', sous_groupe_nom='C310', groupe_id=9)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='C320', sous_groupe_nom='C320', groupe_id=9)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='C330', sous_groupe_nom='C330', groupe_id=9)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='C410', sous_groupe_nom='C410', groupe_id=10)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='D110', sous_groupe_nom='D110', groupe_id=11)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='D120', sous_groupe_nom='D120', groupe_id=11)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='D130', sous_groupe_nom='D130', groupe_id=11)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='D140', sous_groupe_nom='D140', groupe_id=11)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='D210', sous_groupe_nom='D210', groupe_id=12)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='D220', sous_groupe_nom='D220', groupe_id=12)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='D230', sous_groupe_nom='D230', groupe_id=12)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='D240', sous_groupe_nom='D240', groupe_id=12)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='E110', sous_groupe_nom='E110', groupe_id=13)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='E120', sous_groupe_nom='E120', groupe_id=13)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='E210', sous_groupe_nom='E210', groupe_id=14)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='E220', sous_groupe_nom='E220', groupe_id=14)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='E230', sous_groupe_nom='E230', groupe_id=14)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='F110', sous_groupe_nom='F110', groupe_id=15)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='F120', sous_groupe_nom='F120', groupe_id=15)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='F210', sous_groupe_nom='F210', groupe_id=16)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='F220', sous_groupe_nom='F220', groupe_id=16)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='F230', sous_groupe_nom='F230', groupe_id=16)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='G110', sous_groupe_nom='G110', groupe_id=17)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='G120', sous_groupe_nom='G120', groupe_id=17)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='G130', sous_groupe_nom='G130', groupe_id=17)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='G140', sous_groupe_nom='G140', groupe_id=17)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='G210', sous_groupe_nom='G210', groupe_id=18)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='G220', sous_groupe_nom='G220', groupe_id=18)
-    Sous_groupe.objects.create(
-        sous_groupe_idperso='G260', sous_groupe_nom='G260', groupe_id=18)
-
 # modification de la valeur 'sous_groupes' de la table défaut
 # fonction permettant de classer tout les defauts dans le bon groupe
 def update_defaut():
@@ -465,18 +388,3 @@ def experienceAuteurDefaut(request, defaut_idperso):
             for experience in data:
                 experience['defaut_nom'] = Defaut.objects.get(id=experience['defaut_id']).defaut_idperso
             return JsonResponse(list(data), safe=False,)
-
-
-# ajout d'un jeu de données
-# def fakerExperience(request):
-#     fake = Faker()
-#     for i in range(1, 100):
-
-#         experience = Experience(experience_nom_article=fake.sentence(),
-#                                 experience_descriptif=fake.text(),
-#                                 experience_remedes=fake.text(),
-#                                 experience_pub_date=datetime.datetime.now(),
-#                                 experience_auteur=request.user,
-#                                 defaut_id= random.randint(1, 100))
-#         experience.save()
-#     return redirect('experience_list')

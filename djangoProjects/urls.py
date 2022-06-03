@@ -130,4 +130,4 @@ urlpatterns = [
                 csrf_exempt(views.experienceAuteurDefaut),
                 name="experienceAuteurDefaut"),                
 
-]+static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+]

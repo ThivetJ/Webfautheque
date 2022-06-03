@@ -133,7 +133,8 @@ class Experience(models.Model):
     # affichage intitulé du défaut
     def nom_defaut(self):
         return self.defaut.defaut_nom
-    #cas URL sur le reseau 
+
+    #cas URL sur le reseau / changer le model en CharField / supprimer la condition du rapport dans auto_delete
     # def save(self, *args, **kwargs):
     #     super(Experience, self).save(*args, **kwargs)
     #     if self.experience_rapport_anomalie:
@@ -144,14 +145,14 @@ class Experience(models.Model):
 @receiver(models.signals.post_delete, sender=Experience)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
     '''
-    Supprime les images de l'experience
+    Supprime les images/fichiers de l'experience
     '''
     if instance.experience_ift:
         if os.path.isfile(instance.experience_ift.path):
             os.remove(instance.experience_ift.path)
-    # if instance.experience_rapport_anomalie:
-    #     if os.path.isfile(instance.experience_rapport_anomalie.path):
-    #         os.remove(instance.experience_rapport_anomalie.path)
+    if instance.experience_rapport_anomalie:
+        if os.path.isfile(instance.experience_rapport_anomalie.path):
+            os.remove(instance.experience_rapport_anomalie.path)
     if instance.experience_photos_1:
         if os.path.isfile(instance.experience_photos_1.path):
             os.remove(instance.experience_photos_1.path)
@@ -163,7 +164,7 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
 @receiver(models.signals.pre_save, sender=Experience)
 def auto_delete_file_on_change(sender, instance, **kwargs):
     '''
-    Remplace les images si elle est modifiée
+    Remplace les images/fichiers si suppression 
     '''
     if not instance.pk:
         return False
@@ -172,13 +173,12 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
     except Experience.DoesNotExist:
         return False
 
-
     if not old_file == instance.experience_ift:
         if os.path.isfile(old_file.path):
             os.remove(old_file.path)
-    # if not old_file == instance.experience_rapport_anomalie:
-    #     if os.path.isfile(old_file.path):
-    #         os.remove(old_file.path)
+    if not old_file == instance.experience_rapport_anomalie:
+        if os.path.isfile(old_file.path):
+            os.remove(old_file.path)
     if not old_file == instance.experience_photos_1:
         if os.path.isfile(old_file.path):
             os.remove(old_file.path)

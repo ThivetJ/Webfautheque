@@ -76,7 +76,7 @@ function searchPage(page, dataslice) {
             <td class="bouton_action">
             <div class="add_experience">
                 <div class="option_button">
-                  <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a>
+                  <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" aria-label="voir" class="fa-solid fa-eye" name="choice_experience"></button></a>
               </div>
           </div>
         </td>
@@ -157,14 +157,14 @@ searchField.addEventListener('keyup', (e)=>{
                             <td class="bouton_action">
                             <div class="add_experience">
                                 <div class="option_button">
-                                  <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" class="fa-solid fa-eye" id="choice_experience"></button></a> 
+                                  <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" aria-label="voir" class="fa-solid fa-eye" name="choice_experience"></button></a> 
                                   `
                         
                                   if(role_modification){
      
                                     div+= `<form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Update/">
                          
-                                        <button type="submit" class="fa-solid fa-pen-to-square" id="choice_experience"></button>
+                                        <button type="submit" aria-label="modifier" class="fa-solid fa-pen-to-square" name="choice_experience"></button>
                                         </form>`
                                     }
                                    if(role_suppresion){
@@ -172,7 +172,7 @@ searchField.addEventListener('keyup', (e)=>{
                                     div+= ` <form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Delete/" method="POST">
 
                                                  
-                                    <button type="submit" class="fa-solid fa-trash-can" id="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
+                                    <button type="submit" aria-label="supprimer" class="fa-solid fa-trash-can" name="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
                                     <input type="hidden" name="next" value="/Webfautheque/experiences" class="hidden_button">
                                         </form>`
                                      }                                                         

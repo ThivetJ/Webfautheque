@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 {% extends "Webfautheque/base.html" %}
 {% load static %}
 
 {% block title %}
     Arborescence
 {% endblock %}
-
 
 {% block content %}
 
@@ -16,7 +16,7 @@
 
     <ul>
         {% for classe in classes_list %}
-        <br>
+
             <li><a href="/Webfautheque/{{ classe.classe_idperso }}">Classe {{ classe.classe_idperso }}
                 : {{ classe.classe_nom }}</a></li>
         {% endfor %}
@@ -26,7 +26,6 @@
             <li>{{ def.defaut_idperso }} </li>
         {% endfor %}
     </ul>
-    
 </div>
 
 {% endblock %}

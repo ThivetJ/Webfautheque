@@ -10,6 +10,7 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
+from atexit import register
 import os
 from importlib.resources import path
 from pathlib import Path, PureWindowsPath
@@ -128,8 +129,10 @@ STATIC_URL = '/static/'
 
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-
 ]
+
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
