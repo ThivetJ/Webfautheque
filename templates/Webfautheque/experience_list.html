@@ -92,6 +92,7 @@
                 
                 <div class="option_button">
                   {% if user.is_authenticated %} 
+                  <input type="hidden" id="superuser" value= {{user.is_superuser}}>
                     {% if user.is_superuser %}
                       <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}"> <button type="submit" aria-label="voir" class="fa-solid fa-eye" name="choice_experience"></button></a>
                         <form action="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}/Update/">

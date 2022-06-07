@@ -1,5 +1,5 @@
 document.getElementsByClassName('search_by_name')[0].onchange= function() {
-    
+    current_page = 1;
     const name = document.getElementById('searchByName').value;
     //si le champs de recherche n'est pas vide, on lance la requete ajax
     if (name.trim().length > 0) {
@@ -57,26 +57,51 @@ document.getElementsByClassName('search_by_name')[0].onchange= function() {
                               <td>${experience.experience_auteur}</td>
                               <td class="bouton_action">
                               <div class="add_experience">
-                                  <div class="option_button">
-                                    <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" aria-label="voir" class="fa-solid fa-eye" name="choice_experience"></button></a> 
-                                    `
-                                    if(role_modification){
-       
-                                      div+= `<form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Update/">
-                           
-                                          <button type="submit" aria-label="modifier" class="fa-solid fa-pen-to-square" name="choice_experience"></button>
-                                          </form>`
-                                      }
-                                     if(role_suppresion){
-       
-                                      div+= ` <form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Delete/" method="POST">
+                              <div class="option_button">
+                              `
+                              if(superuser){
 
-                                      <button type="submit" aria-label="supprimer" class="fa-solid fa-trash-can" name="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
-                                      <input type="hidden" name="next" value="/Webfautheque/experiences" class="hidden_button">
-                                          </form>`
-                                       }                                                         
-                                      div+= `
-                                </div>
+
+                                  div+=
+                                  `
+                                  <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" aria-label="voir" class="fa-solid fa-eye" name="choice_experience"></button></a> 
+                                  <form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Update/">
+                       
+                                  <button type="submit" aria-label="modifier" class="fa-solid fa-pen-to-square" name="choice_experience"></button>
+                                  </form>
+                                  <form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Delete/" method="POST">
+
+                                               
+                                  <button type="submit" aria-label="supprimer" class="fa-solid fa-trash-can" name="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
+                                  <input type="hidden" name="next" value="/Webfautheque/experiences" class="hidden_button">
+                                      </form>
+                                  `
+                              }
+                              else{
+                              div +=`
+                                <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" aria-label="voir" class="fa-solid fa-eye" name="choice_experience"></button></a> 
+                                `
+
+                                if(role_modification){
+   
+                                  div+= `<form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Update/">
+                       
+                                      <button type="submit" aria-label="modifier" class="fa-solid fa-pen-to-square" name="choice_experience"></button>
+                                      </form>`
+                                  }
+                                 if(role_suppresion){
+   
+                                  div+= ` <form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Delete/" method="POST">
+
+                                               
+                                  <button type="submit" aria-label="supprimer" class="fa-solid fa-trash-can" name="choice_experience" onClick="return confirm('Voulez Vous supprimer l\'experience {{experience.experience_nom_article}}')"></button>
+                                  <input type="hidden" name="next" value="/Webfautheque/experiences" class="hidden_button">
+                                      </form>`
+                                   }                                                         
+
+
+                                  div+= `
+                            </div>`}`
                             </div>
                           </td>
                             </tr>
