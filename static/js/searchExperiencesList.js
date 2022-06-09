@@ -135,12 +135,7 @@ function searchPage(page, dataslice) {
     document.getElementsByClassName('list_experiences')[0].innerHTML +=div;
     searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br>
     </span> `
-// for (let i = 1; i <= pageNumber -1; i++) {
-//     //searchDiv+= `<a href="?pages=${i}&name=${searchValue}" class="page" onclick="searchPage(${i})">${i}</a>`
-//     //use on action to change page
-//     searchDiv+= `
-//     <a href="#" class="page" onclick="searchPage(${i}, datas)">${i}</a>  `
-// }
+
 
 searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br>
     </span>      <br>  
@@ -151,7 +146,7 @@ searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br
     <a href="#" class="page" onclick="searchPage(${pageNumber}, datas)">${pageNumber }</a>  
     `
 document.getElementsByClassName('paginationSearch')[0].innerHTML +=searchDiv;
-
+    
 }
 
 

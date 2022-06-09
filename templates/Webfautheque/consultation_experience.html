@@ -18,7 +18,7 @@
     <div class="title_button">
       <div class="title">
         <h1>
-         Experience {{ experience.experience_nom_article}},   {{ defaut_idperso }}.
+         Experience {{ experience.experience_nom_article}}.
         </h1>
         <p>Defaut : {{ defaut_idperso }}</p>
       </div>
@@ -49,9 +49,8 @@
             <h2 class="titres">Rapport d'anomalie</h2>
             {% if experience.experience_rapport_anomalie != 'None' %}
 
-            {% comment %} <a href="/{{ experience.experience_rapport_anomalie }}" class='anomalie' > {% endcomment %}
 
-            <a href="/{{ experience.experience_rapport_anomalie }}" class='anomalie' >
+              <a href="{% static 'ferry04/' %}{{experience.experience_rapport_anomalie}} ">
               Afficher le rapport d'anomalie</a>
             {% else %}
             <p>Aucun rapport d'anomalie</p>
@@ -59,13 +58,15 @@
           </div>
         </div>
       </div>
-
       <div class="experience_content_right">
         <div class="image_ift">
           <h2 class="titres">IFT</h2>
           {% if experience.experience_ift != 'None' %}
-          <a href="/{{ experience.experience_ift }}"><img src="/{{ experience.experience_ift }}" alt="image IFT" /></a>
+          <a href="{% static 'ferry04/' %}{{experience.experience_rapport_anomalie}} ">
+            Afficher le rapport d'anomalie</a>
           {% else %}
+          <p>Aucun IFT disponible</p>
+
           {% endif %} 
         </div>
 

@@ -136,10 +136,11 @@ class ExperienceAdmin(admin.ModelAdmin):
         form = super(ExperienceAdmin, self).get_form(request, obj, **kwargs)
         form.base_fields['defaut'].choices = [(defaut.id, defaut.defaut_nom) for defaut in Defaut.objects.all()]
         form.base_fields['experience_rapport_anomalie'].widget = forms.FileInput()
+        form.base_fields['experience_ift'].widget = forms.FileInput()
         if obj == "1":
             self.exclude = ("experience_auteur", )
             form.base_fields['experience_rapport_anomalie'].initial = obj.experience_rapport_anomalie
-
+            form.base_fields['experience_ift'].initial = obj.experience_ift
 
         if not obj:
             form.base_fields['experience_auteur'].initial = request.user.username

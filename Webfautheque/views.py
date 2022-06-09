@@ -2,6 +2,7 @@ import datetime
 import io
 import json
 import os
+from pathlib import PureWindowsPath
 import random
 
 from distutils.debug import DEBUG
@@ -212,8 +213,9 @@ def page_consultation_experience(request, defaut_idperso, experience_id):
         descriptif = afficherTiret(experience, 'experience_descriptif')
         remedes = afficherTiret(experience, 'experience_remedes')
         defaut_nom = Defaut.objects.filter(id=experience['defaut_id']).values()[0]['defaut_nom']
+        pa = PureWindowsPath(experience['experience_rapport_anomalie'])
         context = {'experience': experience,
-                "defaut_nom" : defaut_nom, "defaut_idperso": defaut_idperso, 'descriptif': descriptif, 'remedes': remedes}
+                "defaut_nom" : defaut_nom, "defaut_idperso": defaut_idperso, 'descriptif': descriptif, 'remedes': remedes, 'chemin_image' : pa}
         return render(request, 'Webfautheque/consultation_experience.html', context)
 
     except :
