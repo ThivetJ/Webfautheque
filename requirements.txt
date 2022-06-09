@@ -1,2 +1,5 @@
-django
+django~=3.2.7
 pillow
+PyMySQL~=1.0.2
+requests~=2.27.1
+Faker~=13.12.1
