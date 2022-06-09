@@ -13,11 +13,30 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
+from asyncio import Server
 from Webfautheque import views
 from django.contrib import admin
 from django.urls import path, re_path
+from django.views.decorators.csrf import csrf_exempt
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
+
+
+        #TEST ajout d'un jeu de donnnées
+        #fakerExperience
+        # re_path(r'experiences/faker_experiences',
+        #         views.fakerExperience,
+        #         name="faker_experiences"),
+
+
+    # racine 
+    re_path(r'^$',
+            views.home,
+            name=""),
+
     # ex: /index/
     re_path(r'^home/$',
             views.home,
@@ -66,4 +85,49 @@ urlpatterns = [
     re_path(r'^Webfautheque/(?P<defaut_idperso>[A-G][1-9]{3})/Experiences/Ajout/$',
             views.page_ajout_experience,
             name="page_ajout_experience"),
+
+    # ex: /Webfautheque/Experiences/Ajout/
+    re_path(r'^Webfautheque/Experiences/Ajout/$',
+            views.page_ajout_experience,
+            name="page_ajout_experience_defaut"),
+
+        # ex: /Webfautheque/A111/Experiences/Update/
+    re_path(r'^Webfautheque/(?P<id>[A-G][1-9]{3})/Experiences/Consultation:(?P<experience_id>[0-9]+)/Update/$',
+            views.page_update_experience,
+            name="page_update_experience"),
+
+        # ex: /Webfautheque/A111/Experiences/Delete/
+        re_path(r'^Webfautheque/(?P<id>[A-G][1-9]{3})/Experiences/Consultation:(?P<experience_id>[0-9]+)/Delete/$',
+                views.page_delete_experience,
+                name="page_delete_experience"),
+
+    # ex: /Webfautheque/experiences/
+        re_path(r'^Webfautheque/experiences', 
+                views.experience_list,
+                name="experience_list"),
+    # ex: /Webfautheque/login/
+        re_path(r'login/', 
+                views.login_user,
+                name="login_user"),
+    # ex: /Webfautheque/logout/
+        re_path(r'logout/', 
+                views.logout_user,
+                name="logout_user"),
+    # ex: /Webfautheque/experiences/search-experiences/
+        re_path(r'experiences/search_experiences', 
+                csrf_exempt(views.search_experiences),
+                name="search_experiences"),
+
+        re_path(r'experiences/(?P<defaut_idperso>[A-G][1-9]{3})/search_experiences_by_defaut', 
+                csrf_exempt(views.search_experiences_by_defaut),
+                name="search_experiences_by_defaut"),
+
+        re_path(r'experiences/experienceByAuteur', 
+                csrf_exempt(views.experienceByAuteur),
+                name="experienceByAuteur"),
+
+        re_path(r'experiences/(?P<defaut_idperso>[A-G][1-9]{3})/experienceAuteurDefaut', 
+                csrf_exempt(views.experienceAuteurDefaut),
+                name="experienceAuteurDefaut"),                
+
 ]

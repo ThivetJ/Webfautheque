@@ -1,15 +1,16 @@
 footer {
-    display: flex;
-    padding-top: 25px;
+  display: flex;
+  padding-top: 25px;
 }
 
-footer p, footer ul {
-    font-size: 0.8em;
+footer p,
+footer ul {
+  font-size: 0.8em;
 }
 
 footer h1 {
-    font-size: 0.8em;
-    font-family: Dayrom, serif;
-    font-weight: normal;
-    color: #706b64;
+  font-size: 0.8em;
+  font-family: Dayrom, serif;
+  font-weight: normal;
+  color: #706b64;
 }

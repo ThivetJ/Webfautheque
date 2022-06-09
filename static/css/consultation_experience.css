@@ -1,0 +1,105 @@
+.content  {
+  font-size: 32px;
+  margin-left: 100px;
+}   
+.title {
+  font-size: 20px;
+  margin-left: 10px;
+  margin-top: 20px;
+}
+.title p {
+    margin-left: 85px;
+    font-size: 15px;
+    font-style: italic;
+}
+.update_form {
+  display: flex;
+  align-items: right;
+  margin: auto;
+}
+.content{
+  margin-left: 10px;
+  margin-bottom: 25px;
+  margin-top: 50px;
+}
+
+.experience_content {
+  display: flex;
+}
+.content  h1 {
+  font-size: 32px;
+  margin-left: 75px;
+}
+h2 {
+  font-size: 25px;
+  text-decoration: underline;
+}
+.experience_content_left {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  margin-left: 10px;
+}
+.experience_content_left p {
+  width: 80%;
+    height: auto;
+}
+.experience_content_left .experience_illustration img {
+  width: auto;
+  height: auto;
+  margin-bottom: 10px;
+
+}
+.experience_content_left .experience_illustration,
+.experience_content_left .experience_description,
+.experience_content_left .experience_remede,
+.experience_content_left .rapport_anomalie{
+  margin-left: 80px;
+}
+.experience_content_right {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+}
+.experience_content_right .titres{
+  display: flex;
+  text-align: justify;
+}
+.experience_content_right img {
+  width: 70%;
+  height: auto;
+  margin-right: 1px;
+  margin-top:10px;
+  margin-bottom: 25px;
+}
+.experience_content_right img,
+.experience_content_right h2 {
+  margin-left: 0px;
+}
+.titres {
+  font-size: 25px;
+  text-decoration: underline;
+}
+.photo .titres {
+  display: flex;
+  align-items: center;
+}
+.experience_description, .experience_remede, .rapport_anomalie, .image_ift {
+  font-size: 18px;
+}
+.experience_date {
+  display: flex;
+  margin-top: 25px;
+  font-style: italic;
+  margin-left: 90px;
+  font-size: 18px;
+}
+.image_ift, .photo {
+  font-size: 18px;
+  width:80%;
+  height: auto;
+}  
+
+.auteur_uppercase{
+  text-transform: uppercase;
+}

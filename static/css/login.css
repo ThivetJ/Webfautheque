@@ -1,0 +1,77 @@
+.row{
+    width: 28em;
+    min-width: 300px;
+    margin: 100px auto;
+    padding: 20px 20px 0;
+    align-content: center;
+    justify-content: center;
+}
+.header{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 50px;
+    background-color: #417690;
+    color: white;
+    font-size: 12px;
+    font-style: italic;
+}
+.text-center {
+    display:flex;
+    align-items: center;
+    justify-content: center;
+    background-color: #121212;
+    color: white;
+}
+.form-group {
+  margin-top: 50px;
+  width: 300px;
+
+}
+
+.form-group input {
+  width: 100%;
+  border-radius: 5px;
+  background: #121212;
+  border: 1px solid #ccc;
+  outline:none;
+  padding: 6px;
+  margin-top: 10px;
+  border-color: rgba(128, 128, 128, 0.267);
+}
+input[type="text"], input[type="password"],  textarea {
+
+    color : white; 
+  
+  }
+
+.btn-primary {
+
+/* center button */
+    margin-left: 40%;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    background-color: #264b5d;
+    border-color: #264b5d;
+    font-weight: bold;
+    font-size: 16px;
+    border: 1px solid transparent;
+    border-radius: 0.25rem;
+    margin-top: 25px;
+    margin-bottom: 25px;
+    margin-left: 35%;
+    color: white;
+
+}
+.btn-primary:hover,
+.btn-primary:active,
+.btn-primary:focus,
+.btn-primary.active {
+  background-color: #609ab6;
+  border-color: #609ab6;
+  color: white;
+}
+
+
+

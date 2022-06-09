@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 {% extends "Webfautheque/base.html" %}
 {% load static %}
 
@@ -8,10 +9,23 @@
 {% endblock %}
 
 {% block content %}
+
+<link rel="stylesheet" type="text/css" href="{% static 'css/classe_groupe.css' %}"/>
+
+<div class="list_classe">
+
     <ul>
         {% for classe in classes_list %}
+
             <li><a href="/Webfautheque/{{ classe.classe_idperso }}">Classe {{ classe.classe_idperso }}
                 : {{ classe.classe_nom }}</a></li>
         {% endfor %}
     </ul>
+    <ul>
+        {% for def in defaut_image %}
+            <li>{{ def.defaut_idperso }} </li>
+        {% endfor %}
+    </ul>
+</div>
+
 {% endblock %}

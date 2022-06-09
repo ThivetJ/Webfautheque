@@ -1,24 +1,31 @@
 <!DOCTYPE html>
+<html lang="fr">
+<meta charset="utf-8" />
+
 {% load static %}
 
-<meta charset="utf-8"/>
-<link rel="stylesheet" href="{% static 'css/header.css' %}"/>
 
-<header style="background: url({% static 'Webfautheque/home/separateur.png' %}) repeat-x bottom;">
-    <div id="titre_principal">
-        <div id="logo">
-            <img src="{% static 'Webfautheque/home/logo_FC.png' %}" alt="Logo de Ferry-Capitain"/>
-            <h1>FC 4.0</h1>
-        </div>
-        <h2>Ferry-Capitain</h2>
+<link rel="stylesheet" href="{% static 'css/header.css' %}" />
+
+<header class ="navbar_header">
+  <div id="titre_principal">
+    <div id="logo">
+      <img
+        src="{% static 'Webfautheque/home/logo_FC.png' %}"
+        alt="Logo de Ferry-Capitain"
+      />
+      <h1>FC 4.0</h1>
     </div>
+  </div>
 
-    <nav>
-        <ul>
-            <li><a href="/home">Home</a></li>
-            <li><a href="/Webfautheque/Arborescence/">Webfautheque</a></li>
-            <li><a href="#">Santé sable</a></li>
-            <li><a href="#">A propos</a></li>
-        </ul>
-    </nav>
+  <nav>
+    <ul>
+      <li><a href="/home">Accueil</a></li>
+      <li><a href="/Webfautheque/Arborescence/">Défauthèque</a></li>
+      <li><a href="/Webfautheque/experiences">Experiences</a></li>
+    </ul>
+  </nav>
 </header>
+
+{% comment %} style="background: url({% static
+'Webfautheque/home/separateur.png' %}) repeat-x bottom; {% endcomment %}

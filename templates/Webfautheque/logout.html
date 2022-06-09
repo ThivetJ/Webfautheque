@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="fr">
+{% extends "Webfautheque/base.html" %}
+
+{% load static %}
+
+{% block title %}
+    deconnexion
+{% endblock %}
+{% block content %}
+
+{% comment %} logout django {% endcomment %}
+{% if user.is_authenticated %}
+    {% do logout(request) %}
+{% else %}
+    {% redirect "/" %}
+{% endif %}
+
+{% endblock %}
+
