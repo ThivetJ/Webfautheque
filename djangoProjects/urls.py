@@ -13,14 +13,10 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from asyncio import Server
 from Webfautheque import views
 from django.contrib import admin
 from django.urls import path, re_path
 from django.views.decorators.csrf import csrf_exempt
-
-from django.conf import settings
-from django.conf.urls.static import static
 
 urlpatterns = [
 
