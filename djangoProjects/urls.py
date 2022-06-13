@@ -13,7 +13,6 @@ Including another URLconf
     1. Import the include() function: from django.urls import include, path
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
-from asyncio import Server
 from Webfautheque import views
 from django.contrib import admin
 from django.urls import path, re_path
@@ -129,5 +128,11 @@ urlpatterns = [
         re_path(r'experiences/(?P<defaut_idperso>[A-G][1-9]{3})/experienceAuteurDefaut', 
                 csrf_exempt(views.experienceAuteurDefaut),
                 name="experienceAuteurDefaut"),                
+
+        re_path(r'experiences/experienceByDefaut', 
+                csrf_exempt(views.experienceByDefaut),
+                name="experienceByDefaut"),     
+
+
 
 ]

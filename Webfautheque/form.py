@@ -8,20 +8,21 @@ from .models import Classe, Defaut, Experience, Groupe, Sous_groupe
 
 class ExperienceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
-      super(ExperienceForm, self).__init__(*args, **kwargs)
-      self.fields['experience_auteur'].widget.attrs['readonly'] = True
+        super(ExperienceForm, self).__init__(*args, **kwargs)
+        self.fields['experience_auteur'].widget.attrs['readonly'] = True
+
     class Meta:
         model = Experience
         fields = ('defaut',
-            'experience_auteur',
-            'experience_nom_article',
-            'experience_descriptif',
-            'experience_pub_date',
-            'experience_remedes',
-            'experience_rapport_anomalie',
-            'experience_ift',
-            'experience_photos_1',
-            'experience_photos_2',
+                  'experience_auteur',
+                  'experience_nom_article',
+                  'experience_descriptif',
+                  'experience_pub_date',
+                  'experience_remedes',
+                  'experience_rapport_anomalie',
+                  'experience_ift',
+                  'experience_photos_1',
+                  'experience_photos_2',
                   )
         widgets = {
             'experience_pub_date': forms.HiddenInput(),

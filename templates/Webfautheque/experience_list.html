@@ -53,6 +53,16 @@
           {% endfor %}
         </select>
       </div>
+
+      <div class="search_by_defaut">
+        <select id="searchByDefaut">
+          <option value="">Recherche par defaut</option>
+          {% for defaut in defauts %}
+          <option value="{{ defaut }}">{{ defaut.defaut_nom }}</option> 
+          {% endfor %}
+        </select>
+      </div>
+
     </div>
 
 
@@ -189,6 +199,7 @@
 
   <script src="{% static 'js/searchExperiencesList.js' %}"></script>
   <script src="{% static 'js/search_experiences_by_auteur.js' %}"></script>
+  <script src="{% static 'js/search_experiences_by_defaut.js' %}"></script>
 
   {% endblock %}
 </html>

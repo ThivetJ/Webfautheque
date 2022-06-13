@@ -28,10 +28,8 @@ SECRET_KEY = 'django-insecure-#bmn567^x&*95i1komg$jr41-hhxg91ta!g+k$irbvw^&t+8&h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-
 ALLOWED_HOSTS = [
     '*',
-    
 ]
 # Application definition
 INSTALLED_APPS = [
@@ -42,12 +40,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Webfautheque.apps.WebfauthequeConfig',
-    'corsheaders',
+
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
-    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -118,7 +115,7 @@ USE_I18N = True
 
 USE_L10N = True
 
-# si true heure-2 dans la base
+# False pour avoir la date à la bonne heure dans la base 
 USE_TZ = False
 
 # Static files (CSS, JavaScript, Images)
@@ -126,20 +123,11 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    # lien vers le serveur
+    # lien vers le reseau 
     ("ferry04", "\\\FERRY04\Commun\controle RA/"),
 
 ]
-CORS_ORIGIN_ALLOW_ALL = True
-CORS_ALLOW_HEADERS = [
-    'accept',
-    'accept-encoding',
-    'authorization',
-    'content-type',
-    'dnt',
-    'file',
 
-]
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
