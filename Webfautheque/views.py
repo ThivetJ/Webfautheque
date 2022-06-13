@@ -119,10 +119,14 @@ def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, s
             sous_groupe_idperso=classe_idperso + groupe_idperso_one_char + sous_groupe_idperso_one_char + '0').values()[0]["id"])
 
     context = {'defauts_list': defauts_list, }
-    return render(request, 'Webfautheque/defaults.html', context)
+    return render(request, 'Webfautheque/liste_defauts_sous_groupe.html', context)
 
 
 def page_presentation_defaut(request, defaut_idperso):
+    """
+    Il s' agit de la page regroupant les causes, remèdes et description d'un défaut particulier.
+    On y trouve un lien vers les expériences ainsi que les ift et rapport d'anomalie associé.
+    """
     defaut_carac = Defaut.objects.filter(
         defaut_idperso=defaut_idperso).values()[0]
     idperso = defaut_carac['defaut_idperso']
@@ -134,10 +138,13 @@ def page_presentation_defaut(request, defaut_idperso):
 
     context = {'defaut_idperso': idperso, 'defaut_nom': nom, 'defaut_remedes': remedes,
                'defaut_causes': causes, 'defaut_infos': infos, 'defaut_description': desc}
-    return render(request, 'Webfautheque/defaut.html', context)
+    return render(request, 'Webfautheque/description_defaut.html', context)
 
 
 def page_choix_experience(request, defaut_idperso):
+    """
+    Il s' agit de la page listant les expériences d'un défaut sous forme d'un tableau, elle permet d'accèder à une expérience particulière
+    """
     experiences = Experience.objects.filter(
         defaut_id=Defaut.objects.filter(defaut_idperso=defaut_idperso).values()[0]["id"]).order_by('-experience_pub_date')
     paginator = Paginator(experiences, 10)
