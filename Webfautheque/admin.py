@@ -1,15 +1,7 @@
 import datetime
-from importlib.resources import path
-
-
-from django import forms, urls
-
-from django.contrib import admin, messages
+from django import forms
+from django.contrib import admin
 from django.contrib.admin import AdminSite
-
-
-from Webfautheque.views import experience_list
-
 from .models import *
 from django.contrib.admin.models import LogEntry
 

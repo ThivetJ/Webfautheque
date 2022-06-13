@@ -1,19 +1,13 @@
 import datetime
 import json
 from pathlib import PureWindowsPath
-
-
-import requests
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
 from django.core.paginator import Paginator
-from django.http import FileResponse, Http404, HttpResponseRedirect, JsonResponse
+from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
-from django.utils.timezone import make_aware
 from django.views.decorators.csrf import *
-
-
 from .form import ExperienceForm
 from .models import Classe, Defaut, Experience, Groupe, Sous_groupe
 

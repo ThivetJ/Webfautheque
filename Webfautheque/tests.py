@@ -1,11 +1,7 @@
 # Create your tests here.
 import datetime
 import random
-from django.shortcuts import redirect
-
-from requests import request
 from faker import Faker
-
 from Webfautheque.models import Experience
 from Webfautheque.models import *
 
