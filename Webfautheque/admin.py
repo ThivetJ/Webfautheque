@@ -111,6 +111,7 @@ class DefautAdmin(admin.ModelAdmin):
 
     # permet de stocker l'image du defaut dans le repertoire associé à l'id du defaut
     def save_model(self, request, obj, form, change):
+        # le nom du fichier doit être identique à l'id du defaut et avec un format png
         if obj.defaut_image:
             obj.defaut_image.name = obj.defaut_idperso + '/' + obj.defaut_image.name
         obj.save()

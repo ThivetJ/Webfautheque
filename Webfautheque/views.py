@@ -159,12 +159,10 @@ def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, s
     """
     # liste des défauts appartenant au sous_groupe qui correspond (sous_groupe_id_perso_one_char)
     defauts_list = Defaut.objects.filter(
-        sous_groupe_id=Sous_groupe.objects.filter(
-            sous_groupe_idperso=classe_idperso + groupe_idperso_one_char + sous_groupe_idperso_one_char + '0').values()[
-            0]["id"])
-    tab1 = []
+        sous_groupe=Sous_groupe.objects.filter(
+            sous_groupe_idperso=classe_idperso + groupe_idperso_one_char + sous_groupe_idperso_one_char + '0').values()[0]["id"])
 
-    context = {'defauts_list': defauts_list}
+    context = {'defauts_list': defauts_list,}
     return render(request, 'Webfautheque/defaults.html', context)
 
 
