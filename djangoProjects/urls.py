@@ -18,6 +18,7 @@ from django.contrib import admin
 from django.urls import path, re_path
 from django.views.decorators.csrf import csrf_exempt
 
+
 urlpatterns = [
 
 
@@ -125,5 +126,11 @@ urlpatterns = [
         re_path(r'experiences/(?P<defaut_idperso>[A-G][1-9]{3})/experienceAuteurDefaut', 
                 csrf_exempt(views.experienceAuteurDefaut),
                 name="experienceAuteurDefaut"),                
+
+        re_path(r'experiences/experienceByDefaut', 
+                csrf_exempt(views.experienceByDefaut),
+                name="experienceByDefaut"),     
+
+
 
 ]

@@ -2,8 +2,7 @@ import os
 from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
-from requests import delete
-from pathlib import Path, PureWindowsPath
+
 
 class Classe(models.Model):
     """
@@ -32,8 +31,9 @@ class Groupe(models.Model):
 
     # affiche l'intitulé de la classe
     def nom_classe(self):
-        return self.classe.classe_idperso 
-            
+        return self.classe.classe_idperso
+
+
 class Sous_groupe(models.Model):
     """Cette classe regroupe le niveau d' arborescence juste en dessous des Groupe,
     il correspond aux sous-groupes de défaut :  A110, A120, C130 etc ...
@@ -43,13 +43,15 @@ class Sous_groupe(models.Model):
     groupe = models.ForeignKey('Groupe', on_delete=models.CASCADE)
     sous_groupe_idperso = models.CharField('Sous groupe', max_length=4)
     sous_groupe_nom = models.CharField('Description', max_length=200)
-    
+
     def __str__(self):
         return self.sous_groupe_idperso
 
     # affiche l'intitulé du groupe
     def nom_groupe(self):
         return self.groupe.groupe_idperso
+
+
 class Defaut(models.Model):
     """
     Cette classe regroupe le dernier niveau d' arborescence de la défauthèque,
@@ -74,6 +76,7 @@ class Defaut(models.Model):
     def _sous_groupe(self):
         return self.sous_groupe.sous_groupe_idperso
 
+
 @receiver(models.signals.post_delete, sender=Defaut)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
     '''
@@ -82,6 +85,7 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
     if instance.defaut_image:
         if os.path.isfile(instance.defaut_image.path):
             os.remove(instance.defaut_image.path)
+
 
 @receiver(models.signals.pre_save, sender=Defaut)
 def auto_delete_file_on_change(sender, instance, **kwargs):
@@ -99,6 +103,7 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
         if os.path.isfile(old_file.path):
             os.remove(old_file.path)
 
+
 class Experience(models.Model):
     """
     Cette classe est lié à un défaut (class Defaut), elle représente une experience de l' utilisateur.
@@ -111,13 +116,16 @@ class Experience(models.Model):
     experience_auteur = models.CharField(
         'Auteur', max_length=200, blank=True,  null=True)
     experience_pub_date = models.DateTimeField('date', default=timezone.now)
-    #store only url of file in database
-    experience_rapport_anomalie = models.FileField(
-        'Rapport anomalie', upload_to='static/Webfautheque/rapport_anomalie', default="None", blank=True)
-    # experience_rapport_anomalie = models.CharField(
-    #     'Rapport anomalie', max_length=200, default="None", blank=True)
-    experience_ift = models.ImageField(
-        'Ift', upload_to='static/Webfautheque/ift', default="None")
+
+    # experience_rapport_anomalie = models.FileField(
+    #     'Rapport anomalie', upload_to='static/Webfautheque/rapport_anomalie', default="None", blank=True)
+    experience_rapport_anomalie = models.CharField(
+        'Rapport anomalie', max_length=200, default="None", blank=True)
+
+    experience_ift = models.CharField(
+        'Ift', max_length=200, default="None", blank=True)
+    # experience_ift = models.ImageField(
+    #     'Ift', upload_to='static/Webfautheque/ift', default="None")
     experience_photos_1 = models.ImageField(
         'Photo 1', upload_to='static/Webfautheque/photos', default="None")
     experience_photos_2 = models.ImageField(
@@ -134,54 +142,57 @@ class Experience(models.Model):
     def nom_defaut(self):
         return self.defaut.defaut_nom
 
-    #cas URL sur le reseau / changer le model en CharField / supprimer la condition du rapport dans auto_delete
-    # def save(self, *args, **kwargs):
-    #     super(Experience, self).save(*args, **kwargs)
-    #     if self.experience_rapport_anomalie:
-    #         path = "file://" + self.experience_rapport_anomalie
-    #         self.experience_rapport_anomalie = path
-    #     return super(Experience, self).save(*args, **kwargs)    
+    # cas URL sur le reseau / changer le model en CharField / supprimer la condition du rapport dans auto_delete
+    def save(self, *args, **kwargs):
+        super(Experience, self).save(*args, **kwargs)
+        if self.experience_rapport_anomalie:
+            path = self.experience_rapport_anomalie
+            self.experience_rapport_anomalie = path
+        if self.experience_ift:
+            path = self.experience_ift
+            self.experience_ift = path
+        return super(Experience, self).save(*args, **kwargs)
 
-@receiver(models.signals.post_delete, sender=Experience)
-def auto_delete_file_on_delete(sender, instance, **kwargs):
-    '''
-    Supprime les images/fichiers de l'experience
-    '''
-    if instance.experience_ift:
-        if os.path.isfile(instance.experience_ift.path):
-            os.remove(instance.experience_ift.path)
-    if instance.experience_rapport_anomalie:
-        if os.path.isfile(instance.experience_rapport_anomalie.path):
-            os.remove(instance.experience_rapport_anomalie.path)
-    if instance.experience_photos_1:
-        if os.path.isfile(instance.experience_photos_1.path):
-            os.remove(instance.experience_photos_1.path)
-    if instance.experience_photos_2:
-        if os.path.isfile(instance.experience_photos_2.path):
-            os.remove(instance.experience_photos_2.path)
+# @receiver(models.signals.post_delete, sender=Experience)
+# def auto_delete_file_on_delete(sender, instance, **kwargs):
+#     '''
+#     Supprime les images/fichiers de l'experience
+#     '''
+#     if instance.experience_ift:
+#         if os.path.isfile(instance.experience_ift.path):
+#             os.remove(instance.experience_ift.path)
+#     if instance.experience_rapport_anomalie:
+#         if os.path.isfile(instance.experience_rapport_anomalie.path):
+#             os.remove(instance.experience_rapport_anomalie.path)
+#     if instance.experience_photos_1:
+#         if os.path.isfile(instance.experience_photos_1.path):
+#             os.remove(instance.experience_photos_1.path)
+#     if instance.experience_photos_2:
+#         if os.path.isfile(instance.experience_photos_2.path):
+#             os.remove(instance.experience_photos_2.path)
 
 
-@receiver(models.signals.pre_save, sender=Experience)
-def auto_delete_file_on_change(sender, instance, **kwargs):
-    '''
-    Remplace les images/fichiers si suppression 
-    '''
-    if not instance.pk:
-        return False
-    try:
-        old_file= Experience.objects.get(pk=instance.pk).experience_ift
-    except Experience.DoesNotExist:
-        return False
+# @receiver(models.signals.pre_save, sender=Experience)
+# def auto_delete_file_on_change(sender, instance, **kwargs):
+#     '''
+#     Remplace les images/fichiers si suppression
+#     '''
+#     if not instance.pk:
+#         return False
+#     try:
+#         old_file= Experience.objects.get(pk=instance.pk).experience_ift
+#     except Experience.DoesNotExist:
+#         return False
 
-    if not old_file == instance.experience_ift:
-        if os.path.isfile(old_file.path):
-            os.remove(old_file.path)
-    if not old_file == instance.experience_rapport_anomalie:
-        if os.path.isfile(old_file.path):
-            os.remove(old_file.path)
-    if not old_file == instance.experience_photos_1:
-        if os.path.isfile(old_file.path):
-            os.remove(old_file.path)
-    if not old_file == instance.experience_photos_2:
-        if os.path.isfile(old_file.path):
-            os.remove(old_file.path)
+#     if not old_file == instance.experience_ift:
+#         if os.path.isfile(old_file.path):
+#             os.remove(old_file.path)
+#     if not old_file == instance.experience_rapport_anomalie:
+#         if os.path.isfile(old_file.path):
+#             os.remove(old_file.path)
+#     if not old_file == instance.experience_photos_1:
+#         if os.path.isfile(old_file.path):
+#             os.remove(old_file.path)
+#     if not old_file == instance.experience_photos_2:
+#         if os.path.isfile(old_file.path):
+#             os.remove(old_file.path)

@@ -5,7 +5,7 @@ const noResults = document.querySelector(".no-results");
 const appTable = document.querySelector(".list");
 const ListExperience = document.querySelector(".list_experiences");
 const NoResultsText = document.querySelector(".no_result_text");
-const obj_per_page = 5;
+const obj_per_page = 10;
 const option_button = document.querySelector(".option_button").value;
 let current_page = 1;
 ListExperience.style.display = "none";
@@ -135,12 +135,7 @@ function searchPage(page, dataslice) {
     document.getElementsByClassName('list_experiences')[0].innerHTML +=div;
     searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br>
     </span> `
-// for (let i = 1; i <= pageNumber -1; i++) {
-//     //searchDiv+= `<a href="?pages=${i}&name=${searchValue}" class="page" onclick="searchPage(${i})">${i}</a>`
-//     //use on action to change page
-//     searchDiv+= `
-//     <a href="#" class="page" onclick="searchPage(${i}, datas)">${i}</a>  `
-// }
+
 
 searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br>
     </span>      <br>  
@@ -151,7 +146,7 @@ searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br
     <a href="#" class="page" onclick="searchPage(${pageNumber}, datas)">${pageNumber }</a>  
     `
 document.getElementsByClassName('paginationSearch')[0].innerHTML +=searchDiv;
-
+    
 }
 
 

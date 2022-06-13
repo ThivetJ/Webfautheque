@@ -21,6 +21,11 @@
                 : {{ classe.classe_nom }}</a></li>
         {% endfor %}
     </ul>
+    <ul>
+        {% for def in defaut_image %}
+            <li>{{ def.defaut_idperso }} </li>
+        {% endfor %}
+    </ul>
 </div>
 
 {% endblock %}
