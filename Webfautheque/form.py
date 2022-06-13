@@ -4,8 +4,6 @@ from django.contrib import admin
 from .models import Classe, Defaut, Experience, Groupe, Sous_groupe
 
 # Formulaire Experience
-
-
 class ExperienceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ExperienceForm, self).__init__(*args, **kwargs)

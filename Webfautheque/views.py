@@ -3,8 +3,6 @@ import json
 from pathlib import PureWindowsPath
 
 
-
-
 import requests
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
@@ -21,43 +19,7 @@ from .models import Classe, Defaut, Experience, Groupe, Sous_groupe
 
 """
     FONCTIONS UTILISABLE PAR LES VUES
-"""
 
-# insertion des groupes B200 à G200 dans la base de données
-
-
-def insert_groupes():
-    tab = ['B200', 'B300', 'C100', 'C200', 'C300', 'C400', 'D100',
-           'D200', 'E100', 'E200', 'F100', 'F200', 'G100', 'G200']
-    for i in tab:
-        tab1 = i[0]
-        cla_id = Classe.objects.filter(classe_idperso=tab1).values()[0]["id"]
-        Groupe.objects.create(groupe_idperso=i, groupe_nom=i, classe_id=cla_id)
-
-# modification de la valeur 'sous_groupes' de la table défaut
-# fonction permettant de classer tout les defauts dans le bon groupe
-
-
-def update_defaut():
-    allRecord = Defaut.objects.all().values('id').order_by('id')
-    prec = Defaut.objects.filter(id=1).values('defaut_idperso').order_by('id')
-    inc = 1
-    t = 0
-    for i in allRecord:
-        if(Defaut.objects.filter(id=i['id']).values('defaut_idperso')[0]['defaut_idperso'][2] == prec[0]['defaut_idperso'][2]) and (Defaut.objects.filter(id=i['id']).values('defaut_idperso')[0]['defaut_idperso'][1] == prec[0]['defaut_idperso'][1]):
-            prec = Defaut.objects.filter(id=i['id']).values(
-                'defaut_idperso').order_by('id')
-            Defaut.objects.filter(id=i['id']).update(sous_groupe_id=inc)
-        else:
-            prec = Defaut.objects.filter(id=i['id']).values(
-                'defaut_idperso').order_by('id')
-            inc += 1
-            Defaut.objects.filter(id=i['id']).update(sous_groupe_id=inc)
-
-# on appelle ces fonctions dans une vue pour ajouter les données dans la base
-
-
-"""
     sépare chaque texte comportant des tirées pour facilité l'affichage dans la vue
     :param modelObject: requete base de donnée avec toute les données selectionnées
     :param lib_object: nom de l'attribut voulant être afficher
@@ -162,7 +124,7 @@ def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, s
         sous_groupe=Sous_groupe.objects.filter(
             sous_groupe_idperso=classe_idperso + groupe_idperso_one_char + sous_groupe_idperso_one_char + '0').values()[0]["id"])
 
-    context = {'defauts_list': defauts_list,}
+    context = {'defauts_list': defauts_list, }
     return render(request, 'Webfautheque/defaults.html', context)
 
 
@@ -290,6 +252,7 @@ def page_update_experience(request, id, experience_id):
     except:
         return redirect('experience_list')
 
+
 def experience_list(request):
     experiences = Experience.objects.all().order_by('-experience_pub_date')
     paginator = Paginator(experiences, 10)
@@ -346,7 +309,6 @@ def search_experiences(request):
             search = json.loads(request.body).get('searchValue')
         experiences = Experience.objects.filter(
             experience_nom_article__icontains=search).order_by('-experience_pub_date')
-        defaut = Defaut.objects.all()
         data = experiences.values()
         for experience in data:
             experience['defaut_nom'] = Defaut.objects.get(
@@ -398,7 +360,8 @@ def experienceAuteurDefaut(request, defaut_idperso):
 def experienceByDefaut(request):
     if request.method == 'POST':
         search = json.loads(request.body).get('name')
-        idDefaut = Defaut.objects.filter( defaut_idperso__icontains=search).order_by('-defaut_idperso')
+        idDefaut = Defaut.objects.filter(
+            defaut_idperso__icontains=search).order_by('-defaut_idperso')
         for defaut in idDefaut:
             experiences = Experience.objects.filter(
                 defaut_id=defaut.id).order_by('-experience_pub_date')
