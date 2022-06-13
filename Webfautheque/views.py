@@ -292,7 +292,6 @@ def page_update_experience(request, id, experience_id):
     except:
         return redirect('experience_list')
 
-
 def experience_list(request):
     experiences = Experience.objects.all().order_by('-experience_pub_date')
     paginator = Paginator(experiences, 10)
@@ -397,6 +396,7 @@ def experienceAuteurDefaut(request, defaut_idperso):
                 id=experience['defaut_id']).defaut_idperso
         return JsonResponse(list(data), safe=False,)
 
+
 def experienceByDefaut(request):
     if request.method == 'POST':
         search = json.loads(request.body).get('name')
@@ -409,4 +409,3 @@ def experienceByDefaut(request):
                 experience['defaut_nom'] = Defaut.objects.get(
                     id=experience['defaut_id']).defaut_idperso
         return JsonResponse(list(data), safe=False,)
-        
