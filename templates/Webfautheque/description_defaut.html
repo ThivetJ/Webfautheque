@@ -2,7 +2,7 @@
 <html lang="fr">
 {% extends "Webfautheque/base.html" %} {% load static %} {% block title %}
 Défaut {{ defauts_carac.defaut_idperso }} {% endblock %} {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/defaut.css' %}" />
+<link rel="stylesheet" type="text/css" href="{% static 'css/description_defaut.css' %}" />
 
 <div class="content">
   <div class="contenu">
@@ -14,7 +14,7 @@ Défaut {{ defauts_carac.defaut_idperso }} {% endblock %} {% block content %}
         <h2></h2>
         {% load static %} {% get_static_prefix as STATIC_PREFIX %}
         <img src="{{ STATIC_PREFIX }}Webfautheque/presentation_defauts/{{ defaut_idperso }}/{{ defaut_idperso }}.png"
-          alt="Illustration schématique du défaut" />
+          alt="Pas d'illustration schématique du défaut disponible" />
       </div>
       <div class="defaut_desc">
         <h2>Description</h2>
