@@ -18,7 +18,7 @@
             {% if user.is_superuser%}
 
             <form action="/Webfautheque/Experiences/Ajout" >
-                <a href="/Webfautheque/Arborescence" class="btn-retour">Précédent </a>
+                <a href="/Webfautheque/Arborescence" class="btn-retour">Classe </a>
                 <button type="submit" class="Ajout_experience">Ajouter une expérience</button>
                 <input type="hidden" name="page" value="ajout_list">
             </form>
@@ -27,7 +27,7 @@
                 {% if  groupe.name == "Création" %}
                   <br>
                   <form action="/Webfautheque/Experiences/Ajout" >
-                      <a href="/Webfautheque/Arborescence" class="btn-retour">Précédent </a>
+                      <a href="/Webfautheque/Arborescence" class="btn-retour">Classe </a>
                       <button type="submit" class="Ajout_experience">Ajouter une expérience</button>
                       <input type="hidden" name="page" value="ajout_list">
                   </form>
@@ -35,7 +35,7 @@
               {% endfor %}
             {% endif %}
       {% else %}
-      <a href="/Webfautheque/Arborescence" class="btn-retour">Précédent </a>
+      <a href="/Webfautheque/Arborescence" class="btn-retour">Classe </a>
 
       <a class="connection" href='../login'>Connection </a>
       {% endif %} 

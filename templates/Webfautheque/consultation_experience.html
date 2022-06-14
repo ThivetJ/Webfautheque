@@ -15,9 +15,9 @@
   </script>
   {% comment %} A revoir {% endcomment %}
   {% if request.META.HTTP_REFERER == 'http://127.0.0.1:8000/Webfautheque/experiences' %}
-    <a href="/Webfautheque/experiences" class="btn-retour">Précédent </a>
+    <a href="/Webfautheque/experiences" class="btn-retour">Expériences </a>
   {% else %}  
-    <a href="/Webfautheque/{{ defaut_idperso }}/Experiences" class="btn-retour">Précédent </a>
+    <a href="/Webfautheque/{{ defaut_idperso }}/Experiences" class="btn-retour">Expériences </a>
   {% endif %}
 
   <div class="content">
