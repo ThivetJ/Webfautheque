@@ -4,8 +4,13 @@
 Défaut {{ defauts_carac.defaut_idperso }} {% endblock %} {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/description_defaut.css' %}" />
 
+<a href="/Webfautheque/{{ defaut_sous_groupe }}" class="btn-retour">Précédent </a>
+
+
 <div class="content">
   <div class="contenu">
+    
+
     <h1 class="title">{{ defaut_idperso }} : {{ defaut_nom }} </h1>
   </div>
   <div class="defaut_content">

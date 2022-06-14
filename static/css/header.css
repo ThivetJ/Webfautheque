@@ -81,3 +81,22 @@ textarea {
   resize: none;
   width: 100%;
 }
+.btn-retour, .connection{
+  display: inline-block;
+  padding: 4px 8px;
+  margin-bottom: 10px;
+  margin-right: 25px;
+  text-align: center;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border-color: rgba(0, 0, 0, 0.466);
+  color:black;
+  background-color: #F0F0F0;
+  margin-left: 100px;
+  margin-top: 50px;
+}
+.connection{
+  margin-left:10px;
+  margin-top:0px;
+}

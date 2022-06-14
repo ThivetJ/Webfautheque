@@ -10,15 +10,15 @@
   {% endblock %} 
   {% block content %}
 
-
   <link rel="stylesheet" type="text/css" href="{% static 'css/list_experiences.css' %}"/>
 
   <div class="content_list">
     <div class="ajout_experience">
       {% if user.is_authenticated %} 
             {% if user.is_superuser%}
-            <br>
+
             <form action="/Webfautheque/Experiences/Ajout" >
+                <a href="/Webfautheque/Arborescence" class="btn-retour">Précédent </a>
                 <button type="submit" class="Ajout_experience">Ajouter une expérience</button>
                 <input type="hidden" name="page" value="ajout_list">
             </form>
@@ -27,6 +27,7 @@
                 {% if  groupe.name == "Création" %}
                   <br>
                   <form action="/Webfautheque/Experiences/Ajout" >
+                      <a href="/Webfautheque/Arborescence" class="btn-retour">Précédent </a>
                       <button type="submit" class="Ajout_experience">Ajouter une expérience</button>
                       <input type="hidden" name="page" value="ajout_list">
                   </form>
@@ -34,8 +35,9 @@
               {% endfor %}
             {% endif %}
       {% else %}
-      <a class="connection" href='../login'>
-        <button type="submit">Connection </button></a>
+      <a href="/Webfautheque/Arborescence" class="btn-retour">Précédent </a>
+
+      <a class="connection" href='../login'>Connection </a>
       {% endif %} 
     </div>
 

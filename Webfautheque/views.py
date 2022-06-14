@@ -26,7 +26,6 @@ def afficherTiret(modelObject, lib_object):
     first_string = ''
     tmp = False
     tmp1 = False
-    test = ''
     for i in modelObject[lib_object]:
         if tmp == True:
             first_string += '-'
@@ -102,8 +101,8 @@ def page_sous_groupes_defautheque(request, classe_idperso, groupe_idperso_one_ch
     sous_groupes_list = Sous_groupe.objects.filter(
         groupe_id=Groupe.objects.filter(groupe_idperso=classe_idperso + groupe_idperso_one_char + '00').values()[0][
             "id"])
-
-    context = {'sous_groupes_list': sous_groupes_list}
+    classe_idperso = Classe.objects.filter(classe_idperso=classe_idperso).values()[0]["classe_idperso"]
+    context = {'sous_groupes_list': sous_groupes_list, 'classe_idperso' : classe_idperso}
     return render(request, 'Webfautheque/sous_groupes.html', context)
 
 
@@ -117,9 +116,13 @@ def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, s
     defauts_list = Defaut.objects.filter(
         sous_groupe=Sous_groupe.objects.filter(
             sous_groupe_idperso=classe_idperso + groupe_idperso_one_char + sous_groupe_idperso_one_char + '0').values()[0]["id"])
-
-    context = {'defauts_list': defauts_list, }
+        
+    groupe_idperso = Groupe.objects.filter(groupe_idperso=classe_idperso + groupe_idperso_one_char + '00').values()[0]["groupe_idperso"]
+    context = {'defauts_list': defauts_list, 'groupe_idperso': groupe_idperso}
     return render(request, 'Webfautheque/liste_defauts_sous_groupe.html', context)
+
+
+#TODO: AFFICHER TOUT LES DEFAUTS
 
 
 def page_presentation_defaut(request, defaut_idperso):
@@ -135,9 +138,9 @@ def page_presentation_defaut(request, defaut_idperso):
     causes = afficherTiret(defaut_carac, 'defaut_causes')
     infos = afficherTiret(defaut_carac, 'defaut_info')
     desc = afficherTiret(defaut_carac, 'defaut_description')
-
+    sous_groupe_id = Sous_groupe.objects.filter(id = defaut_carac['sous_groupe_id']).values()[0]['sous_groupe_idperso']
     context = {'defaut_idperso': idperso, 'defaut_nom': nom, 'defaut_remedes': remedes,
-               'defaut_causes': causes, 'defaut_infos': infos, 'defaut_description': desc}
+               'defaut_causes': causes, 'defaut_infos': infos, 'defaut_description': desc, 'defaut_sous_groupe' : sous_groupe_id}
     return render(request, 'Webfautheque/description_defaut.html', context)
 
 

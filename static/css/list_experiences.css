@@ -2,8 +2,9 @@
   margin-left: 50px;
 }
 .ajout_experience {
-  margin-left: 50px;
+
   margin-top: 50px;
+
 }
 .no_result_text {
   margin-left: 50px;
@@ -145,9 +146,11 @@ th:nth-child(4) {
 .Ajout_experience {
   width: auto;
   border-radius: 5px;
-  border: 1px solid rgb(0, 0, 0, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.466);
+  ;
   outline: none;
   padding: 6px;
+  
 }
 
 /* position des boutons de pagination  */
@@ -164,4 +167,18 @@ th:nth-child(4) {
   .paginationSearch {
     position: relative;
   }
+}
+.btn-retour{
+  display: inline-block;
+  margin-left:50px;
+  margin-top:0px;
+  margin-bottom: 10px;
+  margin-right: 25px;
+  text-align: center;
+  background-image: none;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  border-color: rgba(0, 0, 0, 0.466);
+  color:black;
+  background-color: #F0F0F0;
 }

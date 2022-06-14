@@ -12,8 +12,14 @@
     type="text/css"
     href="{% static 'css/consultation_experience.css' %}"
   />
-
   </script>
+  {% comment %} A revoir {% endcomment %}
+  {% if request.META.HTTP_REFERER == 'http://127.0.0.1:8000/Webfautheque/experiences' %}
+    <a href="/Webfautheque/experiences" class="btn-retour">Précédent </a>
+  {% else %}  
+    <a href="/Webfautheque/{{ defaut_idperso }}/Experiences" class="btn-retour">Précédent </a>
+  {% endif %}
+
   <div class="content">
     <div class="title_button">
       <div class="title">

@@ -8,6 +8,7 @@ const NoResultsText = document.querySelector(".no_result_text");
 const obj_per_page = 10;
 const option_button = document.querySelector(".option_button").value;
 let current_page = 1;
+let superuser = 0;
 ListExperience.style.display = "none";
 if(document.querySelector("#role_modification") === null){
     role_modification =0;
@@ -21,12 +22,24 @@ if(document.querySelector("#role_suppresion") === null){
 else{
      role_suppresion = document.querySelector("#role_suppresion").value 
 }
-if(document.querySelector("#superuser").value == 'False'){
-    superuser =0;
+function checkIfExist(element){
+    if(element === null){
+        return false;
+    }
+    else{
+        return true;
+    }
 }
-else{
-    superuser = document.querySelector("#superuser").value
+if(checkIfExist(document.querySelector("#superuser"))){
+    if(document.querySelector("#superuser").value == 'False' ){
+        superuser =0;
+    }
+    else{
+        superuser = document.querySelector("#superuser").value
+    }
 }
+
+
 
 
 
