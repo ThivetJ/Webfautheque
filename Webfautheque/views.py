@@ -122,7 +122,13 @@ def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, s
     return render(request, 'Webfautheque/liste_defauts_sous_groupe.html', context)
 
 
-#TODO: AFFICHER TOUT LES DEFAUTS
+def pages_defauts_liste(request):
+    """
+    Cette page affiche la liste des défauts existants dans la défauthèque.
+    """
+    defauts_list = Defaut.objects.all()
+    context = {'defauts_list': defauts_list}
+    return render(request, 'Webfautheque/liste_defauts.html', context)
 
 
 def page_presentation_defaut(request, defaut_idperso):

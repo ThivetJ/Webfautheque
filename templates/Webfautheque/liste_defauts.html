@@ -1,17 +1,14 @@
 <!DOCTYPE html>
 <html lang="fr">
   {% extends "Webfautheque/base.html" %} {% load static %} {% block title %}
-  Défauts {% endblock %} {% block content %}
+  Liste des défauts {% endblock %} {% block content %}
   <link
     rel="stylesheet"
     type="text/css"
     href="{% static 'css/liste_defauts_sous_groupe.css' %}"
   />
 
-  <a href="/Webfautheque/{{ groupe_idperso }}" class="btn-retour">Sous-groupe </a>
-
-  <a href="/Webfautheque/liste_defauts" class="connection">Liste </a>
-
+  <a href="/Webfautheque/Arborescence" class="btn-retour"> Classe </a>
 
   <div class="defauts_tab">
     <table>
@@ -35,7 +32,7 @@
           >
         </td>
         <td colspan="3">{{defaut.defaut_description}}</td>
-
+        
         <td colspan="3">
           {% load static %} {% get_static_prefix as STATIC_PREFIX %}
           <img

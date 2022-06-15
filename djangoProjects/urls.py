@@ -21,14 +21,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
 
-
-        #TEST ajout d'un jeu de donnnées
-        #fakerExperience
-        # re_path(r'experiences/faker_experiences',
-        #         views.fakerExperience,
-        #         name="faker_experiences"),
-
-
     # racine 
     re_path(r'^$',
             views.home,
@@ -130,7 +122,10 @@ urlpatterns = [
         re_path(r'experiences/experienceByDefaut', 
                 csrf_exempt(views.experienceByDefaut),
                 name="experienceByDefaut"),     
-
+        
+        re_path(r'^Webfautheque/liste_defauts', 
+                views.pages_defauts_liste,
+                name="liste_defauts"),
 
 
 ]

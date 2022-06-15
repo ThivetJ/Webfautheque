@@ -5,36 +5,29 @@
   <link
     rel="stylesheet"
     type="text/css"
-    href="{% static 'css/liste_defauts_sous_groupe.css' %}"
+    href="{% static 'css/defauts.css' %}"
   />
-
-  <a href="/Webfautheque/{{ groupe_idperso }}" class="btn-retour">Sous-groupe </a>
-
-  <a href="/Webfautheque/liste_defauts" class="connection">Liste </a>
-
 
   <div class="defauts_tab">
     <table>
       <tr>
+        
         <th colspan="3">Code defaut</th>
-        <th colspan="3">Nom</th>
+        <th colspan="3" >Nom</th>
         <th colspan="3">Description</th>
-
-        <th colspan="3">Schéma</th>
+  
+        <th colspan="3" >Schéma</th>
       </tr>
       {% for defaut in defauts_list %}
 
       <tr>
         <td colspan="3">{{defaut.defaut_idperso}}</td>
         <td colspan="3">
-          <a
-            class="img_defauts"
-            href="/Webfautheque/{{ defaut.defaut_idperso }}"
-          >
-            {{ defaut.defaut_nom }}</a
-          >
+          <a class="img_defauts" href="/Webfautheque/{{ defaut.defaut_idperso }}">
+            {{ defaut.defaut_nom }}</a>
         </td>
         <td colspan="3">{{defaut.defaut_description}}</td>
+
 
         <td colspan="3">
           {% load static %} {% get_static_prefix as STATIC_PREFIX %}
