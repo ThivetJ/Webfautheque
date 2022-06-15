@@ -311,7 +311,6 @@ searchField.addEventListener('keyup', (e)=>{
         appTable.style.display = "flex";
         pagination.style.display = "block";
         paginationSearch.style.display = "none";
-        NoResultsText.style.display = "none"
-        
+        NoResultsText.style.display = "none"        
     }
 })

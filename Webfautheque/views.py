@@ -130,7 +130,6 @@ def pages_defauts_liste(request):
     context = {'defauts_list': defauts_list}
     return render(request, 'Webfautheque/liste_defauts.html', context)
 
-
 def page_presentation_defaut(request, defaut_idperso):
     """
     Il s' agit de la page regroupant les causes, remèdes et description d'un défaut particulier.

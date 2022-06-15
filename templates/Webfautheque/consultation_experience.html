@@ -13,13 +13,17 @@
     href="{% static 'css/consultation_experience.css' %}"
   />
   </script>
-  {% comment %} A revoir {% endcomment %}
-  {% if request.META.HTTP_REFERER == 'http://127.0.0.1:8000/Webfautheque/experiences' %}
+
+  {% comment %} variable url, prends de façon dynamique l'url de l'appli {% endcomment %}
+  {% with 'http://'|add:request.META.HTTP_HOST|add:'/Webfautheque/experiences' as  url %}
+
+
+  {% if request.META.HTTP_REFERER ==  url  %}
     <a href="/Webfautheque/experiences" class="btn-retour">Expériences </a>
   {% else %}  
     <a href="/Webfautheque/{{ defaut_idperso }}/Experiences" class="btn-retour">Expériences </a>
   {% endif %}
-
+  {% endwith %}
   <div class="content">
     <div class="title_button">
       <div class="title">
@@ -36,7 +40,7 @@
         <div class="experience_illustration">
           <h2></h2>
           {% load static %} {% get_static_prefix as STATIC_PREFIX %}
-          <img class="test"
+          <img class="illustration"
             src="{{ STATIC_PREFIX }}Webfautheque/presentation_defauts/{{ defaut_idperso }}/{{ defaut_idperso }}.png"
             alt="Illustration schématique du défaut"
             />
@@ -54,8 +58,6 @@
           <div class="rapport_anomalie">
             <h2 class="titres">Rapport d'anomalie</h2>
             {% if experience.experience_rapport_anomalie != 'None' %}
-
-
               <a href="{% static 'ferry04/' %}{{experience.experience_rapport_anomalie}} ">
               Afficher le rapport d'anomalie</a>
             {% else %}

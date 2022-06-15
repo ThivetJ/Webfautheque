@@ -107,7 +107,6 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
 class Experience(models.Model):
     """
     Cette classe est lié à un défaut (class Defaut), elle représente une experience de l' utilisateur.
-
     """
     experience_nom_article = models.CharField(
         'Code expérience', max_length=200)
@@ -116,16 +115,11 @@ class Experience(models.Model):
     experience_auteur = models.CharField(
         'Auteur', max_length=200, blank=True,  null=True)
     experience_pub_date = models.DateTimeField('date', default=timezone.now)
-
-    # experience_rapport_anomalie = models.FileField(
-    #     'Rapport anomalie', upload_to='static/Webfautheque/rapport_anomalie', default="None", blank=True)
     experience_rapport_anomalie = models.CharField(
         'Rapport anomalie', max_length=200, default="None", blank=True)
 
     experience_ift = models.CharField(
         'Ift', max_length=200, default="None", blank=True)
-    # experience_ift = models.ImageField(
-    #     'Ift', upload_to='static/Webfautheque/ift', default="None")
     experience_photos_1 = models.ImageField(
         'Photo 1', upload_to='static/Webfautheque/photos', default="None")
     experience_photos_2 = models.ImageField(

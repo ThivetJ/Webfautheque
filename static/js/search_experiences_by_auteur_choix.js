@@ -142,3 +142,4 @@ document.getElementsByClassName('search_by_name')[0].onchange= function() {
             NoResultsText.style.display = "none"
 }
 }
+

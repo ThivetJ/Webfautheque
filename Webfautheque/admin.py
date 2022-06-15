@@ -22,6 +22,7 @@ class LogEntryAdmin(admin.ModelAdmin):
     list_per_page = 10
     readonly_fields = []
 
+
     def has_add_permission(self, request):
         return False
 
@@ -138,7 +139,6 @@ class ExperienceAdmin(admin.ModelAdmin):
             self.exclude = ("experience_auteur", )
             form.base_fields['experience_rapport_anomalie'].initial = obj.experience_rapport_anomalie
             form.base_fields['experience_ift'].initial = obj.experience_ift
-            print('test')
         if not obj:
             form.base_fields['experience_auteur'].initial = request.user.username
 
@@ -146,3 +146,9 @@ class ExperienceAdmin(admin.ModelAdmin):
             form.base_fields['experience_auteur'].widget.attrs['readonly'] = True
 
         return form
+
+
+
+
+
+

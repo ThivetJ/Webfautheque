@@ -144,8 +144,6 @@ document.getElementsByClassName('search_by_name')[0].onchange= function() {
             appTable.style.display = "flex";
             pagination.style.display = "block";
             paginationSearch.style.display = "none";
-            NoResultsText.style.display = "none"
-            
-
+            NoResultsText.style.display = "none"        
 }
 }
