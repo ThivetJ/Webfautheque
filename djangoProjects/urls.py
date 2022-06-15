@@ -21,14 +21,6 @@ from django.views.decorators.csrf import csrf_exempt
 
 urlpatterns = [
 
-
-        #TEST ajout d'un jeu de donnnées
-        #fakerExperience
-        # re_path(r'experiences/faker_experiences',
-        #         views.fakerExperience,
-        #         name="faker_experiences"),
-
-
     # racine 
     re_path(r'^$',
             views.home,
@@ -115,22 +107,30 @@ urlpatterns = [
                 csrf_exempt(views.search_experiences),
                 name="search_experiences"),
 
+    # filtre de recherche
         re_path(r'experiences/(?P<defaut_idperso>[A-G][1-9]{3})/search_experiences_by_defaut', 
                 csrf_exempt(views.search_experiences_by_defaut),
                 name="search_experiences_by_defaut"),
 
+    # filtre de recherche
         re_path(r'experiences/experienceByAuteur', 
                 csrf_exempt(views.experienceByAuteur),
                 name="experienceByAuteur"),
 
+    # filtre de recherche
         re_path(r'experiences/(?P<defaut_idperso>[A-G][1-9]{3})/experienceAuteurDefaut', 
                 csrf_exempt(views.experienceAuteurDefaut),
                 name="experienceAuteurDefaut"),                
 
+    # filtre de recherche
         re_path(r'experiences/experienceByDefaut', 
                 csrf_exempt(views.experienceByDefaut),
                 name="experienceByDefaut"),     
-
+        
+    # ex: /Webfautheque/liste_defauts/
+        re_path(r'^Webfautheque/liste_defauts', 
+                views.pages_defauts_liste,
+                name="liste_defauts"),
 
 
 ]

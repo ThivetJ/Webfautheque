@@ -11,6 +11,7 @@
 {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/classe_groupe.css' %}"/>
 
+<a href="/Webfautheque/{{ classe_idperso }}" class="btn-retour">Groupe </a>
 <div class="list_sous_groupes">
     <ul>
         {% for sous_groupe in sous_groupes_list %}

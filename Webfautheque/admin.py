@@ -22,6 +22,7 @@ class LogEntryAdmin(admin.ModelAdmin):
     list_per_page = 10
     readonly_fields = []
 
+
     def has_add_permission(self, request):
         return False
 
@@ -122,7 +123,7 @@ class ExperienceAdmin(admin.ModelAdmin):
 
     # lors de la sauvegarde d'une experience, ajoute la date actuelle sans les milisecondes
     def save_model(self, request, obj, form, change):
-        obj.experience_pub_date = datetime.datetime.now().replace(microsecond=None)
+        obj.experience_pub_date = datetime.datetime.now().replace(microsecond=0)
         obj.save()
 
     # ajoute les différents éléments dans la base lors de la création ou modification d'une experience
@@ -132,13 +133,12 @@ class ExperienceAdmin(admin.ModelAdmin):
             (defaut.id, defaut.defaut_nom) for defaut in Defaut.objects.all()]
         form.base_fields['experience_rapport_anomalie'].widget = forms.FileInput()
         form.base_fields['experience_ift'].widget = forms.FileInput()
-        
-        # si 1 experience est modifiée, on initialise les champs auteur, rapport anomalie et ift avec la valeur déjà existante
+
+        # 1 = experience est modifiée, on initialise les champs auteur, rapport anomalie et ift avec la valeur déjà existante
         if obj == "1":
             self.exclude = ("experience_auteur", )
             form.base_fields['experience_rapport_anomalie'].initial = obj.experience_rapport_anomalie
             form.base_fields['experience_ift'].initial = obj.experience_ift
-            print('test')
         if not obj:
             form.base_fields['experience_auteur'].initial = request.user.username
 
@@ -146,3 +146,9 @@ class ExperienceAdmin(admin.ModelAdmin):
             form.base_fields['experience_auteur'].widget.attrs['readonly'] = True
 
         return form
+
+
+
+
+
+

@@ -25,9 +25,6 @@ SECRET_KEY = 'django-insecure-#bmn567^x&*95i1komg$jr41-hhxg91ta!g+k$irbvw^&t+8&h
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = [
-    '*',
-]
 # Application definition
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -120,7 +117,6 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    # lien vers le reseau 
     ("ferry04", "\\\FERRY04\Commun\controle RA/"),
 
 ]

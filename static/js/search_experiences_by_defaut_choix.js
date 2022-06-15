@@ -8,6 +8,7 @@ const NoResultsText = document.querySelector(".no_result_text");
 const idDefaut = document.getElementById('IdDefautValue').value;
 const urlSearch = '/experiences/'+idDefaut+'/search_experiences_by_defaut'
 const obj_per_page = 10;
+let superuser = 0;
 let current_page = 1;
 ListExperience.style.display = "none";
 if(document.querySelector("#role_modification") === null){
@@ -22,12 +23,25 @@ if(document.querySelector("#role_suppresion") === null){
 else{
      role_suppresion = document.querySelector("#role_suppresion").value 
 }
-if(document.querySelector("#superuser").value == 'False'){
-    superuser =0;
+function checkIfExist(element){
+    if(element === null){
+        return false;
+    }
+    else{
+        return true;
+    }
 }
-else{
-    superuser = document.querySelector("#superuser").value
+if(checkIfExist(document.querySelector("#superuser"))){
+    if(document.querySelector("#superuser").value == 'False' ){
+        superuser =0;
+    }
+    else{
+        superuser = document.querySelector("#superuser").value
+    }
 }
+
+
+
 //range les experiences dans différents tableaux en fonction d'element par page 'chunkSize'
 function sliceIntoPages(array, chunkSize) {
     var results = [];

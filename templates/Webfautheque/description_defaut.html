@@ -4,8 +4,13 @@
 Défaut {{ defauts_carac.defaut_idperso }} {% endblock %} {% block content %}
 <link rel="stylesheet" type="text/css" href="{% static 'css/description_defaut.css' %}" />
 
+<a href="/Webfautheque/{{ defaut_sous_groupe }}" class="btn-retour">Liste des défauts </a>
+
+
 <div class="content">
   <div class="contenu">
+    
+
     <h1 class="title">{{ defaut_idperso }} : {{ defaut_nom }} </h1>
   </div>
   <div class="defaut_content">
@@ -24,27 +29,27 @@ Défaut {{ defauts_carac.defaut_idperso }} {% endblock %} {% block content %}
         </p>
       </div>
     </div>
-    <div class="defaut_right">
-      <div class="defaut_info">
-        <h2>Informations</h2>
-        <p>{% for info in defaut_infos %} {{ info }}</p>
+      <div class="defaut_right">
+          <div class="defaut_info">
+              <h2>Informations</h2>
+              <p>{% for info in defaut_infos %} {{ info }}</p>
 
-        <p>{% endfor %}</p>
-      </div>
-      <div class="defaut_causes">
-        <h2>Causes</h2>
-        <p>
-          {% for cause in defaut_causes %} {{ cause }}<br />
-          {% endfor %}
-        </p>
-      </div>
-      <div class="defaut_remedes">
-        <h2>Remèdes</h2>
-        <p>
-          {% for rem in defaut_remedes %} {{ rem }}
-        </p>
-          {% endfor %}
-        </p>
+                  <p>{% endfor %}</p>
+          </div>
+          <div class="defaut_causes">
+              <h2>Causes</h2>
+              <p>
+                  {% for cause in defaut_causes %} {{ cause }}
+                      </p>
+                  {% endfor %}
+          </div>
+          <div class="defaut_remedes">
+              <h2>Remèdes</h2>
+              <p>
+                  {% for rem in defaut_remedes %} {{ rem }}
+                      </p>
+                  {% endfor %}
+              </p>
       </div>
       <div class="defaut_experiences">
         <h2>Expériences</h2>

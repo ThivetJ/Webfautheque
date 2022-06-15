@@ -64,8 +64,7 @@ document.getElementsByClassName('search_by_defaut')[0].onchange= function() {
                                   <div class="option_button">
                                   `
                                   if(superuser){
-  
-  
+   
                                       div+=
                                       `
                                       <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" aria-label="voir" class="fa-solid fa-eye" name="choice_experience"></button></a> 
@@ -87,7 +86,6 @@ document.getElementsByClassName('search_by_defaut')[0].onchange= function() {
                                     `
   
                                     if(role_modification){
-       
                                       div+= `<form action="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }/Update/">
                            
                                           <button type="submit" aria-label="modifier" class="fa-solid fa-pen-to-square" name="choice_experience"></button>
@@ -114,8 +112,7 @@ document.getElementsByClassName('search_by_defaut')[0].onchange= function() {
                                 if(e.target.className === 'fa-solid fa-trash-can'){
                                     return confirm('Voulez Vous supprimer l\'experience');    
                                 }
-                            }
-    
+                            }    
                         });
                         div += `</tbody> </table>`
                         searchDiv =` <span class="current"> Page ${current_page } sur ${pageNumber}  <br>
@@ -145,7 +142,5 @@ document.getElementsByClassName('search_by_defaut')[0].onchange= function() {
             pagination.style.display = "block";
             paginationSearch.style.display = "none";
             NoResultsText.style.display = "none"
-            
-
 }
 }

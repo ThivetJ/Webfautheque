@@ -26,7 +26,6 @@ def afficherTiret(modelObject, lib_object):
     first_string = ''
     tmp = False
     tmp1 = False
-    test = ''
     for i in modelObject[lib_object]:
         if tmp == True:
             first_string += '-'
@@ -102,8 +101,8 @@ def page_sous_groupes_defautheque(request, classe_idperso, groupe_idperso_one_ch
     sous_groupes_list = Sous_groupe.objects.filter(
         groupe_id=Groupe.objects.filter(groupe_idperso=classe_idperso + groupe_idperso_one_char + '00').values()[0][
             "id"])
-
-    context = {'sous_groupes_list': sous_groupes_list}
+    classe_idperso = Classe.objects.filter(classe_idperso=classe_idperso).values()[0]["classe_idperso"]
+    context = {'sous_groupes_list': sous_groupes_list, 'classe_idperso' : classe_idperso}
     return render(request, 'Webfautheque/sous_groupes.html', context)
 
 
@@ -117,10 +116,19 @@ def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, s
     defauts_list = Defaut.objects.filter(
         sous_groupe=Sous_groupe.objects.filter(
             sous_groupe_idperso=classe_idperso + groupe_idperso_one_char + sous_groupe_idperso_one_char + '0').values()[0]["id"])
-
-    context = {'defauts_list': defauts_list, }
+        
+    groupe_idperso = Groupe.objects.filter(groupe_idperso=classe_idperso + groupe_idperso_one_char + '00').values()[0]["groupe_idperso"]
+    context = {'defauts_list': defauts_list, 'groupe_idperso': groupe_idperso}
     return render(request, 'Webfautheque/liste_defauts_sous_groupe.html', context)
 
+
+def pages_defauts_liste(request):
+    """
+    Cette page affiche la liste des défauts existants dans la défauthèque.
+    """
+    defauts_list = Defaut.objects.all()
+    context = {'defauts_list': defauts_list}
+    return render(request, 'Webfautheque/liste_defauts.html', context)
 
 def page_presentation_defaut(request, defaut_idperso):
     """
@@ -135,15 +143,15 @@ def page_presentation_defaut(request, defaut_idperso):
     causes = afficherTiret(defaut_carac, 'defaut_causes')
     infos = afficherTiret(defaut_carac, 'defaut_info')
     desc = afficherTiret(defaut_carac, 'defaut_description')
-
+    sous_groupe_id = Sous_groupe.objects.filter(id = defaut_carac['sous_groupe_id']).values()[0]['sous_groupe_idperso']
     context = {'defaut_idperso': idperso, 'defaut_nom': nom, 'defaut_remedes': remedes,
-               'defaut_causes': causes, 'defaut_infos': infos, 'defaut_description': desc}
+               'defaut_causes': causes, 'defaut_infos': infos, 'defaut_description': desc, 'defaut_sous_groupe' : sous_groupe_id}
     return render(request, 'Webfautheque/description_defaut.html', context)
 
 
 def page_choix_experience(request, defaut_idperso):
     """
-    Il s' agit de la page listant les expériences d'un défaut sous forme d'un tableau, elle permet d'accèder à une expérience particulière
+    Il s' agit de la page listant les expériences d'un défaut sous forme d'un tableau, elle permet d'accèder à une expérience particulière.
     """
     experiences = Experience.objects.filter(
         defaut_id=Defaut.objects.filter(defaut_idperso=defaut_idperso).values()[0]["id"]).order_by('-experience_pub_date')
@@ -159,6 +167,9 @@ def page_choix_experience(request, defaut_idperso):
 
 
 def page_consultation_experience(request, defaut_idperso, experience_id):
+    """
+    Il s'agit de la page affichant les informations d'une expérience particulière.
+    """
     try:
         experience = Experience.objects.get(id=experience_id)
         experience = Experience.objects.filter(id=experience_id).values()[0]
@@ -177,6 +188,10 @@ def page_consultation_experience(request, defaut_idperso, experience_id):
 
 @permission_required('Webfautheque.add_experience')
 def page_ajout_experience(request, defaut_idperso=''):
+    """
+    Il s'agit de la page permettant d'ajouter une expérience à un défaut.
+
+    """
     # ajout d'un formulaire Expérience
     try:
         form = ExperienceForm()
@@ -227,6 +242,9 @@ def page_ajout_experience(request, defaut_idperso=''):
 
 @permission_required('Webfautheque.change_experience', login_url='/login/')
 def page_update_experience(request, id, experience_id):
+    """
+    Page permettant de modifier une expérience via un formulaire.
+    """
     try:
         form = ExperienceForm(request.POST)
 
@@ -234,12 +252,13 @@ def page_update_experience(request, id, experience_id):
         form = ExperienceForm(request.POST or None,
                               request.FILES or None, instance=obj,
                               initial={'experience_pub_date': datetime.datetime.now()})
-
+        # Si Envoie formulaire :
         if form.is_valid():
             form.instance.experience_pub_date = datetime.datetime.now().replace(microsecond=0)
             form.save()
 
             return redirect('experience_list')
+        # Affichage de la page quand ce n'est pas l'envoie du formulaire
         else:
             nom_exp = Experience.objects.get(
                 id=experience_id).experience_nom_article
@@ -255,6 +274,9 @@ def page_update_experience(request, id, experience_id):
 
 
 def experience_list(request):
+    """
+    Page affichant la liste des expériences.
+    """
     experiences = Experience.objects.all().order_by('-experience_pub_date')
     paginator = Paginator(experiences, 10)
     page = request.GET.get('page')
@@ -270,23 +292,30 @@ def experience_list(request):
 @permission_required('Webfautheque.delete_experience', login_url='/login/')
 @csrf_exempt
 def page_delete_experience(request, id, experience_id):
+    """
+    Page permettant de supprimer une expérience.
+    """
     try:
-        context = {}
         experience = get_object_or_404(Experience, id=experience_id)
         if request.method == "POST":
             experience.delete()
             next = request.POST.get('next', '/')
             return HttpResponseRedirect(next)
-        return render(request, 'Webfautheque/experience_list.html', context)
+        return render(request, 'Webfautheque/experience_list.html')
     except:
         return redirect('experience_list')
 
 
 def login_user(request):
+    """
+    Fonction permettant de se connecter.
+    """
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
+        #authentification avec la méthode de django.
         user = authenticate(request, username=username, password=password)
+        #si l'authentification est bonne.
         if user is not None:
             login(request, user)
             return redirect('/')
@@ -298,11 +327,18 @@ def login_user(request):
 
 @login_required(login_url='/')
 def logout_user(request):
+    """
+    Fonction permettant de se déconnecter.
+    """
     logout(request)
     return redirect('/')
 
 
 def search_experiences(request):
+    """
+    Filtre de recherche dans la liste des expériences.
+    Filtre par Nom.
+    """
     if request.method == 'POST':
         if(json.loads(request.body).get('searchValue') == None):
             search = ''
@@ -319,6 +355,10 @@ def search_experiences(request):
 
 
 def search_experiences_by_defaut(request, defaut_idperso):
+    """
+    Filtre de recherche dans la liste des expériences.
+    Filtre par Nom.
+    """
     data = []
     if request.method == 'POST':
         search = json.loads(request.body).get('searchValue')
@@ -333,6 +373,10 @@ def search_experiences_by_defaut(request, defaut_idperso):
 
 
 def experienceByAuteur(request):
+    """
+    Filtre de recherche dans la liste des expériences.
+    Filtre par Auteur .
+    """
     if request.method == 'POST':
         search = json.loads(request.body).get('name')
         experiences = Experience.objects.filter(
@@ -345,6 +389,10 @@ def experienceByAuteur(request):
 
 
 def experienceAuteurDefaut(request, defaut_idperso):
+    """
+    Filtre de recherche dans un défaut spécifique.
+    Filtre par Auteur.
+    """
     data = []
     if request.method == 'POST':
         search = json.loads(request.body).get('name')
@@ -359,6 +407,10 @@ def experienceAuteurDefaut(request, defaut_idperso):
 
 
 def experienceByDefaut(request):
+    """
+    Filtre de recherche dans la liste des expériences.
+    Filtre par Defaut.
+    """
     if request.method == 'POST':
         search = json.loads(request.body).get('name')
         idDefaut = Defaut.objects.filter(
