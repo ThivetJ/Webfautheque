@@ -16,13 +16,16 @@
 
   {% comment %} variable url, prends de façon dynamique l'url de l'appli {% endcomment %}
   {% with 'http://'|add:request.META.HTTP_HOST|add:'/Webfautheque/experiences' as  url %}
-
+  {% with 'http://'|add:request.META.HTTP_HOST|add:'/Webfautheque/'|add:defaut_idperso|add:'/' as defautUrl %}
 
   {% if request.META.HTTP_REFERER ==  url  %}
     <a href="/Webfautheque/experiences" class="btn-retour">Expériences </a>
+  {% elif request.META.HTTP_REFERER == defautUrl %}
+    <a href="/Webfautheque/{{defaut_idperso}}" class="btn-retour">Défaut </a>
   {% else %}  
     <a href="/Webfautheque/{{ defaut_idperso }}/Experiences" class="btn-retour">Expériences </a>
   {% endif %}
+  {% endwith %}
   {% endwith %}
   <div class="content">
     <div class="title_button">

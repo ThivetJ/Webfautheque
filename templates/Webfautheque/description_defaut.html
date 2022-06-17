@@ -2,65 +2,77 @@
 <html lang="fr">
 {% extends "Webfautheque/base.html" %} {% load static %} {% block title %}
 Défaut {{ defauts_carac.defaut_idperso }} {% endblock %} {% block content %}
+
+
 <link rel="stylesheet" type="text/css" href="{% static 'css/description_defaut.css' %}" />
-
-<a href="/Webfautheque/{{ defaut_sous_groupe }}" class="btn-retour">Liste des défauts </a>
-
-
 <div class="content">
-  <div class="contenu">
-    
+  <a  class="btn-retour" href="/Webfautheque/{{ defaut_sous_groupe }}/"> Retour</a>
 
-    <h1 class="title">{{ defaut_idperso }} : {{ defaut_nom }} </h1>
+  <div class="contenu">
+    <div class="titre">
+      <h1>{{ defaut_idperso }}: {{ defaut_nom }}</h1>
+    </div>
   </div>
-  <div class="defaut_content">
-    <div class="defaut_left">
-      <div class="defaut_illustration">
-        <h2></h2>
-        {% load static %} {% get_static_prefix as STATIC_PREFIX %}
+
+  <div class="top_content">
+    <div class="top_content_left">
+      <div class="top_content_left_image">
+       {% load static %} {% get_static_prefix as STATIC_PREFIX %}
         <img src="{{ STATIC_PREFIX }}Webfautheque/presentation_defauts/{{ defaut_idperso }}/{{ defaut_idperso }}.png"
           alt="Illustration schématique du défaut" />
       </div>
-      <div class="defaut_desc">
-        <h2>Description</h2>
-        <p>
-          {% for desc in defaut_description %} {{ desc }}<br />
-          {% endfor %}
-        </p>
-      </div>
     </div>
-      <div class="defaut_right">
-          <div class="defaut_info">
-              <h2>Informations</h2>
-              <p>{% for info in defaut_infos %} {{ info }}</p>
-
-                  <p>{% endfor %}</p>
-          </div>
-          <div class="defaut_causes">
-              <h2>Causes</h2>
-              <p>
-                  {% for cause in defaut_causes %} {{ cause }}
-                      </p>
-                  {% endfor %}
-          </div>
-          <div class="defaut_remedes">
-              <h2>Remèdes</h2>
-              <p>
-                  {% for rem in defaut_remedes %} {{ rem }}
-                      </p>
-                  {% endfor %}
-              </p>
-      </div>
-      <div class="defaut_experiences">
-        <h2>Expériences</h2>
+    <div class="top_content_right">
+      <div class="top_content_right_texte">
         <p>
-          <a href="/Webfautheque/{{ defaut_idperso }}/Experiences">Lien vers les expériences enregistrées pour ce
-            défaut</a>
+          <h2>Description</h2>
         </p>
+        <p>
+          {{ defaut_description }}
+        </p>
+      </div>
+      <div class="defaut_info">
+        <h2>Informations</h2>
+        <p>{% for info in defaut_infos %} {{ info }}</p>
+
+        <p>{% endfor %}</p>
       </div>
     </div>
   </div>
+
+
+  <div class="bottom_content">
+    <div class="bottom_content_left">
+      <div class="bottom_content_left_texte">
+        <h2> Causes </h2>
+        <p>
+          {% for cause in defaut_causes %} {{ cause }}</p> {% endfor %}
+        </p>
+      </div>
+    </div>
+    <div class="bottom_content_right">
+      <div class="bottom_content_right_texte">
+        <h2> Remèdes </h2>
+        <p>
+          {% for remede in defaut_remedes %} {{ remede }} </p>{% endfor %}
+        </p>
+      </div>
+    </div>
 </div>
+    
+  <div class="footer_content">
+    <div class="footer_content_texte">
+      <h2>Expériences</h2>   
+      <p>
+        <a href="/Webfautheque/{{ defaut_idperso }}/Experiences">Lien vers les expériences enregistrées pour ce
+          défaut</a>
+          <ul>
+        {% for exp in experience_list %}<li> <a class="liste_experiences" href="/Webfautheque/{{ defaut_idperso }}/Experiences/Consultation:{{ exp.id }}">{{ exp.experience_nom_article }}</a> </li>{% endfor %}
+          </ul>
+    </div>
+
+  </div>
+
 
 {% endblock %}
 

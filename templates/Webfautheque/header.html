@@ -1,31 +1,35 @@
-<!DOCTYPE html>
-<html lang="fr">
-<meta charset="utf-8" />
+  <!DOCTYPE html>
+  <html lang="fr">
+  <meta charset="utf-8" />
 
-{% load static %}
+  {% load static %}
 
 
-<link rel="stylesheet" href="{% static 'css/header.css' %}" />
+  <link rel="stylesheet" href="{% static 'css/header.css' %}" />
 
-<header class ="navbar_header">
-  <div id="titre_principal">
-    <div id="logo">
-      <img
-        src="{% static 'Webfautheque/home/logo_FC.png' %}"
-        alt="Logo de Ferry-Capitain"
-      />
-      <h1>FC 4.0</h1>
+  <header class ="navbar_header">
+    <div id="titre_principal">
+      <div id="logo">
+        <img
+          src="{% static 'Webfautheque/home/logo_FC.png' %}"
+          alt="Logo de Ferry-Capitain"
+        />
+        <h1>WIKI FC</h1>
+      </div>
     </div>
-  </div>
 
-  <nav>
-    <ul>
-      <li><a href="/home">Accueil</a></li>
-      <li><a href="/Webfautheque/Arborescence/">Défauthèque</a></li>
-      <li><a href="/Webfautheque/experiences">Experiences</a></li>
-    </ul>
-  </nav>
-</header>
+    <nav>
+      <ul>
+        <li><a href="/home">Accueil</a></li>
+        <li><a href="/Webfautheque/Arborescence/">Défauthèque</a></li>
+        <li><a href="/Webfautheque/experiences">Experiences</a></li>
+        {% if user.is_authenticated %}
+        <li><a href="/Webfautheque/logout">Déconnection</a></li>
+        {% else %}
+        <li><a href="/Webfautheque/login">Connection</a></li>
+        {% endif %}
 
-{% comment %} style="background: url({% static
-'Webfautheque/home/separateur.png' %}) repeat-x bottom; {% endcomment %}
+      </ul>
+      
+    </nav>
+  </header>
