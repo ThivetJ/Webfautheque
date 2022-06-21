@@ -147,6 +147,7 @@ class Experience(models.Model):
             self.experience_ift = path
         return super(Experience, self).save(*args, **kwargs)
 
+
 @receiver(models.signals.post_delete, sender=Experience)
 def auto_delete_file_on_delete(sender, instance, **kwargs):
     '''
