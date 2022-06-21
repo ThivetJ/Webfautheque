@@ -24,14 +24,15 @@ h2 {
     margin-right: 20px;
     width: 45%;
 
-    justify-content: flex-start;
-    text-align: justify;
+    justify-content: center;
+    text-align: start;
     height: 350px;
 }
 .top_content_left_image img{
 
     margin-left: 20px;
-
+    height: 250px;
+    width: 450px;
 }
 .top_content_right{
     margin-left: 20px;
