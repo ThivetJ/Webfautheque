@@ -117,7 +117,7 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-
+    ("ferry04", "\\\FERRY04\Commun\controle RA/"),
 
 ]
 

@@ -10,7 +10,7 @@ class Classe(models.Model):
     à savoir les 7 Classes de bases : A, B, C, D, E, F, G
     """
     classe_idperso = models.CharField('Classe', max_length=1)
-    classe_nom = models.CharField('Intitulé', max_length=200)
+    classe_nom = models.CharField('Intitulé', max_length=2000)
 
     def __str__(self):
         return self.classe_idperso
@@ -24,7 +24,7 @@ class Groupe(models.Model):
 
     classe = models.ForeignKey(Classe, on_delete=models.CASCADE)
     groupe_idperso = models.CharField('Nom du groupe', max_length=4)
-    groupe_nom = models.CharField('Description ', max_length=200)
+    groupe_nom = models.CharField('Description ', max_length=2000)
 
     def __str__(self):
         return self.groupe_idperso
@@ -42,7 +42,7 @@ class Sous_groupe(models.Model):
 
     groupe = models.ForeignKey('Groupe', on_delete=models.CASCADE)
     sous_groupe_idperso = models.CharField('Sous groupe', max_length=4)
-    sous_groupe_nom = models.CharField('Description', max_length=200)
+    sous_groupe_nom = models.CharField('Description', max_length=2000)
 
     def __str__(self):
         return self.sous_groupe_idperso
@@ -61,13 +61,13 @@ class Defaut(models.Model):
     """
     sous_groupe = models.ForeignKey(Sous_groupe, on_delete=models.CASCADE)
     defaut_idperso = models.CharField('Code defaut', max_length=4)
-    defaut_nom = models.CharField('Nom defaut', max_length=200)
+    defaut_nom = models.CharField('Nom defaut', max_length=2000)
     defaut_image = models.ImageField('Image', upload_to='static/Webfautheque/presentation_defauts',
                                      default="None", blank=True)
-    defaut_description = models.TextField('Description', max_length=2000)
-    defaut_info = models.TextField('Information', max_length=2000)
-    defaut_causes = models.TextField('Causes', max_length=2000)
-    defaut_remedes = models.TextField('Remedes', max_length=2000)
+    defaut_description = models.TextField('Description', max_length=20000)
+    defaut_info = models.TextField('Information', max_length=20000)
+    defaut_causes = models.TextField('Causes', max_length=20000)
+    defaut_remedes = models.TextField('Remedes', max_length=20000)
 
     def __str__(self):
         return self.defaut_idperso
@@ -109,25 +109,25 @@ class Experience(models.Model):
     Cette classe est lié à un défaut (class Defaut), elle représente une experience de l' utilisateur.
     """
     experience_nom_article = models.CharField(
-        'Code expérience', max_length=200)
+        'Code expérience', max_length=2000)
     defaut = models.ForeignKey(Defaut,
                                on_delete=models.CASCADE)
     experience_auteur = models.CharField(
-        'Auteur', max_length=200, blank=True,  null=True)
+        'Auteur', max_length=2000, blank=True,  null=True)
     experience_pub_date = models.DateTimeField('date', default=timezone.now)
     experience_rapport_anomalie = models.CharField(
-        'Rapport anomalie', max_length=200, default="None", blank=True)
+        'Rapport anomalie', max_length=2000, default="None", blank=True)
 
     experience_ift = models.CharField(
-        'Ift', max_length=200, default="None", blank=True)
+        'Ift', max_length=2000, default="None", blank=True)
     experience_photos_1 = models.ImageField(
         'Photo 1', upload_to='static/Webfautheque/photos', default="None")
     experience_photos_2 = models.ImageField(
         'Photo 2', upload_to='static/Webfautheque/photos', default="None")
     experience_descriptif = models.TextField(
-        'descriptif', max_length=5000, default=" ")
+        'descriptif', max_length=50000, default=" ")
     experience_remedes = models.TextField(
-        'remedes', max_length=2000, default="")
+        'remedes', max_length=20000, default="")
 
     # def __str__(self):
     #     return str(self.defaut) + ' ' + self.experience_auteur + ' ' + str(self.experience_pub_date)

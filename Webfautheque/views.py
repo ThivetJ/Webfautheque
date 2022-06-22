@@ -101,8 +101,10 @@ def page_sous_groupes_defautheque(request, classe_idperso, groupe_idperso_one_ch
     sous_groupes_list = Sous_groupe.objects.filter(
         groupe_id=Groupe.objects.filter(groupe_idperso=classe_idperso + groupe_idperso_one_char + '00').values()[0][
             "id"])
-    classe_idperso = Classe.objects.filter(classe_idperso=classe_idperso).values()[0]["classe_idperso"]
-    context = {'sous_groupes_list': sous_groupes_list, 'classe_idperso' : classe_idperso}
+    classe_idperso = Classe.objects.filter(classe_idperso=classe_idperso).values()[
+        0]["classe_idperso"]
+    context = {'sous_groupes_list': sous_groupes_list,
+               'classe_idperso': classe_idperso}
     return render(request, 'Webfautheque/sous_groupes.html', context)
 
 
@@ -116,8 +118,9 @@ def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, s
     defauts_list = Defaut.objects.filter(
         sous_groupe=Sous_groupe.objects.filter(
             sous_groupe_idperso=classe_idperso + groupe_idperso_one_char + sous_groupe_idperso_one_char + '0').values()[0]["id"])
-        
-    groupe_idperso = Groupe.objects.filter(groupe_idperso=classe_idperso + groupe_idperso_one_char + '00').values()[0]["groupe_idperso"]
+
+    groupe_idperso = Groupe.objects.filter(
+        groupe_idperso=classe_idperso + groupe_idperso_one_char + '00').values()[0]["groupe_idperso"]
     context = {'defauts_list': defauts_list, 'groupe_idperso': groupe_idperso}
     return render(request, 'Webfautheque/liste_defauts_sous_groupe.html', context)
 
@@ -129,6 +132,7 @@ def pages_defauts_liste(request):
     defauts_list = Defaut.objects.all()
     context = {'defauts_list': defauts_list}
     return render(request, 'Webfautheque/liste_defauts.html', context)
+
 
 def page_presentation_defaut(request, defaut_idperso):
     """
@@ -143,10 +147,12 @@ def page_presentation_defaut(request, defaut_idperso):
     causes = afficherTiret(defaut_carac, 'defaut_causes')
     infos = afficherTiret(defaut_carac, 'defaut_info')
     desc = afficherTiret(defaut_carac, 'defaut_description')
-    sous_groupe_id = Sous_groupe.objects.filter(id = defaut_carac['sous_groupe_id']).values()[0]['sous_groupe_idperso']
-    experience_list = Experience.objects.filter(defaut_id= Defaut.objects.filter(defaut_idperso=defaut_idperso).values()[0]['id']).order_by('-experience_pub_date')[:3]
+    sous_groupe_id = Sous_groupe.objects.filter(
+        id=defaut_carac['sous_groupe_id']).values()[0]['sous_groupe_idperso']
+    experience_list = Experience.objects.filter(defaut_id=Defaut.objects.filter(
+        defaut_idperso=defaut_idperso).values()[0]['id']).order_by('-experience_pub_date')[:3]
     context = {'defaut_idperso': idperso, 'defaut_nom': nom, 'defaut_remedes': remedes,
-               'defaut_causes': causes, 'defaut_infos': infos, 'defaut_description': desc[0], 'defaut_sous_groupe' : sous_groupe_id, 'experience_list': experience_list}
+               'defaut_causes': causes, 'defaut_infos': infos, 'defaut_description': desc[0], 'defaut_sous_groupe': sous_groupe_id, 'experience_list': experience_list}
     return render(request, 'Webfautheque/description_defaut.html', context)
 
 
@@ -194,51 +200,49 @@ def page_ajout_experience(request, defaut_idperso=''):
 
     """
     # ajout d'un formulaire Expérience
-    try:
-        form = ExperienceForm()
 
-        # Si Envoie formulaire :
-        if request.method == 'POST':
-            form = ExperienceForm(request.POST, request.FILES or None)
-            if form.is_valid():
+    form = ExperienceForm()
 
-                # date non naive à la date du jour
-                naive_datetime = datetime.datetime.now()
-                naive_datetime.tzinfo  # None
-                settings.TIME_ZONE  # 'UTC'
+    # Si Envoie formulaire :
+    if request.method == 'POST':
+        form = ExperienceForm(request.POST, request.FILES or None)
+        if form.is_valid():
 
-                experience = form.save(commit=False)
+            # date non naive à la date du jour
+            naive_datetime = datetime.datetime.now()
+            naive_datetime.tzinfo  # None
+            settings.TIME_ZONE  # 'UTC'
 
-                experience.defaut_id = request.POST.get('defaut')
-                experience.experience_pub_date = naive_datetime
-                experience.save()
+            experience = form.save(commit=False)
 
-                return redirect('experience_list')
+            experience.defaut_id = request.POST.get('defaut')
+            experience.experience_pub_date = naive_datetime
+            experience.save()
+
+        return redirect('experience_list')
 
         # Affichage de la page quand ce n'est pas l'envoie du formulaire
+    else:
+        form = ExperienceForm(initial={
+                              'experience_auteur': request.user, 'experience_pub_date': datetime.datetime.now()})
+        page = request.GET.get('page', 1)
+
+        if(page == 'ajout_list'):
+            defaut_nom = Defaut.objects.all()
+            return render(request, 'Webfautheque/experience_ajout.html', {'experience_form': form, 'liste_defaut': defaut_nom})
         else:
-            form = ExperienceForm(initial={
-                                  'experience_auteur': request.user, 'experience_pub_date': datetime.datetime.now()})
-            page = request.GET.get('page', 1)
+            form.fields['defaut'].queryset = Defaut.objects.filter(
+                defaut_idperso=defaut_idperso)
+            form.fields['defaut'].label = "Défaut"
+            form.fields['defaut'].empty_label = None
 
-            if(page == 'ajout_list'):
-                defaut_nom = Defaut.objects.all()
-                return render(request, 'Webfautheque/experience_ajout.html', {'experience_form': form, 'liste_defaut': defaut_nom})
-            else:
-                form.fields['defaut'].queryset = Defaut.objects.filter(
-                    defaut_idperso=defaut_idperso)
-                form.fields['defaut'].label = "Défaut"
-                form.fields['defaut'].empty_label = None
+            liste_defaut = Defaut.objects.all()
+            defaut_nom = Defaut.objects.get(
+                defaut_idperso=defaut_idperso).defaut_nom
+            defaut_id = Defaut.objects.get(
+                defaut_idperso=defaut_idperso).id
 
-                liste_defaut = Defaut.objects.all()
-                defaut_nom = Defaut.objects.get(
-                    defaut_idperso=defaut_idperso).defaut_nom
-                defaut_id = Defaut.objects.get(
-                    defaut_idperso=defaut_idperso).id
-
-                return render(request, 'Webfautheque/experience_ajout.html', {'experience_form': form, 'defaut': defaut_idperso, 'nom_defaut': defaut_nom, 'defaut_id': defaut_id, 'liste_defaut': liste_defaut})
-    except:
-        return redirect('page_choix_experience', defaut_idperso)
+            return render(request, 'Webfautheque/experience_ajout.html', {'experience_form': form, 'defaut': defaut_idperso, 'nom_defaut': defaut_nom, 'defaut_id': defaut_id, 'liste_defaut': liste_defaut})
 
 
 @permission_required('Webfautheque.change_experience', login_url='/login/')
@@ -314,9 +318,9 @@ def login_user(request):
     if request.method == 'POST':
         username = request.POST['username']
         password = request.POST['password']
-        #authentification avec la méthode de django.
+        # authentification avec la méthode de django.
         user = authenticate(request, username=username, password=password)
-        #si l'authentification est bonne.
+        # si l'authentification est bonne.
         if user is not None:
             login(request, user)
             return redirect('/')
