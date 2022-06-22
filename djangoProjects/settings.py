@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Webfautheque.apps.WebfauthequeConfig',
-
+    
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -64,7 +64,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'djangoProjects.wsgi.application'
-
+ALLOWED_HOSTS = ['*', '127.0.0.1']
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -117,7 +117,7 @@ USE_TZ = False
 STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
-    ("ferry04", "\\\FERRY04\Commun\controle RA/"),
+
 
 ]
 
