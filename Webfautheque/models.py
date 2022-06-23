@@ -114,7 +114,7 @@ class Experience(models.Model):
     defaut = models.ForeignKey(Defaut,
                                on_delete=models.CASCADE)
     experience_auteur = models.CharField(
-        'Auteur', max_length=2000, blank=True, null=True)
+        'Auteur', max_length=2000, blank=True,  null=True)
     experience_pub_date = models.DateTimeField('date', default=timezone.now)
     experience_rapport_anomalie = models.CharField(
         'Rapport anomalie', max_length=2000, default="None", blank=True)
