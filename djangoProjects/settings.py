@@ -23,7 +23,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-#bmn567^x&*95i1komg$jr41-hhxg91ta!g+k$irbvw^&t+8&h'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 # Application definition
 INSTALLED_APPS = [
@@ -64,7 +64,6 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'djangoProjects.wsgi.application'
-ALLOWED_HOSTS = ['*', '127.0.0.1']
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
@@ -74,11 +73,15 @@ DATABASES = {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'defautheque',
         'USER': 'root',
-        'PASSWORD': 'root',
+        'PASSWORD': 'FerryAdmin52300$',
         'HOST': '127.0.0.1',
         'PORT': '3306',
     }
 }
+ALLOWED_HOSTS = [
+    'localhost','127.0.0.1','192.168.201.86'
+]
+SECURE_CROSS_ORIGIN_OPENER_POLICY = '*' 
 
 # Password validation
 # https://docs.djangoproject.com/en/3.2/ref/settings/#auth-password-validators
@@ -118,10 +121,11 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     BASE_DIR / "static",
     ("ferry04", "\\\FERRY04\Commun\controle RA/"),
+
 ]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/3.2/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
-
+MEDIA_URL = '/media/'
