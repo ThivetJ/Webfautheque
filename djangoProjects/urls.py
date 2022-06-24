@@ -131,6 +131,4 @@ urlpatterns = [
         re_path(r'^Webfautheque/liste_defauts', 
                 views.pages_defauts_liste,
                 name="liste_defauts"),
-
-
 ]
