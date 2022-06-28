@@ -91,6 +91,7 @@ class DefautAdmin(admin.ModelAdmin):
     list_filter = ('sous_groupe',)
     list_per_page = 10
 
+
     # remplace la valeur du menu déroulant par le nom du sous groupe
     def get_form(self, request: object, obj: object, **kwargs: object) -> object:
         form = super(DefautAdmin, self).get_form(request, obj, **kwargs)
@@ -146,9 +147,3 @@ class ExperienceAdmin(admin.ModelAdmin):
             form.base_fields['experience_auteur'].widget.attrs['readonly'] = True
 
         return form
-
-
-
-
-
-
