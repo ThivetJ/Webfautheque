@@ -144,6 +144,7 @@ class ExperienceAdmin(admin.ModelAdmin):
             form.base_fields['experience_auteur'].initial = request.user.username
 
         else:
+            obj.experience_auteur = request.user.username
             form.base_fields['experience_auteur'].widget.attrs['readonly'] = True
-
+  
         return form

@@ -17,11 +17,11 @@ WikiFC - Choix expérience
     {% if user.is_authenticated %} 
           {% if user.is_superuser%}
 
-          <form action="Ajout" >
-            <a href="/Webfautheque/{{ defaut_idperso }}" class="btn-retour">Defaut </a>
-            <button type="submit" class="Ajout_experience">Ajouter une expérience</button>
-              <input type="hidden" name="page" value="choix_list">
-          </form>
+            <form action="Ajout" >
+              <a href="/Webfautheque/{{ defaut_idperso }}" class="btn-retour">Defaut </a>
+              <button type="submit" class="Ajout_experience">Ajouter une expérience</button>
+                <input type="hidden" name="page" value="choix_list">
+            </form>
           {% else %}
           
             {% for groupe in groupes %}
@@ -47,7 +47,7 @@ WikiFC - Choix expérience
 
   {% if paginator.count == 0 %}
   
-
+  
     <div class="no_experience_text">
       <h1>Aucune expérience</h1>
       <p>Vous n'avez pas encore créé d'expérience</p>

@@ -131,6 +131,7 @@ def pages_defauts_liste(request):
     """
     defauts_list = Defaut.objects.all()
     context = {'defauts_list': defauts_list}
+
     return render(request, 'Webfautheque/liste_defauts.html', context)
 
 
@@ -191,8 +192,6 @@ def page_consultation_experience(request, defaut_idperso, experience_id):
 
     except:
         return redirect('page_choix_experience', defaut_idperso)
-
-
 @permission_required('Webfautheque.add_experience')
 def page_ajout_experience(request, defaut_idperso=''):
     """
@@ -337,7 +336,6 @@ def logout_user(request):
     """
     logout(request)
     return redirect('/')
-
 
 def search_experiences(request):
     """

@@ -8,7 +8,6 @@ class ExperienceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ExperienceForm, self).__init__(*args, **kwargs)
         self.fields['experience_auteur'].widget.attrs['readonly'] = True
-
     class Meta:
         model = Experience
         fields = ('defaut',
