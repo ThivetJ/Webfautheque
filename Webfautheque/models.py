@@ -172,7 +172,7 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
         old_file= Experience.objects.get(pk=instance.pk).experience_ift
     except Experience.DoesNotExist:
         return False
-        
+    
     if not old_file == instance.experience_photos_1:
         if os.path.isfile(old_file):
             os.remove(old_file.path)

@@ -8,7 +8,6 @@
 #stock uniquement le nom du fichier dans la base de donnée
 
 
-
 # list = ['5829-9-001_Crasse_brides_usinage_(13).jpg', '4772-1_(1).jpg', '20190910_082839.jpg', 'fausse_serre_6051-8-004.jpg', 'oubli_enduit.jpg', 'carter_4480-2.jpg']
 # fake = Faker()
 
@@ -26,3 +25,14 @@
 #                             experience_rapport_anomalie = 'static/Webfautheque/rapport_anomalie/'+list[random.randint(0, 5)],
 #     )
 #     experience.save()
+
+from tkinter import Image
+
+from django.forms import ImageField
+from Webfautheque.models import Defaut
+
+
+defaut = Defaut.objects.all()
+for i in defaut: 
+    i.defaut_image = 'static/Webfautheque/presentation_defauts/'+str(i.defaut_idperso)+'/'+str(i.defaut_idperso)+'.png'
+    i.save()
