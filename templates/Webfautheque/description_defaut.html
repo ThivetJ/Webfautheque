@@ -19,16 +19,16 @@ WikiFC - Défaut {{ defauts_carac.defaut_idperso }} {% endblock %} {% block cont
       <div class="top_content_left_image">
        {% load static %} {% get_static_prefix as STATIC_PREFIX %}
         <img src="{{ STATIC_PREFIX }}Webfautheque/presentation_defauts/{{ defaut_idperso }}/{{ defaut_idperso }}.png"
-          alt="Illustration schématique du défaut" />
+             alt="Illustration schématique du défaut"/>
       </div>
     </div>
-    <div class="top_content_right">
-      <div class="top_content_right_texte">
-        <p>
-          <h2>Description</h2>
-        </p>
-        <p>
-          {{ defaut_description }}
+      <div class="top_content_right">
+          <div class="top_content_right_texte">
+              <p>
+              <h2>Description</h2>
+              </p>
+              <p>
+                  {{ defaut_description }}
         </p>
       </div>
       <div class="defaut_info">
@@ -55,16 +55,16 @@ WikiFC - Défaut {{ defauts_carac.defaut_idperso }} {% endblock %} {% block cont
         <h2> Remèdes </h2>
         <p>
           {% for remede in defaut_remedes %} {{ remede }} </p>{% endfor %}
-        </p>
+          </p>
       </div>
     </div>
-</div>
-    
-  <div class="footer_content">
-    <div class="footer_content_texte">
-      <h2>Expériences</h2>   
-      <p>
-        <a href="/Webfautheque/{{ defaut_idperso }}/Experiences">Lien vers les expériences enregistrées pour ce
+  </div>
+
+    <div class="footer_content">
+        <div class="footer_content_texte">
+            <h2>Expériences</h2>
+            <p>
+                <a href="/Webfautheque/{{ defaut_idperso }}/Experiences">Lien vers les expériences enregistrées pour ce
           défaut</a>
           <ul>
         {% for exp in experience_list %}<li> <a class="liste_experiences" href="/Webfautheque/{{ defaut_idperso }}/Experiences/Consultation:{{ exp.id }}">{{ exp.experience_nom_article }}</a> </li>{% endfor %}

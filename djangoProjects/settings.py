@@ -34,7 +34,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'Webfautheque.apps.WebfauthequeConfig',
-    
+    'LaboSable'
 ]
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
