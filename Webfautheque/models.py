@@ -68,7 +68,7 @@ class Defaut(models.Model):
     defaut_info = models.TextField('Information', max_length=20000)
     defaut_causes = models.TextField('Causes', max_length=20000)
     defaut_remedes = models.TextField('Remedes', max_length=20000)
-    defaut_modif_date = models.DateTimeField('Date de modification', default=None)
+    defaut_modif_date = models.DateTimeField('Date de modification', default=None, blank=True)
 
     def __str__(self):
         return self.defaut_idperso

@@ -18,17 +18,17 @@ section h1 {
   box-shadow: 0px 4px 4px #1c1a19;
   margin-bottom: 25px;
 }
-.card_list{
+.card_list {
   display: flex;
   flex-wrap: wrap;
   flex-direction: row;
   justify-content: center;
   width: 100%;
   margin-top: 20px;
-  }
+}
 .card_list_1,
 .card_list_2,
-.card_list_3{
+.card_list_3 {
   display: flex;
   justify-content: center;
   background-color: #706b64;
@@ -36,26 +36,24 @@ section h1 {
   height: 150px;
   margin-top: 250px;
   border-radius: 5%;
-  }
+}
 @media screen and (max-width: 1000px) {
   .card_list_1,
   .card_list_2,
-  .card_list_3{
+  .card_list_3 {
     display: flex;
     justify-content: center;
     width: 150px;
     height: 75px;
     margin-top: 250px;
     border-radius: 5%;
-    
   }
 }
-.card_list_2{
-  margin-left:50px;
+.card_list_2 {
+  margin-left: 50px;
   margin-right: 50px;
-
 }
-.card_list_button{
+.card_list_button {
   display: flex;
   width: 100px;
   height: 50px;

@@ -81,7 +81,8 @@ textarea {
   resize: none;
   width: 100%;
 }
-.btn-retour, .connection{
+.btn-retour,
+.connection {
   display: inline-block;
   padding: 4px 8px;
   margin-bottom: 10px;
@@ -91,12 +92,12 @@ textarea {
   border: 1px solid transparent;
   border-radius: 4px;
   border-color: rgba(0, 0, 0, 0.466);
-  color:black;
-  background-color: #F0F0F0;
+  color: black;
+  background-color: #f0f0f0;
   margin-left: 100px;
   margin-top: 50px;
 }
-.connection{
-  margin-left:10px;
-  margin-top:0px;
+.connection {
+  margin-left: 10px;
+  margin-top: 0px;
 }
