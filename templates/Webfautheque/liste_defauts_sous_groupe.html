@@ -39,8 +39,7 @@
         <td colspan="3">
           {% load static %} {% get_static_prefix as STATIC_PREFIX %}
           <img
-          src="{{ STATIC_PREFIX }}Webfautheque/presentation_defauts/{{ defaut.defaut_idperso }}/{{ defaut.defaut_idperso }}.png"
-
+            src="/{{ defaut.defaut_image }}"
             alt="Illustration du défaut schématique"
           />
         </td>

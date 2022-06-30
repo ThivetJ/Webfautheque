@@ -18,6 +18,7 @@ WikiFC - Défaut {{ defauts_carac.defaut_idperso }} {% endblock %} {% block cont
     <div class="top_content_left">
       <div class="top_content_left_image">
        {% load static %} {% get_static_prefix as STATIC_PREFIX %}
+       
         <img src="{{ STATIC_PREFIX }}Webfautheque/presentation_defauts/{{ defaut_idperso }}/{{ defaut_idperso }}.png"
           alt="Illustration schématique du défaut" />
       </div>
@@ -70,7 +71,22 @@ WikiFC - Défaut {{ defauts_carac.defaut_idperso }} {% endblock %} {% block cont
         {% for exp in experience_list %}<li> <a class="liste_experiences" href="/Webfautheque/{{ defaut_idperso }}/Experiences/Consultation:{{ exp.id }}">{{ exp.experience_nom_article }}</a> </li>{% endfor %}
           </ul>
     </div>
-
+    <div class="footer_content_right">
+     {% with defaut_modif_date as date  %}
+      <p>{% endwith %}
+      {% if defaut_modif_date.year == 2022  %}
+        {% if defaut_modif_date.month == 06 %}
+          {% if defaut_modif_date.day == 29 %}
+ 
+          {% else %}
+            <p> Modifier le {{ defaut_modif_date }} </p>
+          {% endif %}
+        {% else %}
+          <p> Modifier le {{ defaut_modif_date }} </p>
+        {% endif %}
+      {% else %}
+       <p> Modifier le {{ defaut_modif_date }} </p>
+      {% endif %}
   </div>
 
 

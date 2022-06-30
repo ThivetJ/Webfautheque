@@ -104,12 +104,12 @@ class DefautAdmin(admin.ModelAdmin):
         return obj.sous_groupe.sous_groupe_nom
 
     # permet de stocker l'image du defaut dans le repertoire associé à l'id du defaut
-    def save_model(self, request, obj, form, change):
-        # le nom du fichier doit être identique à l'id du defaut et avec un format png
-        if obj.defaut_image:
-            obj.defaut_image.name = obj.defaut_idperso + '/' + obj.defaut_image.name
-        obj.save()
 
+    def get_form(self, request: object, obj: object, **kwargs: object) -> object:
+        form = super(DefautAdmin, self).get_form(request, obj, **kwargs)
+        form.base_fields['sous_groupe'].choices = [
+            (sous_groupe.id, sous_groupe.sous_groupe_nom) for sous_groupe in Sous_groupe.objects.all()]
+        return form
 
 @admin.register(Experience)
 class ExperienceAdmin(admin.ModelAdmin):
@@ -134,7 +134,7 @@ class ExperienceAdmin(admin.ModelAdmin):
             (defaut.id, defaut.defaut_nom) for defaut in Defaut.objects.all()]
         form.base_fields['experience_rapport_anomalie'].widget = forms.FileInput()
         form.base_fields['experience_ift'].widget = forms.FileInput()
-
+        
         # 1 = experience est modifiée, on initialise les champs auteur, rapport anomalie et ift avec la valeur déjà existante
         if obj == "1":
             self.exclude = ("experience_auteur", )

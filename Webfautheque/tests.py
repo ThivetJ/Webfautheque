@@ -26,8 +26,6 @@
 #     )
 #     experience.save()
 
-from tkinter import Image
-
 from django.forms import ImageField
 from Webfautheque.models import Defaut
 

@@ -68,6 +68,7 @@ class Defaut(models.Model):
     defaut_info = models.TextField('Information', max_length=20000)
     defaut_causes = models.TextField('Causes', max_length=20000)
     defaut_remedes = models.TextField('Remedes', max_length=20000)
+    defaut_modif_date = models.DateTimeField('Date de modification', default=None)
 
     def __str__(self):
         return self.defaut_idperso
@@ -75,6 +76,10 @@ class Defaut(models.Model):
     # affiche l'intitulé du sous groupe
     def _sous_groupe(self):
         return self.sous_groupe.sous_groupe_idperso
+
+    def save(self, *args, **kwargs):
+        self.defaut_modif_date = timezone.now()
+        super(Defaut, self).save(*args, **kwargs)
 
 
 @receiver(models.signals.post_delete, sender=Defaut)
