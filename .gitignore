@@ -1,6 +1,3 @@
-static/Webfautheque
-static/Webfautheque/
-static/Webfautheque/*
 /static/Webfautheque/*
 *.log
 *.pot
