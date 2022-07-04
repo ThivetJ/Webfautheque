@@ -93,9 +93,8 @@ h2 {
 }
 .footer_content_right{
   display: flex;
-  width : 50%;
+  width : 40%;
   flex-direction: row-reverse;
-  margin-left: -200px;
   align-items: flex-end;
   font-style: italic;
 }
