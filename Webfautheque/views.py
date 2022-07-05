@@ -112,7 +112,6 @@ def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, s
     """
     Il s' agit de la page affichant les différents défauts contenu dans le sous groupe demandé.
     Il s' agit des choix juste après les sous-groupes.
-
     """
     # liste des défauts appartenant au sous_groupe qui correspond (sous_groupe_id_perso_one_char)
     defauts_list = Defaut.objects.filter(
@@ -149,13 +148,14 @@ def page_presentation_defaut(request, defaut_idperso):
     infos = afficherTiret(defaut_carac, 'defaut_info')
     desc = afficherTiret(defaut_carac, 'defaut_description')
     defaut_modif_date = defaut_carac['defaut_modif_date']
+    defaut_image = defaut_carac['defaut_image']
     sous_groupe_id = Sous_groupe.objects.filter(
         id=defaut_carac['sous_groupe_id']).values()[0]['sous_groupe_idperso']
     experience_list = Experience.objects.filter(defaut_id=Defaut.objects.filter(
         defaut_idperso=defaut_idperso).values()[0]['id']).order_by('-experience_pub_date')[:3]
     context = {'defaut_idperso': idperso, 'defaut_nom': nom, 'defaut_remedes': remedes,
                'defaut_causes': causes, 'defaut_infos': infos, 'defaut_description': desc[0],
-               'defaut_sous_groupe': sous_groupe_id, 'experience_list': experience_list, 'defaut_modif_date': defaut_modif_date}
+               'defaut_sous_groupe': sous_groupe_id, 'experience_list': experience_list, 'defaut_modif_date': defaut_modif_date, 'defaut_image': defaut_image}
     return render(request, 'Webfautheque/description_defaut.html', context)
 
 
