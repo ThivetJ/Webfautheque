@@ -10,3 +10,4 @@ settings.py
 media
 .vscode
 .idea
+/Webfautheque/__pycache__/*
