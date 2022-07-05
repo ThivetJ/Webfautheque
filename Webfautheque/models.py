@@ -3,8 +3,6 @@ from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
 
-
-
 class Classe(models.Model):
     """
     Cette classe regroupe le plus haut niveau d' arborescence de la défauthèque
@@ -70,7 +68,7 @@ class Defaut(models.Model):
     defaut_causes = models.TextField('Causes', max_length=20000)
     defaut_remedes = models.TextField('Remedes', max_length=20000)
     defaut_modif_date = models.DateTimeField('Date de modification', default=None, blank=True)
-
+    
     def __str__(self):
         return self.defaut_idperso
 
@@ -80,11 +78,9 @@ class Defaut(models.Model):
 
     def save(self, *args, **kwargs):
         self.defaut_modif_date = timezone.now()
-        #store defaut_image int he same folder as defauts
         if self.defaut_image:
             self.defaut_image.name = self.defaut_idperso+ '/' + self.defaut_image.name
         super(Defaut, self).save(*args, **kwargs)
-
 
 
 @receiver(models.signals.post_delete, sender=Defaut)
@@ -139,9 +135,6 @@ class Experience(models.Model):
     experience_remedes = models.TextField(
         'remedes', max_length=20000, default="")
 
-    # def __str__(self):
-    #     return str(self.defaut) + ' ' + self.experience_auteur + ' ' + str(self.experience_pub_date)
-
     # affichage intitulé du défaut
     def nom_defaut(self):
         return self.defaut.defaut_nom
@@ -189,4 +182,3 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
     if not old_file == instance.experience_photos_2:
         if os.path.isfile(old_file):
             os.remove(old_file.path)
-            
