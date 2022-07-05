@@ -2,8 +2,7 @@ import os
 from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
-from progressbar import NullBar
-from pymysql import NULL
+
 
 
 class Classe(models.Model):
