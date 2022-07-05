@@ -2,6 +2,8 @@ import os
 from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
+from progressbar import NullBar
+from pymysql import NULL
 
 
 class Classe(models.Model):
@@ -79,7 +81,11 @@ class Defaut(models.Model):
 
     def save(self, *args, **kwargs):
         self.defaut_modif_date = timezone.now()
+        #store defaut_image int he same folder as defauts
+        if self.defaut_image:
+            self.defaut_image.name = self.defaut_idperso+ '/' + self.defaut_image.name
         super(Defaut, self).save(*args, **kwargs)
+
 
 
 @receiver(models.signals.post_delete, sender=Defaut)
@@ -93,7 +99,7 @@ def auto_delete_file_on_delete(sender, instance, **kwargs):
 
 
 @receiver(models.signals.pre_save, sender=Defaut)
-def auto_delete_file_on_change(sender, instance, **kwargs):
+def auto_delete_file_on_change(sender, instance, **kwargs): 
     '''
     Supprime les images de l'experience
     '''

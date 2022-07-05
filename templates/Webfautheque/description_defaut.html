@@ -14,6 +14,7 @@ WikiFC - Défaut {{ defauts_carac.defaut_idperso }} {% endblock %} {% block cont
     </div>
   </div>
 
+
   <div class="top_content">
     <div class="top_content_left">
       <div class="top_content_left_image">
@@ -60,30 +61,26 @@ WikiFC - Défaut {{ defauts_carac.defaut_idperso }} {% endblock %} {% block cont
       </div>
     </div>
 </div>
-    
-  <div class="footer_content">
-    <div class="footer_content_texte">
-      <h2>Expériences</h2>   
-      <p>
-        <a href="/Webfautheque/{{ defaut_idperso }}/Experiences">Lien vers les expériences enregistrées pour ce défaut</a>
-          <ul>
-        {% for exp in experience_list %}<li> <a class="liste_experiences" href="/Webfautheque/{{ defaut_idperso }}/Experiences/Consultation:{{ exp.id }}">{{ exp.experience_nom_article }}</a> </li>{% endfor %}
-          </ul>
-    </div>
-    <div class="footer_content_right">
-     {% with defaut_modif_date as date  %}
-      <p>{% endwith %}
-      {% if defaut_modif_date == NULL  %}
- 
-          {% else %}
-            <p> Modifier le {{ defaut_modif_date }} </p>
-
-      {% endif %}
 
 
-
-
+<div class="footer_content">
+  <div class="footer_content_texte">
+    <h2>Expériences</h2>   
+    <p>
+      <a href="/Webfautheque/{{ defaut_idperso }}/Experiences">Lien vers les expériences enregistrées pour ce défaut</a>
+        <ul>
+      {% for exp in experience_list %}<li> <a class="liste_experiences" href="/Webfautheque/{{ defaut_idperso }}/Experiences/Consultation:{{ exp.id }}">{{ exp.experience_nom_article }}</a> </li>{% endfor %}
+        </ul>
   </div>
+  <div class="footer_content_right">
+    {% with defaut_modif_date as date  %}
+    <p>{% endwith %}
+    {% if defaut_modif_date == NULL  %}
+        {% else %}
+          <p> Modifier le {{ defaut_modif_date }} </p>
+    {% endif %}
+</div>
+
 
 {% endblock %}
 </html>

@@ -3,7 +3,6 @@ from .models import Experience
 
 # Formulaire Experience
 
-
 class ExperienceForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ExperienceForm, self).__init__(*args, **kwargs)

@@ -16,7 +16,6 @@ WikiFC - Choix expérience
   <div class="ajout_experience">
     {% if user.is_authenticated %} 
           {% if user.is_superuser%}
-
             <form action="Ajout" >
               <a href="/Webfautheque/{{ defaut_idperso }}" class="btn-retour">Defaut </a>
               <button type="submit" class="Ajout_experience">Ajouter une expérience</button>

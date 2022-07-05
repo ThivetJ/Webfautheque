@@ -13,7 +13,7 @@
                 navLink.tabIndex = 0;
             }
         }
-
+        
         const main = document.getElementById('main');
         let navSidebarIsOpen = localStorage.getItem('django.admin.navSidebarIsOpen');
         if (navSidebarIsOpen === null) {
