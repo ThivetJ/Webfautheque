@@ -81,6 +81,7 @@ class Defaut(models.Model):
         if self.defaut_image:
             self.defaut_image.name = self.defaut_idperso+ '/' + self.defaut_image.name
         super(Defaut, self).save(*args, **kwargs)
+    
 
 
 @receiver(models.signals.post_delete, sender=Defaut)
@@ -106,8 +107,13 @@ def auto_delete_file_on_change(sender, instance, **kwargs):
         return False
     new_file = instance.defaut_image
     if not old_file == new_file:
-        if os.path.isfile(old_file.path):
-            os.remove(old_file.path)
+        if(old_file):
+            if os.path.isfile(old_file.path):
+                os.remove(old_file.path)
+            else:
+                return False
+        else:
+            return False
 
 
 class Experience(models.Model):
@@ -134,7 +140,7 @@ class Experience(models.Model):
         'descriptif', max_length=50000, default=" ")
     experience_remedes = models.TextField(
         'remedes', max_length=20000, default="")
-
+    
     # affichage intitulé du défaut
     def nom_defaut(self):
         return self.defaut.defaut_nom
