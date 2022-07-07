@@ -121,7 +121,7 @@ class Experience(models.Model):
     Cette classe est lié à un défaut (class Defaut), elle représente une experience de l' utilisateur.
     """
     experience_nom_article = models.CharField(
-        'Code expérience', max_length=2000)
+        'numéro article', max_length=2000)
     defaut = models.ForeignKey(Defaut,
                                on_delete=models.CASCADE)
     experience_auteur = models.CharField(
@@ -140,7 +140,11 @@ class Experience(models.Model):
         'descriptif', max_length=50000, default=" ")
     experience_remedes = models.TextField(
         'remedes', max_length=20000, default="")
-    
+    experience_document = models.FileField(
+        'Document', upload_to='static/Webfautheque/documents', default="None")
+
+
+
     # affichage intitulé du défaut
     def nom_defaut(self):
         return self.defaut.defaut_nom

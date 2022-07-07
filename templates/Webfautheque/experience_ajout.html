@@ -31,6 +31,8 @@
         </div>
 
         <div class='form_input'>
+
+
           <select name="defaut" id="id_defaut" class="form-control">
             
             {% if nom_defaut is null %}
@@ -43,7 +45,7 @@
             <option value="{{list.id}}">{{list.defaut_nom }}</option>
             {% endfor %}
             
-          </select>
+          </select> 
         </div>
       </div>
     
@@ -91,6 +93,14 @@
     </div>
     <div class="form_content">
       <div class='form_text'>
+        <p> Document:
+      </div>
+      <div class="form_input">
+        {{ experience_form.experience_document}}
+      </div>
+    </div>
+    <div class="form_content">
+      <div class='form_text'>
         <p> Descriptif :   
       </div>
       <div class="form_input">
@@ -113,5 +123,7 @@
   </form>
 
 </div>
+
+
   {% endblock %}
 </html>

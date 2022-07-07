@@ -1,5 +1,5 @@
 from django import forms
-from .models import Experience
+from .models import Defaut, Experience
 
 # Formulaire Experience
 
@@ -9,7 +9,7 @@ class ExperienceForm(forms.ModelForm):
         self.fields['experience_auteur'].widget.attrs['readonly'] = True
     class Meta:
         model = Experience
-        fields = ('defaut',
+        fields = (
                   'experience_auteur',
                   'experience_nom_article',
                   'experience_descriptif',
@@ -19,8 +19,11 @@ class ExperienceForm(forms.ModelForm):
                   'experience_ift',
                   'experience_photos_1',
                   'experience_photos_2',
+                  'experience_document'
                   )
+        defaut = forms.ModelMultipleChoiceField(queryset=Defaut.objects.all(),widget=forms.CheckboxSelectMultiple)
         widgets = {
+            
             'experience_pub_date': forms.HiddenInput(),
             'experience_auteur': forms.HiddenInput(),
             'experience_ift': forms.HiddenInput(),
@@ -30,4 +33,6 @@ class ExperienceForm(forms.ModelForm):
             'experience_photos_1': forms.FileInput(),
             'experience_photos_2': forms.HiddenInput(),
             'experience_photos_2': forms.FileInput(),
+            'experience_document': forms.HiddenInput(),
+            'experience_document': forms.FileInput(),
         }

@@ -44,7 +44,7 @@
           <h2></h2>
           {% load static %} {% get_static_prefix as STATIC_PREFIX %}
           <img class="illustration"
-            src="{{ STATIC_PREFIX }}Webfautheque/presentation_defauts/{{ defaut_idperso }}/{{ defaut_idperso }}.png"
+            src="/{{ defaut_image }}"
             alt="Illustration schématique du défaut"
             />
         </div>
@@ -68,6 +68,17 @@
             {% endif %}
           </div>
         </div>
+
+        <div class="experience_document">
+          <h2 class="titres">Document</h2>
+          {% if experience.experience_document != 'None' %}
+            <a href="/{{ experience.experience_document }}">
+            Afficher le document</a>
+          {% else %}
+          <p>Aucun document</p>
+          {% endif %}
+          </div>
+
       </div>
       <div class="experience_content_right">
         <div class="image_ift">

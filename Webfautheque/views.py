@@ -10,7 +10,6 @@ from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.csrf import *
 from .form import ExperienceForm
 from .models import Classe, Defaut, Experience, Groupe, Sous_groupe
-
 """
     FONCTIONS UTILISABLE PAR LES VUES
 
@@ -158,7 +157,6 @@ def page_presentation_defaut(request, defaut_idperso):
                'defaut_sous_groupe': sous_groupe_id, 'experience_list': experience_list, 'defaut_modif_date': defaut_modif_date, 'defaut_image': defaut_image}
     return render(request, 'Webfautheque/description_defaut.html', context)
 
-
 def page_choix_experience(request, defaut_idperso):
     """
     Il s' agit de la page listant les expériences d'un défaut sous forme d'un tableau, elle permet d'accèder à une expérience particulière.
@@ -183,13 +181,21 @@ def page_consultation_experience(request, defaut_idperso, experience_id):
     try:
         experience = Experience.objects.get(id=experience_id)
         experience = Experience.objects.filter(id=experience_id).values()[0]
+        
         descriptif = afficherTiret(experience, 'experience_descriptif')
         remedes = afficherTiret(experience, 'experience_remedes')
-        defaut_nom = Defaut.objects.filter(id=experience['defaut_id']).values()[
-            0]['defaut_nom']
+        # defaut_nom = Defaut.objects.filter(id=experience['defaut_id']).values()[
+        #     0]['defaut_nom']
+        defaut_nom = Defaut.objects.filter(defaut_idperso= defaut_idperso).values()[0]['defaut_nom']
+        # defaut_path = Defaut.objects.filter(id=experience['defaut_id']).values()[
+        #     0]['defaut_image']
+        defaut_path = Defaut.objects.filter(defaut_idperso= defaut_idperso).values()[0]['defaut_image']
         pa = PureWindowsPath(experience['experience_rapport_anomalie'])
         context = {'experience': experience,
-                   "defaut_nom": defaut_nom, "defaut_idperso": defaut_idperso, 'descriptif': descriptif, 'remedes': remedes, 'chemin_image': pa}
+                   "defaut_nom": defaut_nom, "defaut_idperso": defaut_idperso,
+                    'descriptif': descriptif, 'remedes': remedes,
+                    'chemin_image': pa, "defaut_image" : defaut_path,
+                    'experience_document' : experience['experience_document']}
         return render(request, 'Webfautheque/consultation_experience.html', context)
 
     except:

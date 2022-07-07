@@ -114,7 +114,7 @@ class DefautAdmin(admin.ModelAdmin):
 @admin.register(Experience)
 class ExperienceAdmin(admin.ModelAdmin):
     ordering = ('-experience_pub_date',)
-    list_display = ('experience_nom_article', 'nom_defaut', 'experience_descriptif',
+    list_display = ('experience_nom_article', 'experience_descriptif',
                     'experience_remedes', 'experience_auteur', 'experience_pub_date')
     search_fields = ('experience_nom_article',)
     exclude = ('experience_pub_date',)
