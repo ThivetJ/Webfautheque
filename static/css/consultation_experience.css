@@ -45,14 +45,28 @@ h2 {
   height: auto;
 }
 .experience_content_left .experience_illustration img {
+<<<<<<< Updated upstream
   width: auto;
   height: auto;
   margin-bottom: 10px;
+=======
+  margin-right: 75px;
+  width: 50%;
+  justify-content: center;
+  text-align: start;
+  max-height: 350px;
+>>>>>>> Stashed changes
 }
 .experience_content_left .experience_illustration,
 .experience_content_left .experience_description,
 .experience_content_left .experience_remede,
+<<<<<<< Updated upstream
 .experience_content_left .rapport_anomalie {
+=======
+.experience_content_left .rapport_anomalie,
+.experience_content_left .experience_document 
+ {
+>>>>>>> Stashed changes
   margin-left: 80px;
 }
 .experience_content_right {
@@ -86,7 +100,12 @@ h2 {
 .experience_description,
 .experience_remede,
 .rapport_anomalie,
+<<<<<<< Updated upstream
 .image_ift {
+=======
+.image_ift,
+.experience_document  {
+>>>>>>> Stashed changes
   font-size: 18px;
 }
 .experience_date {

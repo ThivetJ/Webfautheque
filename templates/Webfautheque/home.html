@@ -24,12 +24,15 @@
                     <p>
                     <ul>Dernières expériences ajoutées :
                         {% for experience in latest_experience_list %}
+                        {% with experience_defaut=experience.defaut.all.first %}
+
                                 <li>
                                     <a href="/Webfautheque/{{ experience.defaut }}/Experiences/Consultation:{{ experience.id }}">
                                         {{ experience.experience_auteur }} :
-                                        défaut {{ experience.defaut }} ajouté
+                                        défaut {{ experience_defaut }} ajouté
                                         le {{ experience.experience_pub_date }}</a>
                                 </li>
+                                {% endwith %}
                             {% endfor %}
                     </ul>
                     </p>

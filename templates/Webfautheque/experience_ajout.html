@@ -18,7 +18,7 @@
 
       <div class="form_content">
         <div class='form_text'>
-          <p> Code expérience : 
+          <p> Numéro d'article : 
         </div>
         <div class="form_input">
           <label for="id_experience_nom_article"></label>
@@ -33,6 +33,16 @@
         <div class='form_input'>
 
 
+<<<<<<< Updated upstream
+=======
+              <label for="{{list.id}}">
+                <input type="checkbox" id="{{list.id}}" />{{list.defaut_nom }}</label>
+                {% endfor %}
+            </div>
+          </div> {% endcomment %}
+
+          
+>>>>>>> Stashed changes
           <select name="defaut" id="id_defaut" class="form-control">
             
             {% if nom_defaut is null %}
@@ -44,8 +54,15 @@
             {% for list in liste_defaut %}
             <option value="{{list.id}}">{{list.defaut_nom }}</option>
             {% endfor %}
+<<<<<<< Updated upstream
             
           </select> 
+=======
+          </select> 
+
+
+          
+>>>>>>> Stashed changes
         </div>
       </div>
     
@@ -101,6 +118,14 @@
     </div>
     <div class="form_content">
       <div class='form_text'>
+        <p> Document:
+      </div>
+      <div class="form_input">
+        {{ experience_form.experience_document}}
+      </div>
+    </div>
+    <div class="form_content">
+      <div class='form_text'>
         <p> Descriptif :   
       </div>
       <div class="form_input">
@@ -123,7 +148,26 @@
   </form>
 
 </div>
+<<<<<<< Updated upstream
 
+=======
+<script>
+  var expanded = false;
+
+  function showCheckboxes() {
+    var checkboxes = document.getElementById("checkboxes");
+    if (!expanded) {
+      checkboxes.style.display = "block";
+      expanded = true;
+    } else {
+      checkboxes.style.display = "none";
+      expanded = false;
+    }
+  }
+  </script>
+  
+  {% endblock %}
+>>>>>>> Stashed changes
 
   {% endblock %}
 </html>

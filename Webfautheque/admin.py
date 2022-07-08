@@ -115,7 +115,11 @@ class DefautAdmin(admin.ModelAdmin):
 class ExperienceAdmin(admin.ModelAdmin):
     ordering = ('-experience_pub_date',)
     list_display = ('experience_nom_article', 'experience_descriptif',
+<<<<<<< Updated upstream
                     'experience_remedes', 'experience_auteur', 'experience_pub_date')
+=======
+                    'experience_remedes', 'experience_auteur', 'experience_pub_date', 'experience_chemin_ift', 'experience_chemin_rapport')
+>>>>>>> Stashed changes
     search_fields = ('experience_nom_article',)
     exclude = ('experience_pub_date',)
     list_filter = ('experience_pub_date', 'experience_auteur')
