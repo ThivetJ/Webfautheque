@@ -33,8 +33,6 @@
         <div class='form_input'>
 
 
-<<<<<<< Updated upstream
-=======
               <label for="{{list.id}}">
                 <input type="checkbox" id="{{list.id}}" />{{list.defaut_nom }}</label>
                 {% endfor %}
@@ -42,7 +40,6 @@
           </div> {% endcomment %}
 
           
->>>>>>> Stashed changes
           <select name="defaut" id="id_defaut" class="form-control">
             
             {% if nom_defaut is null %}
@@ -54,15 +51,10 @@
             {% for list in liste_defaut %}
             <option value="{{list.id}}">{{list.defaut_nom }}</option>
             {% endfor %}
-<<<<<<< Updated upstream
-            
-          </select> 
-=======
           </select> 
 
 
           
->>>>>>> Stashed changes
         </div>
       </div>
     
@@ -148,9 +140,6 @@
   </form>
 
 </div>
-<<<<<<< Updated upstream
-
-=======
 <script>
   var expanded = false;
 
@@ -167,7 +156,6 @@
   </script>
   
   {% endblock %}
->>>>>>> Stashed changes
 
   {% endblock %}
 </html>

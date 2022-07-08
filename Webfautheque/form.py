@@ -23,11 +23,7 @@ class ExperienceForm(forms.ModelForm):
                   )
         defaut = forms.ModelMultipleChoiceField(queryset=Defaut.objects.all(),widget=forms.CheckboxSelectMultiple)
         widgets = {
-<<<<<<< Updated upstream
-            
-=======
             'defaut': forms.CheckboxSelectMultiple(  ),
->>>>>>> Stashed changes
             'experience_pub_date': forms.HiddenInput(),
             'experience_auteur': forms.HiddenInput(),
             'experience_ift': forms.HiddenInput(),

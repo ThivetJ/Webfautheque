@@ -107,8 +107,6 @@ input[type="file"] {
   background-color: red;
   border-color: red;
 }
-<<<<<<< Updated upstream
-=======
 .multiselect {
   width: 200px;
 }
@@ -142,4 +140,3 @@ input[type="file"] {
 #checkboxes label:hover {
   background-color: #1e90ff;
 }
->>>>>>> Stashed changes

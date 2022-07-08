@@ -142,14 +142,9 @@ class Experience(models.Model):
         'remedes', max_length=20000, default="")
     experience_document = models.FileField(
         'Document', upload_to='static/Webfautheque/documents', default="None")
-<<<<<<< Updated upstream
-
-
-=======
     defaut = models.ManyToManyField(Defaut, blank=False)
     experience_chemin_ift = models.CharField('chemin_ift', max_length=2000, default="",blank=False)
     experience_chemin_rapport = models.CharField('chemin_rapport', max_length=2000, default="", blank=False)
->>>>>>> Stashed changes
 
     # affichage intitulé du défaut
     def nom_defaut(self):
@@ -158,14 +153,6 @@ class Experience(models.Model):
     # cas URL sur le reseau / changer le model en CharField / supprimer la condition du rapport dans auto_delete
     def save(self, *args, **kwargs):
         super(Experience, self).save(*args, **kwargs)
-<<<<<<< Updated upstream
-        if self.experience_rapport_anomalie:
-            path = self.experience_rapport_anomalie
-            self.experience_rapport_anomalie = path
-        if self.experience_ift:
-            path = self.experience_ift
-            self.experience_ift = path
-=======
         if self.experience_chemin_rapport:
             self.experience_chemin_rapport = self.experience_chemin_ift.replace("\\", "/")
             if self.experience_chemin_ift[:10] == "//FERRY10/" :
@@ -175,7 +162,6 @@ class Experience(models.Model):
             if self.experience_chemin_ift[:14] == "//FERRY04/ift/" :
                 self.experience_chemin_ift = self.experience_chemin_ift[14:]
 
->>>>>>> Stashed changes
         return super(Experience, self).save(*args, **kwargs)
 
 
