@@ -41,7 +41,6 @@ if(checkIfExist(document.querySelector("#superuser"))){
 }
 
 
-
 //range les experiences dans différents tableaux en fonction d'element par page 'chunkSize'
 function sliceIntoPages(array, chunkSize) {
     var results = [];
@@ -51,11 +50,11 @@ function sliceIntoPages(array, chunkSize) {
     return results;
 }
 
+
 //interaction avec les boutons de pagination d'un filtre de recherche
 function searchPage(page, dataslice) {
     document.getElementsByClassName('list_experiences')[0].innerHTML = '';
     document.getElementsByClassName('paginationSearch')[0].innerHTML ='';
-
     if(page === 0){
         current_page = 1;
     }

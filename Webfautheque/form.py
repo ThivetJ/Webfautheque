@@ -15,8 +15,8 @@ class ExperienceForm(forms.ModelForm):
                   'experience_descriptif',
                   'experience_pub_date',
                   'experience_remedes',
-                  'experience_rapport_anomalie',
-                  'experience_ift',
+                  'experience_chemin_rapport',
+                  'experience_chemin_ift',
                   'experience_photos_1',
                   'experience_photos_2',
                   'experience_document'

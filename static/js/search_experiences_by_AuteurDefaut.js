@@ -1,5 +1,4 @@
 document.getElementsByClassName('search_by_name')[0].onchange= function() {
-    
     const name = document.getElementById('searchByName').value;
     //si le champs de recherche n'est pas vide, on lance la requete ajax
     if (name.trim().length > 0) {
@@ -115,5 +114,6 @@ document.getElementsByClassName('search_by_name')[0].onchange= function() {
             pagination.style.display = "block";
             paginationSearch.style.display = "none";
             NoResultsText.style.display = "none"
-}
+        }
+        
 }

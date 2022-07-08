@@ -127,7 +127,7 @@ def pages_defauts_liste(request):
     """
     Cette page affiche la liste des défauts existants dans la défauthèque.
     """
-    defauts_list = Defaut.objects.all()
+    defauts_list = Defaut.objects.all().order_by('defaut_idperso')
     context = {'defauts_list': defauts_list}
 
     return render(request, 'Webfautheque/liste_defauts.html', context)
@@ -150,27 +150,32 @@ def page_presentation_defaut(request, defaut_idperso):
     defaut_image = defaut_carac['defaut_image']
     sous_groupe_id = Sous_groupe.objects.filter(
         id=defaut_carac['sous_groupe_id']).values()[0]['sous_groupe_idperso']
-    experience_list = Experience.objects.filter(defaut_id=Defaut.objects.filter(
-        defaut_idperso=defaut_idperso).values()[0]['id']).order_by('-experience_pub_date')[:3]
+    # experience_list = Experience_defaut.objects.filter( defaut_id=defaut_idperso) 
+    experience_list = Experience.objects.filter(defaut__defaut_idperso=defaut_idperso).values()
     context = {'defaut_idperso': idperso, 'defaut_nom': nom, 'defaut_remedes': remedes,
                'defaut_causes': causes, 'defaut_infos': infos, 'defaut_description': desc[0],
                'defaut_sous_groupe': sous_groupe_id, 'experience_list': experience_list, 'defaut_modif_date': defaut_modif_date, 'defaut_image': defaut_image}
     return render(request, 'Webfautheque/description_defaut.html', context)
 
+
 def page_choix_experience(request, defaut_idperso):
     """
     Il s' agit de la page listant les expériences d'un défaut sous forme d'un tableau, elle permet d'accèder à une expérience particulière.
     """
-    experiences = Experience.objects.filter(
-        defaut_id=Defaut.objects.filter(defaut_idperso=defaut_idperso).values()[0]["id"]).order_by('-experience_pub_date')
+    experiences = Experience.objects.filter(defaut__defaut_idperso=defaut_idperso)
     paginator = Paginator(experiences, 10)
     page = request.GET.get('page')
     page_obj = paginator.get_page(page)
     tags = Experience.objects.all().values('experience_auteur').distinct()
     groupes = request.user.groups.all()
+    defauts = Defaut.objects.all()
+    liste_defaut = []
+    for exp in experiences:
+        liste_defaut.append(exp.defaut.all())
+    
 
     context = {'experiences': experiences, "defaut_idperso": defaut_idperso,
-               'page_obj': page_obj, 'tags': tags, 'paginator': paginator, 'groupes': groupes}
+               'page_obj': page_obj, 'tags': tags, 'paginator': paginator, 'groupes': groupes, 'defauts': defauts, 'liste_defaut' : liste_defaut}
     return render(request, 'Webfautheque/choix_experiences.html', context)
 
 
@@ -221,10 +226,16 @@ def page_ajout_experience(request, defaut_idperso=''):
             settings.TIME_ZONE  # 'UTC'
 
             experience = form.save(commit=False)
+            #experience.defaut = Defaut.objects.get(id= 1)
 
-            experience.defaut_id = request.POST.get('defaut')
+
+            #experience.defaut_id = request.POST.get('defaut')
             experience.experience_pub_date = naive_datetime
             experience.save()
+            for post_defaut in request.POST.getlist('defaut'):
+                experience.defaut.add(Defaut.objects.get(id=post_defaut))
+            experience.save()
+
 
         return redirect('experience_list')
 
@@ -238,10 +249,7 @@ def page_ajout_experience(request, defaut_idperso=''):
             defaut_nom = Defaut.objects.all()
             return render(request, 'Webfautheque/experience_ajout.html', {'experience_form': form, 'liste_defaut': defaut_nom})
         else:
-            form.fields['defaut'].queryset = Defaut.objects.filter(
-                defaut_idperso=defaut_idperso)
-            form.fields['defaut'].label = "Défaut"
-            form.fields['defaut'].empty_label = None
+
 
             liste_defaut = Defaut.objects.all()
             defaut_nom = Defaut.objects.get(
@@ -264,6 +272,7 @@ def page_update_experience(request, id, experience_id):
         form = ExperienceForm(request.POST or None,
                               request.FILES or None, instance=obj,
                               initial={'experience_pub_date': datetime.datetime.now()})
+                    
         # Si Envoie formulaire :
         if form.is_valid():
             form.instance.experience_pub_date = datetime.datetime.now().replace(microsecond=0)
@@ -272,13 +281,14 @@ def page_update_experience(request, id, experience_id):
             return redirect('experience_list')
         # Affichage de la page quand ce n'est pas l'envoie du formulaire
         else:
+
             nom_exp = Experience.objects.get(
                 id=experience_id).experience_nom_article
             liste_defaut = Defaut.objects.all()
             defaut_nom = Defaut.objects.get(defaut_idperso=id).defaut_nom
             defaut_id = Defaut.objects.get(defaut_idperso=id).id
-            id_defaut = Defaut.objects.get(id=Experience.objects.get(
-                id=experience_id).defaut_id).defaut_idperso
+            # get defaut_nom 
+            id_defaut = Defaut.objects.get(defaut_idperso=id).id
             return render(request, 'Webfautheque/experience_update.html', {'experience_form': form, 'experience_id': experience_id, 'nom_exp': nom_exp, 'id_defaut': id_defaut, 'liste_defaut': liste_defaut, 'nom_defaut': defaut_nom, 'defaut_id': defaut_id})
 
     except:
@@ -296,8 +306,13 @@ def experience_list(request):
     tags = Experience.objects.all().values('experience_auteur').distinct()
     groupes = request.user.groups.all()
     defauts = Defaut.objects.all()
+    liste_defaut = []
+    for exp in experiences:
+        liste_defaut.append(exp.defaut.all())
+    
+
     context = {'experiences': experiences, 'page_obj': page_obj,
-               'tags': tags, 'paginator': paginator, 'groupes': groupes, 'defauts': defauts}
+               'tags': tags, 'paginator': paginator, 'groupes': groupes, 'defauts': defauts, 'liste_defaut' : liste_defaut}
     return render(request, 'Webfautheque/experience_list.html', context)
 
 
@@ -434,3 +449,7 @@ def experienceByDefaut(request):
                 experience['defaut_nom'] = Defaut.objects.get(
                     id=experience['defaut_id']).defaut_idperso
         return JsonResponse(list(data), safe=False,)
+
+
+
+

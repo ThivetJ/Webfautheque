@@ -143,8 +143,8 @@ class Experience(models.Model):
     experience_document = models.FileField(
         'Document', upload_to='static/Webfautheque/documents', default="None")
     defaut = models.ManyToManyField(Defaut, blank=False)
-    experience_chemin_ift = models.CharField('chemin_ift', max_length=2000, default="",blank=False)
-    experience_chemin_rapport = models.CharField('chemin_rapport', max_length=2000, default="", blank=False)
+    experience_chemin_ift = models.CharField('chemin_ift', max_length=2000, default="",blank=True)
+    experience_chemin_rapport = models.CharField('chemin_rapport', max_length=2000, default="", blank=True)
 
     # affichage intitulé du défaut
     def nom_defaut(self):

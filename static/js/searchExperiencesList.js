@@ -40,10 +40,6 @@ if(checkIfExist(document.querySelector("#superuser"))){
 }
 
 
-
-
-
-
 //range les experiences dans différents tableaux en fonction d'element par page 'chunkSize'
 function sliceIntoPages(array, chunkSize) {
     var results = [];
@@ -52,6 +48,7 @@ function sliceIntoPages(array, chunkSize) {
     }
     return results;
 }
+
 
 //interaction avec les boutons de pagination d'un filtre de recherche
 function searchPage(page, dataslice) {
@@ -227,7 +224,6 @@ searchField.addEventListener('keyup', (e)=>{
                                 `
                                 if(superuser){
 
-
                                     div+=
                                     `
                                     <a href="/Webfautheque/${ experience.defaut_nom }/Experiences/Consultation:${ experience.id }"> <button type="submit" aria-label="voir" class="fa-solid fa-eye" name="choice_experience"></button></a> 
@@ -272,10 +268,7 @@ searchField.addEventListener('keyup', (e)=>{
                         </td>
                           </tr>
                         `
-
-
-
-                        
+  
                         document.onclick = function(e){
                             if(e.target.className === 'fa-solid fa-trash-can'){
                                 return confirm('Voulez Vous supprimer l\'experience');    

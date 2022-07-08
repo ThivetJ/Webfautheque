@@ -1,5 +1,3 @@
-
-
 document.getElementsByClassName('search_by_name')[0].onchange= function() {
     current_page = 1;
     const name = document.getElementById('searchByName').value;

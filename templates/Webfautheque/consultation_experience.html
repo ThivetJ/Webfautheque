@@ -60,8 +60,8 @@
         <div class="experiences_images">
           <div class="rapport_anomalie">
             <h2 class="titres">Rapport d'anomalie</h2>
-            {% if experience.experience_rapport_anomalie != 'None' %}
-              <a href="{% static 'ferry04/' %}{{experience.experience_rapport_anomalie}} ">
+            {% if experience.experience_chemin_rapport != 'None' %}
+              <a href="{% static 'ferry10/' %}{{experience.experience_chemin_rapport}} ">
               Afficher le rapport d'anomalie</a>
             {% else %}
             <p>Aucun rapport d'anomalie</p>
@@ -83,8 +83,8 @@
       <div class="experience_content_right">
         <div class="image_ift">
           <h2 class="titres">IFT</h2>
-          {% if experience.experience_ift != 'None' %}
-          <a href="{% static 'ferry04/' %}{{experience.experience_ift}} ">
+          {% if experience.experience_chemin_ift != 'None' %}
+          <a href="{% static 'ift/' %}{{experience.experience_chemin_ift}} ">
             Afficher IFT</a>
           {% else %}
           <p>Aucun IFT disponible</p>

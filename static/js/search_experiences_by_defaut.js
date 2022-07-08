@@ -1,5 +1,3 @@
-
-
 document.getElementsByClassName('search_by_defaut')[0].onchange= function() {
     current_page = 1;
     const name = document.getElementById('searchByDefaut').value;
@@ -100,8 +98,7 @@ document.getElementsByClassName('search_by_defaut')[0].onchange= function() {
                                       <input type="hidden" name="next" value="/Webfautheque/experiences" class="hidden_button">
                                           </form>`
                                        }                                                         
-  
-  
+
                                       div+= `
                                 </div>`}`
                             </div>
@@ -142,5 +139,5 @@ document.getElementsByClassName('search_by_defaut')[0].onchange= function() {
             pagination.style.display = "block";
             paginationSearch.style.display = "none";
             NoResultsText.style.display = "none"
-}
+        }
 }
