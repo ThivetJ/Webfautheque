@@ -14,16 +14,17 @@
           src="{% static 'Webfautheque/home/logo_FC.png' %}"
           alt="Logo de Ferry-Capitain"
         />
-        <h1>WIKI FC</h1>
+          <h1>WIKI FC</h1>
       </div>
     </div>
 
-    <nav>
-      <ul>
-        <li><a href="/home">Accueil</a></li>
-        <li><a href="/Webfautheque/Arborescence/">Défauthèque</a></li>
-        <li><a href="/Webfautheque/experiences">Experiences</a></li>
-        {% if user.is_authenticated %}
+      <nav>
+          <ul>
+              <li><a href="/home">Accueil</a></li>
+              <li><a href="/LaboSable/">Sable</a></li>
+              <li><a href="/Webfautheque/Arborescence/">Défauthèque</a></li>
+              <li><a href="/Webfautheque/experiences">Experiences</a></li>
+              {% if user.is_authenticated %}
         <li><a href="/Webfautheque/logout">Déconnection</a></li>
         {% else %}
         <li><a href="/Webfautheque/login">Connection</a></li>

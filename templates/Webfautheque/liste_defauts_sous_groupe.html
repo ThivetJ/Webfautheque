@@ -1,26 +1,26 @@
 <!DOCTYPE html>
 <html lang="fr">
-  {% extends "Webfautheque/base.html" %} {% load static %} {% block title %}
-  WikiFC - Défauts {% endblock %} {% block content %}
-  <link
-    rel="stylesheet"
-    type="text/css"
-    href="{% static 'css/liste_defauts_sous_groupe.css' %}"
-  />
+{% extends "Webfautheque/base.html" %} {% load static %} {% block title %}
+    WikiFC - Défauts {% endblock %} {% block content %}
+    <link
+            rel="stylesheet"
+            type="text/css"
+            href="{% static 'css/liste_defauts_sous_groupe.css' %}"
+    />
 
-  <a href="/Webfautheque/{{ groupe_idperso }}" class="btn-retour">Sous-groupe </a>
+    <a href="/Webfautheque/{{ groupe_idperso }}" class="btn-retour">Retour au choix du sous-groupe </a>
 
-  <a href="/Webfautheque/liste_defauts" class="connection">Liste des defauts </a>
+    <a href="/Webfautheque/liste_defauts" class="connection">Accès à la liste des defauts </a>
 
 
-  <div class="defauts_tab">
-    <table>
-      <tr>
-        <th colspan="3">Code defaut</th>
-        <th colspan="3">Nom</th>
-        <th colspan="3">Description</th>
+    <div class="defauts_tab">
+        <table>
+            <tr>
+                <th colspan="3">Code defaut</th>
+                <th colspan="3">Nom</th>
+                <th colspan="3">Description</th>
 
-        <th colspan="3">Schéma</th>
+                <th colspan="3">Schéma</th>
       </tr>
       {% for defaut in defauts_list %}
 

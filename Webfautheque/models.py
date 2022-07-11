@@ -1,7 +1,9 @@
 import os
+
 from django.db import models
 from django.dispatch import receiver
 from django.utils import timezone
+
 
 class Classe(models.Model):
     """
@@ -129,7 +131,6 @@ class Experience(models.Model):
     experience_pub_date = models.DateTimeField('date', default=timezone.now)
     experience_rapport_anomalie = models.CharField(
         'Rapport anomalie', max_length=2000, default="None", blank=True)
-
     experience_ift = models.CharField(
         'Ift', max_length=2000, default="None", blank=True)
     experience_photos_1 = models.ImageField(

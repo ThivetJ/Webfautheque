@@ -4,21 +4,21 @@
 {% load static %}
 
 {% block title %}
-WikiFC - Sous-Groupe
+    WikiFC - Sous-Groupe
 {% endblock %}
 
 
 {% block content %}
-<link rel="stylesheet" type="text/css" href="{% static 'css/classe_groupe.css' %}"/>
+    <link rel="stylesheet" type="text/css" href="{% static 'css/classe_groupe.css' %}"/>
 
-<a href="/Webfautheque/{{ classe_idperso }}" class="btn-retour">Groupe </a>
-<div class="list_sous_groupes">
-    <ul>
-        {% for sous_groupe in sous_groupes_list %}
-            <li>
-                <a href="/Webfautheque/{{ sous_groupe.sous_groupe_idperso }}">Sous-groupe {{ sous_groupe.sous_groupe_idperso }}
-                    : {{ sous_groupe.sous_groupe_nom }}</a></li>
-        {% endfor %}
-    </ul>
-</div>
+    <a href="/Webfautheque/{{ classe_idperso }}" class="btn-retour">Retour au choix du groupe </a>
+    <div class="list_sous_groupes">
+        <ul>
+            {% for sous_groupe in sous_groupes_list %}
+                <li>
+                    <a href="/Webfautheque/{{ sous_groupe.sous_groupe_idperso }}">Sous-groupe {{ sous_groupe.sous_groupe_idperso }}
+                        : {{ sous_groupe.sous_groupe_nom }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
