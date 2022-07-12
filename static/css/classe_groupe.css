@@ -12,11 +12,18 @@
     padding-left: 0px;
     border-bottom: 1px solid #ccc;
     font-size: 18px;
-
   }
 a{
   margin-top: 18px;
 }
-.list_classe{
-  margin-top: 135px;
+.list_classe {
+    margin-top: 10px;
+}
+
+h1 {
+    color: brown;
+    display: flex;
+    justify-content: center;
+    text-decoration: underline;
+    text-align: center;
 }

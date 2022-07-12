@@ -1,6 +1,7 @@
 import datetime
 import json
 from pathlib import PureWindowsPath
+
 from django.conf import settings
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required, permission_required
@@ -8,8 +9,10 @@ from django.core.paginator import Paginator
 from django.http import HttpResponseRedirect, JsonResponse
 from django.shortcuts import get_object_or_404, redirect, render
 from django.views.decorators.csrf import *
+
 from .form import ExperienceForm
 from .models import Classe, Defaut, Experience, Groupe, Sous_groupe
+
 """
     FONCTIONS UTILISABLE PAR LES VUES
 
@@ -86,7 +89,12 @@ def page_groupes_defautheque(request, classe_idperso):
 
     groupes_list = Groupe.objects.filter(
         classe_id=Classe.objects.filter(classe_idperso=classe_idperso).values()[0]["id"])
-    context = {'groupes_list': groupes_list}
+
+    # retour du nom de la classe demandé pour l'afficher en haut de l'écran en titre
+    classe_origine = Classe.objects.filter(classe_idperso=classe_idperso).values()[0]
+    context = {'groupes_list': groupes_list,
+               'classe_lettre': classe_origine['classe_idperso'],
+               'classe_nom': classe_origine['classe_nom']}
 
     return render(request, 'Webfautheque/groupes.html', context)
 
@@ -102,8 +110,14 @@ def page_sous_groupes_defautheque(request, classe_idperso, groupe_idperso_one_ch
             "id"])
     classe_idperso = Classe.objects.filter(classe_idperso=classe_idperso).values()[
         0]["classe_idperso"]
+
+    groupe_origine = Groupe.objects.filter(groupe_idperso=classe_idperso + groupe_idperso_one_char + '00').values()[0]
+
     context = {'sous_groupes_list': sous_groupes_list,
-               'classe_idperso': classe_idperso}
+               'classe_idperso': classe_idperso,
+               'groupe_lettre': groupe_origine['groupe_idperso'],
+               'groupe_nom': groupe_origine['groupe_nom']}
+
     return render(request, 'Webfautheque/sous_groupes.html', context)
 
 
@@ -115,11 +129,20 @@ def page_defauts_defautheque(request, classe_idperso, groupe_idperso_one_char, s
     # liste des défauts appartenant au sous_groupe qui correspond (sous_groupe_id_perso_one_char)
     defauts_list = Defaut.objects.filter(
         sous_groupe=Sous_groupe.objects.filter(
-            sous_groupe_idperso=classe_idperso + groupe_idperso_one_char + sous_groupe_idperso_one_char + '0').values()[0]["id"])
+            sous_groupe_idperso=classe_idperso + groupe_idperso_one_char + sous_groupe_idperso_one_char + '0').values()[
+            0]["id"])
 
     groupe_idperso = Groupe.objects.filter(
         groupe_idperso=classe_idperso + groupe_idperso_one_char + '00').values()[0]["groupe_idperso"]
-    context = {'defauts_list': defauts_list, 'groupe_idperso': groupe_idperso}
+
+    sous_groupe_origine = Sous_groupe.objects.filter(
+        sous_groupe_idperso=classe_idperso + groupe_idperso_one_char + sous_groupe_idperso_one_char + '0').values()[0]
+
+    context = {'defauts_list': defauts_list,
+               'groupe_idperso': groupe_idperso,
+               'sous_groupe_lettre': sous_groupe_origine['sous_groupe_idperso'],
+               'sous_groupe_nom': sous_groupe_origine['sous_groupe_nom']}
+
     return render(request, 'Webfautheque/liste_defauts_sous_groupe.html', context)
 
 

@@ -12,6 +12,7 @@
 
     <a href="/Webfautheque/liste_defauts" class="connection">Accès à la liste des defauts </a>
 
+    <h1>Sous groupe {{ sous_groupe_lettre }} : {{ sous_groupe_nom }}</h1>
 
     <div class="defauts_tab">
         <table>
@@ -21,7 +22,7 @@
                 <th colspan="3">Description</th>
 
                 <th colspan="3">Schéma</th>
-      </tr>
+            </tr>
       {% for defaut in defauts_list %}
 
       <tr>

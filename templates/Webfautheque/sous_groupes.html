@@ -12,6 +12,9 @@
     <link rel="stylesheet" type="text/css" href="{% static 'css/classe_groupe.css' %}"/>
 
     <a href="/Webfautheque/{{ classe_idperso }}" class="btn-retour">Retour au choix du groupe </a>
+
+    <h1>Groupe {{ groupe_lettre }} : {{ groupe_nom }}</h1>
+
     <div class="list_sous_groupes">
         <ul>
             {% for sous_groupe in sous_groupes_list %}

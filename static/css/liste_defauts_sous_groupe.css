@@ -67,3 +67,11 @@ th:nth-child(4),
 tr:nth-child(4) {
   width: 20%;
 }
+
+h1 {
+  color: brown;
+  display: flex;
+  justify-content: center;
+  text-decoration: underline;
+  text-align: center;
+}
